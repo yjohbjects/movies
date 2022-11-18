@@ -19,71 +19,28 @@ Vue.use(VueRouter)
 
 const routes = [
   // home
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
+  { path: '/', name: 'home', component: HomeView },
+  { path: '/about',
     name: 'about',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
-  {
-    path: '/detail/:movieId',
-    name: 'detail',
-    component: DetailView
-  },
+  { path: '/detail/:movieId', name: 'detail', component: DetailView },
+  
   // account
-  {
-    path: '/login',
-    name: 'login',
-    component: LoginView
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: SignupView
-  },
-  {
-    path: '/set_genre',
-    name: 'setGenre',
-    component: SetGenreView
-  },
-  {
-    path: '/rate_movie',
-    name: 'rateMovie',
-    component: RateMovieView
-  },
-  // mypage
-  {
-    path: '/user', //(:username/userId 추가 예정)
-    name: 'mypage',
-    component: MyPageView
-  },
-  {
-    path: '/to_watch_movie',
-    name: 'toWatchMovie',
-    component: ToWatchMovieView
-  },
-  {
-    path: '/watched_movie',
-    name: 'watchedMovie',
-    component: WatchedMovieView
-  },
-  {
-    path: '/user_review',
-    name: 'userReview',
-    component: UserReviewView
-  },
-  {
-    path: '/review_detail',
-    name: 'reviewDetail',
-    component: ReviewDetailView
-  },
+  { path: '/login', name: 'login', component: LoginView },
+  { path: '/signup', name: 'signup', component: SignupView },
+  { path: '/set_genre', name: 'setGenre', component: SetGenreView },
+  { path: '/rate_movie', name: 'rateMovie', component: RateMovieView },
+
+  // mypage (:username/userId 추가 예정) 
+  { path: '/user', name: 'mypage', component: MyPageView },
+  { path: '/to_watch_movie',name: 'toWatchMovie', component: ToWatchMovieView },
+  { path: '/watched_movie', name: 'watchedMovie', component: WatchedMovieView },
+  { path: '/user_review', name: 'userReview', component: UserReviewView },
+  { path: '/review_detail', name: 'reviewDetail', component: ReviewDetailView },
 ]
 
 const router = new VueRouter({
