@@ -54,6 +54,14 @@ export default {
     nowPlayingMovies() {
       return this.$store.state.nowPlayingMovies
     }
+  },
+  methods: {
+    getMovies() {
+      this.$store.dispatch('getMovies')
+    }
+  },
+  created() {
+    this.getMovies()
   }
 }
 </script>
