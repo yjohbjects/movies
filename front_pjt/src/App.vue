@@ -1,27 +1,26 @@
 <template>
   <div id="app">
     <nav v-if="isMypage" class="mypage-nav">
-            <div>
-        <span>
-          <img src="../src/assets/logo.png" alt="logo" width="120">
-        </span>
+        <div>
+          <span><router-link :to="{ name: 'Home' }">
+            <img src="../src/assets/logo.png" alt="logo" width="120"></router-link>
+          </span>
 
-        <router-link :to="{ name: 'Home' }">Home</router-link>⠀⠀⠀
-        <router-link :to="{ name: 'Mypage' }">마이페이지</router-link>⠀⠀⠀ 
-        <router-link :to="{ name: 'WatchedMovie' }">평가한 영화</router-link>⠀⠀⠀ 
-        <router-link :to="{ name: 'ToWatchMovie' }">나중에 볼 영화</router-link>⠀⠀⠀ 
-        <router-link :to="{ name: 'UserReview' }">리뷰</router-link>⠀⠀⠀ 
-        
+          <router-link :to="{ name: 'Home' }">Home</router-link>⠀⠀⠀
+          <router-link :to="{ name: 'MyPage' }">마이페이지</router-link>⠀⠀⠀ 
+          <router-link :to="{ name: 'WatchedMovie' }">평가한 영화</router-link>⠀⠀⠀ 
+          <router-link :to="{ name: 'ToWatchMovie' }">나중에 볼 영화</router-link>⠀⠀⠀ 
+          <router-link :to="{ name: 'UserReview' }">리뷰</router-link> 
       </div>
     </nav>
 
     <nav v-else class="home-nav">
 
-      <div class="">
+      <div>
       
       <div>
-        <span>
-          <img src="../src/assets/logo.png" alt="logo" width="120">
+        <span><router-link :to="{ name: 'Home' }">
+          <img src="../src/assets/logo.png" alt="logo" width="120"></router-link>
         </span>
 
         <router-link :to="{ name: 'Home' }">Home</router-link>⠀⠀⠀
