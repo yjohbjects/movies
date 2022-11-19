@@ -1193,21 +1193,24 @@ export default new Vuex.Store({
     //       "vote_average": 7.2,
     //       "vote_count": 124
     //     }],
-    recommendedMovies: [
-
-    ],
-    popularMovies: [
-
-    ],
-    nowPlayingMovies: [
-
-    ]
+    recommendedMovies: [],
+    popularMovies: [],
+    nowPlayingMovies: [],
+    isMypage: true,
+    test: 'test message printed'
   },
   getters: {
   },
   mutations: {
     GET_MOVIES(state, movies) {
       state.recommendedMovies = movies
+    },
+    NOW_HOME(state) {
+      state.isMypage = false    
+    },
+
+    NOW_MYPAGE(state) {
+      state.isMypage = true
     }
   },
   actions: {
@@ -1223,6 +1226,16 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
+    },
+
+    nowHome(context) {
+      console.log('집이다!!')
+      context.commit('NOW_HOME')
+    },
+
+    nowMypage(context) {
+      console.log('마이페이지다!!')
+      context.commit('NOW_MYPAGE')
     }
   },
   modules: {

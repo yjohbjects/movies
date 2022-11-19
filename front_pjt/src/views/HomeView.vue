@@ -14,7 +14,7 @@
     </div>
 
     <h2 class="movie-type">인기영화는 어때요?</h2>
-    <div class="horizontal-scrollable">
+    <div class="horizontal-scrollable"> 
       <div class="row flex-nowrap">
         <PopularMovieCard v-for="(movie, id) in popularMovies" :key="id" :movie="movie"/>
       </div>
@@ -62,6 +62,7 @@ export default {
   },
   created() {
     this.getMovies()
+    this.$store.dispatch('nowHome')
   }
 }
 </script>
