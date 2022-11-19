@@ -24,7 +24,6 @@
         </span>
 
         <router-link :to="{ name: 'Home' }">Home</router-link>⠀⠀⠀
-        <router-link :to="{ name: 'About' }">About</router-link>⠀⠀⠀ 
         <router-link :to="{ name: 'MyPage' }">마이페이지</router-link>
       </div>
 
