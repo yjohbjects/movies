@@ -26,7 +26,7 @@
         <label for="password2"> password confirmation : </label>
         <input type="password" id="password2" v-model="password2">
         <br>
-        <router-link :to="{ name: 'setGenre' }">
+        <router-link :to="{ name: 'SetGenre' }">
           <input type="submit" value="다음">
         </router-link>
       </form>
