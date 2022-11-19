@@ -1,42 +1,64 @@
 <template>
   <div id="app">
     <nav v-if="isMypage" class="mypage-nav">
-        <div>
-          <span><router-link :to="{ name: 'Home' }">
-            <img src="../src/assets/logo.png" alt="logo" width="120"></router-link>
-          </span>
+    <!-- <nav v-else class="home-nav"> -->
+      <div class="container-fluid d-flex justify-content-between">
+      
+      <div>
+        <span><router-link :to="{ name: 'Home' }">
+          <img src="../src/assets/logo.png" alt="logo" width="120"></router-link></span>
+      </div>
 
+      <div class="d-flex align-items-center">
           <router-link :to="{ name: 'Home' }">Home</router-link>⠀⠀⠀
           <router-link :to="{ name: 'MyPage' }">마이페이지</router-link>⠀⠀⠀ 
           <router-link :to="{ name: 'WatchedMovie' }">평가한 영화</router-link>⠀⠀⠀ 
           <router-link :to="{ name: 'ToWatchMovie' }">나중에 볼 영화</router-link>⠀⠀⠀ 
           <router-link :to="{ name: 'UserReview' }">리뷰</router-link> 
       </div>
-    </nav>
-
-    <nav v-else class="home-nav">
-
-      <div>
-      
-      <div>
-        <span><router-link :to="{ name: 'Home' }">
-          <img src="../src/assets/logo.png" alt="logo" width="120"></router-link>
-        </span>
-
-        <router-link :to="{ name: 'Home' }">Home</router-link>⠀⠀⠀
-        <router-link :to="{ name: 'MyPage' }">마이페이지</router-link>
+      <!-- search bar section -->
+      <div class="d-flex align-items-center">
+      <div class="mx-2">
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#searchbarModal" style="border-radius: 40px;height: 37px;">⠀Search⠀⠀⠀⠀⠀⠀<ion-icon name="search-outline" style="color: white"></ion-icon></button>
       </div>
 
-      <!-- search bar section -->
-        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#searchbarModal" style="border-radius: 40px;">⠀Search⠀⠀⠀⠀⠀⠀<ion-icon name="search-outline" style="color: white"></ion-icon></button>
-      <!-- </div> -->
-
       <!-- user section -->
-        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="border-radius: 40px;">
-          <div class="d-flex align-item-center">
+      <div class="mx-2">
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="border-radius: 40px; height: 37px;">
+          <div class="d-flex align-items-center">
             <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> username</span>
           </div>
         </button>
+      </div>
+      </div>
+
+    </div>
+    </nav>
+    <!-- </nav> -->
+
+    <nav v-else class="home-nav">
+      <div class="container-fluid d-flex justify-content-between">
+      
+      <div>
+        <span><router-link :to="{ name: 'Home' }">
+          <img src="../src/assets/logo.png" alt="logo" width="120"></router-link></span>
+      </div>
+
+      <!-- search bar section -->
+      <div class="d-flex align-items-center">
+      <div class="mx-2">
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#searchbarModal" style="border-radius: 40px;height: 37px;">⠀Search⠀⠀⠀⠀⠀⠀<ion-icon name="search-outline" style="color: white"></ion-icon></button>
+      </div>
+
+      <!-- user section -->
+      <div class="mx-2">
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="border-radius: 40px; height: 37px;">
+          <div class="d-flex align-items-center">
+            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> username</span>
+          </div>
+        </button>
+      </div>
+      </div>
 
     </div>
     </nav>
@@ -99,11 +121,11 @@ export default {
 }
 
 .home-nav {
-  padding: 20px;
+  /* padding: 10px; */
   background-color: #8758FF;
 }
 .mypage-nav {
-  padding: 20px;
+  /* padding: 10px; */
   background-color: #150050;
   color: white;
 }
