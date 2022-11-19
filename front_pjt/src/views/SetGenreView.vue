@@ -4,7 +4,7 @@
 
 
     <!-- if 선택된 장르가 n개 이상일 시 -->
-    <router-link :to="{ name: 'rateMovie'}">
+    <router-link :to="{ name: 'RateMovie'}">
       <input type="submit" value="계속하기">
     </router-link>
     
