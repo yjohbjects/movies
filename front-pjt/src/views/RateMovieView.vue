@@ -4,7 +4,7 @@
 
     
     <!-- if 평가된 영화가 n개 이상일 시 -->
-    <router-link :to="{ name: 'home'}">
+    <router-link :to="{ name: 'Home'}">
       <input type="submit" value="계속하기">
     </router-link>
 

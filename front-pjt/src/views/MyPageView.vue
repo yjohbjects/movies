@@ -46,6 +46,15 @@ export default {
     WatchList,
     RatedList,
     ReviewDetailCard,
+  },
+  methods: {
+    getMypage() {
+      return this.$store.dispatch('nowMypage')
+    }
+  },
+  created() {
+    this.getMypage()
+    this.$store.dispatch('nowMypage')
   }
 }
 </script>

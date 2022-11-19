@@ -1,39 +1,96 @@
 <template>
   <div id="app">
-    <nav>
-      <div class="d-flex justify-content-between">
-      <span>
-        <img src="../src/assets/logo.png" alt="logo" width="120">
+    <nav v-if="isMypage" class="mypage-nav">
+            <div>
+        <span>
+          <img src="../src/assets/logo.png" alt="logo" width="120">
+        </span>
+
+        <router-link :to="{ name: 'Home' }">Home</router-link>⠀⠀⠀
+        <router-link :to="{ name: 'Mypage' }">마이페이지</router-link>⠀⠀⠀ 
+        <router-link :to="{ name: 'WatchedMovie' }">평가한 영화</router-link>⠀⠀⠀ 
+        <router-link :to="{ name: 'ToWatchMovie' }">나중에 볼 영화</router-link>⠀⠀⠀ 
+        <router-link :to="{ name: 'UserReview' }">리뷰</router-link>⠀⠀⠀ 
+        
+      </div>
+    </nav>
+
+    <nav v-else class="home-nav">
+
+      <div class="">
       
-        <router-link :to="{ name: 'home' }">Home</router-link> |
-        <router-link :to="{ name: 'about' }">About</router-link>
-        여기서부터는 테스트용 (지울거임!!)
-        <router-link :to="{ name: 'login' }">Log In</router-link> and
-        <router-link :to="{ name: 'signup' }">Sign Up</router-link> and
-        <router-link :to="{ name: 'setGenre' }">Set Genre</router-link> 
+      <div>
+        <span>
+          <img src="../src/assets/logo.png" alt="logo" width="120">
+        </span>
 
-        <router-link :to="{ name: 'home' }">홈</router-link>
-        <router-link :to="{ name: 'mypage' }">마이페이지</router-link>
-        <router-link :to="{ name: 'watchedMovie' }">평가한 영화</router-link>
-        <router-link :to="{ name: 'toWatchMovie' }">나중에 볼 영화</router-link>
-        <router-link :to="{ name: 'userReview' }">리뷰</router-link>
-      </span>  
+        <router-link :to="{ name: 'Home' }">Home</router-link>⠀⠀⠀
+        <router-link :to="{ name: 'About' }">About</router-link>⠀⠀⠀ 
+        <router-link :to="{ name: 'MyPage' }">마이페이지</router-link>
+      </div>
 
+      <!-- search bar section -->
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#searchbarModal" style="border-radius: 40px;">⠀Search⠀⠀⠀⠀⠀⠀<ion-icon name="search-outline" style="color: white"></ion-icon></button>
+      <!-- </div> -->
 
       <!-- user section -->
-      <span>
-        <router-link :to="{ name: 'mypage' }">
-        <img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="50">
-        <p>username</p>
-        </router-link>
-      </span>
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="border-radius: 40px;">
+          <div class="d-flex align-item-center">
+            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> username</span>
+          </div>
+        </button>
 
     </div>
     </nav>
     <router-view/>
+
+  <!-- Search Bar Modal -->
+    <div class="modal fade" id="searchbarModal" tabindex="-1" aria-labelledby="searchbarModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search" style="padding-left: 20px; border-radius: 40px;">
+          </div>
+
+            <div class="modal-body">
+              <h1>여기에 검색 결과가 뜰 수 있도록</h1>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- User Mypage Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-flex justify-content-start">
+              <span><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="40" class="mx-3"></span>
+                <p>{닉네임}님,</p>
+                <p>{아이디}</p>
+            </div>
+
+            <div class="modal-body">
+              <router-link :to="{ name: 'MyPage' }">마이페이지</router-link><br>
+              <router-link :to="{ name: 'ToWatchMovie' }">나중에 볼 영화</router-link><br>
+              <router-link :to="{ name: 'Login' }">로그아웃</router-link>
+
+            </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
-
+<script>
+export default {
+  name: 'App',
+  computed: {
+    isMypage() {
+      return this.$store.state.isMypage
+    },
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -43,14 +100,19 @@
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+.home-nav {
+  padding: 20px;
   background-color: #8758FF;
+}
+.mypage-nav {
+  padding: 20px;
+  background-color: #150050;
+  color: white;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: white;
 }
 
 nav a.router-link-exact-active {
@@ -60,66 +122,5 @@ nav a.router-link-exact-active {
 body{
      background-color:#eeeeee59;
  }
- 
-  .footer-subscribe input[type=text] {
-    border: 1px solid #ff3514;
-    border-radius: 55px;
-    font-size: 12px;
-    padding: 12px 40% 12px 20px;
-    background: transparent;
-    width: 98%;
-    box-shadow: none !important;
-}
 
-.mt-100{
-    margin-top:200px;
-}
-
-a, button[type="submit"], input[type=text] {
-    color: #333;
-    text-decoration: none;
-    -webkit-transition: all 400ms ease-in-out;
-    -moz-transition: all 400ms ease-in-out;
-    -o-transition: all 400ms ease-in-out;
-    -ms-transition: all 400ms ease-in-out;
-    transition: all 400ms ease-in-out;
-}
-
-.footer-subscribe .btn-theme {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    right: 0;
-}
-
-.btn-theme:hover {
-    box-shadow: none;
-}
-
-.btn-theme {
-    color: #FFF !important;
-    padding: 0.5rem 1.9rem;
-    font-weight: 400;
-    font-size: 0.875rem;
-    display: inline-block;
-    display: inline-flex;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    z-index: 2;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    -webkit-box-shadow: 0px 14px 47px 0px rgba(28, 28, 28, 0.24);
-    -moz-box-shadow: 0px 14px 47px 0px rgba(28, 28, 28, 0.24);
-    box-shadow: 0px 14px 47px 0px rgba(28, 28, 28, 0.24);
-    -webkit-border-radius: 70px;
-    -moz-border-radius: 70px;
-    border-radius: 70px; 
-}
-
-.bg-orange {
-    background: #ff3514;
-}
 </style>

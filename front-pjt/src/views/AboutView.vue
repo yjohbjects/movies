@@ -18,7 +18,7 @@
     <!-- 집으로 가는 방법 두가지 -->
     <!-- <h1>This is an about page</h1>
     <button @click="toHome">to home</button>
-    <router-link :to="{ name: 'home' }">to home</router-link> -->
+    <router-link :to="{ name: 'Home' }">to home</router-link> -->
 
     <h1>모달 테스트</h1>
     <!-- https://getbootstrap.com/docs/5.2/components/modal/ -->
@@ -52,7 +52,7 @@ export default {
   name: 'AboutView',
   methods: {
     toHome() {
-      this.$router.push({ name: "home" })
+      this.$router.push({ name: "Home" })
     }
   }
 }

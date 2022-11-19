@@ -19,7 +19,7 @@
           
           <!-- 선택한 default_genre가 n개 이상이라면 -->
           <!-- lf default_genre >= n -->
-          <router-link :to="{ name: 'home' }">
+          <router-link :to="{ name: 'Home' }">
             <input type="submit" value="로그인">
           </router-link>
 
@@ -33,7 +33,7 @@
         <!-- 회원가입 페이지로 -->
         <section>
           <span>아직 회원이 아니신가요? </span>
-          <router-link :to="{ name: 'signup' }">
+          <router-link :to="{ name: 'Signup' }">
             <input type="submit" value="회원가입">
           </router-link>
         </section>

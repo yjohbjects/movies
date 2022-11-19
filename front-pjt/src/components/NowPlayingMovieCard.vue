@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     toDetail() {
-      this.$router.push({ name: 'detail', params: { movieId: this.movie.id } })
+      this.$router.push({ name: 'Detail', params: { movieId: this.movie.id } })
     }
   }
 }
