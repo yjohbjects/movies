@@ -39,7 +39,7 @@ def test(request):
                 'poster_path': movie.poster_path
             }
         )
-    print(movie_info)
+    # print(movie_info)
     # movies = Movie.objects.all()
     # serializers = MovieListSerializers(movies, many=True)
     return JsonResponse(movie_info, safe=False)
