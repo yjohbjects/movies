@@ -19,5 +19,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('movies/', include('movies.urls')),
-    path('accounts/', include('accounts.urls')),
+    # path('accounts/', include('accounts.urls')),
+    # 인증이 되어있는 친구들만 사용 가능한 기능(회원가입만 없음)
+    path('accounts/', include('dj_rest_auth.urls')),
+    path('accounts/signup/', include('dj_rest_auth.registration.urls'))
 ]

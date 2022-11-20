@@ -2,7 +2,7 @@
     <div class="col">
     <div @click="toDetail">
       <img :src="poster_path" height="280" width="180"/>
-      <h6>{{ movie.title }}</h6>
+      <h6>{{ movie?.title }}</h6>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     poster_path() {
-      return this.default_path + this.movie.poster_path
+      return this.movie.poster_path
     }
   },
   methods: {
