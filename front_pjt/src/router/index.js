@@ -15,6 +15,8 @@ import ToWatchMovieView from '@/views/ToWatchMovieView'
 import WatchedMovieView from '@/views/WatchedMovieView'
 import UserReviewView from '@/views/UserReviewView'
 import ReviewDetailView from '@/views/ReviewDetailView'
+// NotFound404
+import NotFound404 from '@/views/NotFound404'
 
 Vue.use(VueRouter)
 
@@ -36,6 +38,10 @@ const routes = [
   { path: '/watched_movie', name: 'WatchedMovie', component: WatchedMovieView },
   { path: '/user_review', name: 'UserReview', component: UserReviewView },
   { path: '/review_detail', name: 'ReviewDetail', component: ReviewDetailView },
+
+  // NotFound404
+  { path: '/404-not-found', name: 'NotFound404', component: NotFound404 },
+  { path: '*', redirect: { name: 'NotFound404' } },
 ]
 
 const router = new VueRouter({

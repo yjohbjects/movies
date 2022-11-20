@@ -1,12 +1,11 @@
 <template>
   <div class="home">
     <HelloWorld/>
-
     
     <!-- 영화들 리스트별 horizontal scroll 추가 예정 -->
     <!-- https://codepen.io/Temmio/pen/gKGEYV -->
     
-    <h2 class="movie-type">{닉네임}님을 위한 추천영화</h2>
+    <h2 class="movie-type">{{ username }}님을 위한 추천영화</h2>
     <div class="horizontal-scrollable">
       <div class="row flex-nowrap">
         <RecommendedMovieCard v-for="(movie, id) in recommendedMovies" :key="id" :movie="movie"/>
@@ -56,6 +55,9 @@ export default {
     },
     isLogin() {
       return this.$store.getters.isLogin
+    },
+    username() {
+      return this.$store.state.username
     }
   },
   methods: {
@@ -70,6 +72,7 @@ export default {
   },
   created() {
     this.getMovies()
+    this.$store.dispatch('getUsername')
     this.$store.dispatch('nowHome')
   }
 }

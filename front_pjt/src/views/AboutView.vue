@@ -1,48 +1,15 @@
 <template>
   <div class="about">
 
-  <h1>example</h1>
-  <div @click="openSearch" class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon">
-    <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button> -->
-    <!-- <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#profileModal" id="button-addon2"> -->
-    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" id="button-addon2">
-      <ion-icon name="search-outline"></ion-icon>
-    </button>
-
-  </div>
-
-
-
 
     <!-- 집으로 가는 방법 두가지 -->
     <!-- <h1>This is an about page</h1>
     <button @click="toHome">to home</button>
     <router-link :to="{ name: 'Home' }">to home</router-link> -->
 
-    <h1>모달 테스트</h1>
-    <!-- https://getbootstrap.com/docs/5.2/components/modal/ -->
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profileModal">1안</button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-              </div>
-          </div>
-
-            <div class="modal-body">
-              <h1>여기에 검색 결과가 뜰 수 있도록</h1>
-            </div>
-        </div>
-      </div>
-    </div>
-
+    <button type="button" class="btn btn-primary" data-toggle="popover" data-placement="bottom" title="UserName" data-content="Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.">MyPage</button>
+  
 
   </div>
 </template>

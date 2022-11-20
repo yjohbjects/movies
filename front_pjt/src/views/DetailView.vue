@@ -2,19 +2,20 @@
 <!-- 지정된 영화 1편에 대한 디테일 페이지 -->
 <div>
   <h1>Movie Detail Page</h1>
-  <h1>{{ movieId }}</h1>
+  <h1>test movie id: {{ movieId }}</h1>
+  <h1>{{ title }}</h1>
   <!-- 디테일 영화정보 받아오는 페이지 완성하기 -->
 
   <!-- Detail 디테일 구역 -->
   <div class="container">
   <div class="d-flex justify-content-between">
-    <img :src="`https://image.tmdb.org/t/p/original${movieDetail?.poster_path}`" alt="와칸다뽀에바" width="30%" height="30%">
+    <img :src="poster_path" alt="와칸다뽀에바" width="30%" height="30%">
     <!-- 시간이 된다면 포스터를 확대해서 볼 수 있는 기능을 추가하고싶다 -->
     
     <div class="row container">
       <div class="d-flex justify-content-between">
         <div>
-          <h2>{{ movieDetail?.title }}</h2>
+          <h2>{{ title }}</h2>
           <p class="lead">{{ movieDetail?.original_title }}</p>
         </div>
 
@@ -53,14 +54,6 @@
 
 <script>
 import ReviewDetailCard from '@/components/ReviewDetailCard'
-import axios from 'axios'
-
-
-// 환경변수로 키를 공유하지 않고 받아오는 방법
-const API_KEY = process.env.VUE_APP_TMDB_API_KEY
-
-// 요청 보낼 url
-// const api_url = `https://api.themoviedb.org/3/movie/${this.movieId}`
 
 export default {
   name: 'DetailView',
@@ -70,42 +63,25 @@ export default {
   data() {
     return {
       movieId: this.$route.params.movieId,
-      api_url: 'https://api.themoviedb.org/3/movie/',
+
+      // actors: this.$route.params.actors,
+      // genre: this.$route.params.genre,
+      // overview: this.$route.params.overview,
+      // poster_path: this.$route.params.poster_path,
+      // release_date: this.$route.params.release_date,
+      title: this.movie.$route.params.title,
+
       movieDetail: null,
     }
   },
+  props: {
+    // movie: Object,
+  },
   computed: {
-    movie() {
-      return this.$store.state.movie
-    },
-    API_URL() {
-      return this.api_url + this.movieId
-    },
   },
   methods: {
-    loadDetail() {
-      const params = {
-        api_key:API_KEY,
-        language: 'ko-KR'
-      }
-      axios({
-        method: 'get',
-        url: this.API_URL,
-        params: params
-      })
-
-      .then((response) => {
-        console.log(response)
-        this.movieDetail = response.data
-      })
-
-      .catch((error) => {
-        console.log(error)
-      })
-    }
   },
   created() {
-    this.loadDetail()
   }
 
   }
