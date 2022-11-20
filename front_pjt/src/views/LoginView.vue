@@ -34,6 +34,9 @@ export default {
       }
       this.$store.dispatch('logIn', payload)
     }
+  },
+  created() {
+    this.$store.dispatch('nowLogin')
   }
 }
 </script>

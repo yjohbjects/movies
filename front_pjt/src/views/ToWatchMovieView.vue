@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>나중에 볼 영화 페이지</h1>
     <ToWatchMovieCard/>
   </div>
 </template>

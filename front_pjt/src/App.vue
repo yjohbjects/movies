@@ -1,13 +1,15 @@
 <template>
   <div id="app">
+    
+    <!-- mypage nav -->
     <nav v-if="isMypage" class="mypage-nav">
-    <!-- <nav v-else class="home-nav"> -->
       <div class="container-fluid d-flex justify-content-between">
       
       <div>
         <span><router-link :to="{ name: 'Home' }">
           <img src="../src/assets/logo.png" alt="logo" width="120"></router-link></span>
       </div>
+
 
       <div class="d-flex align-items-center">
           <router-link :to="{ name: 'Home' }">Home</router-link>⠀⠀⠀
@@ -26,16 +28,18 @@
       <div class="mx-2">
         <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="border-radius: 40px; height: 37px;">
           <div class="d-flex align-items-center">
-            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> username</span>
+            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> {{ username }}</span>
           </div>
         </button>
       </div>
       </div>
-
     </div>
     </nav>
-    <!-- </nav> -->
 
+    <!-- login nav -->
+    <nav v-else-if="isLoginpage"></nav>
+
+    <!-- home nav -->
     <nav v-else class="home-nav">
       <div class="container-fluid d-flex justify-content-between">
       
@@ -54,7 +58,7 @@
       <div class="mx-2">
         <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="border-radius: 40px; height: 37px;">
           <div class="d-flex align-items-center">
-            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> username</span>
+            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> {{ username }}</span>
           </div>
         </button>
       </div>
@@ -85,7 +89,7 @@
         <div class="modal-content">
           <div class="modal-header d-flex justify-content-start">
               <span><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="40" class="mx-3"></span>
-                <p>{닉네임}님,</p>
+                <p>{{ username }}님,</p>
                 <p>{아이디}</p>
             </div>
 
@@ -108,6 +112,15 @@ export default {
     isMypage() {
       return this.$store.state.isMypage
     },
+    isLoginpage() {
+      return this.$store.state.isLoginpage
+    },
+    username() {
+      return this.$store.state.username
+    },
+  },
+  created() {
+    this.$store.dispatch('getUsername')
   }
 }
 </script>
