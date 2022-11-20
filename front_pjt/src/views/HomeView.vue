@@ -53,11 +53,19 @@ export default {
     },
     nowPlayingMovies() {
       return this.$store.state.nowPlayingMovies
+    },
+    isLogin() {
+      return this.$store.getters.isLogin
     }
   },
   methods: {
     getMovies() {
-      this.$store.dispatch('getMovies')
+      if (this.isLogin === true) {
+        this.$store.dispatch('getMovies')
+      } else {
+        alert('로그인 하세요')
+        this.$router.push({ name : 'login'})
+      }
     }
   },
   created() {
