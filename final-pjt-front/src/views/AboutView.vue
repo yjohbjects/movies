@@ -26,12 +26,12 @@
 </template>
 
 <script>
-import StarRating from 'vue-star-rating'
+// import StarRating from 'vue-star-rating'
 
 export default {
   name: 'AboutView',
   components: {
-    StarRating
+    // StarRating
   },
   methods: {
     toHome() {

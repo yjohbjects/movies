@@ -1,18 +1,18 @@
 <template>
   <div class="container">
     <div class="card">
-      <form>
-      <h1 style="text-align: center">리뷰작성</h1><br>
+      <form @submit.prevent="createReview">
+        <h1 style="text-align: center">리뷰작성</h1><br>
 
-      <h1>★★★★★</h1>
+        <h1>★★★★★</h1>
 
-      <label for="title">Title</label><br>
-      <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요."><br>
+        <label for="title">Title</label><br>
+        <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요." v-model="title"><br>
 
-      <label for="content">내용</label>
-      <input type="text" class="form-control" id="content" placeholder="내용을 입력해주세요."><br>
+        <label for="content">내용</label>
+        <input type="text" class="form-control" id="content" placeholder="내용을 입력해주세요." v-model="content"><br>
 
-      <input type="submit" value="등록하기"><br>
+        <input type="submit" value="등록하기"><br>
 
       </form>
 
@@ -23,7 +23,27 @@
 
 <script>
 export default {
-  name: 'CreateReview'
+  name: 'CreateReview',
+  data() {
+    return {
+      title: null,
+      content: null,
+    }
+  },
+  methods: {
+    createReview() {
+      const title = this.title
+      const content = this.content
+      const movieId = 49046
+      const payload = {
+        title: title,
+        content: content,
+        movieId: movieId,
+      }
+
+      this.$store.dispatch('createReview', payload)
+    }
+  }
 }
 </script>
 

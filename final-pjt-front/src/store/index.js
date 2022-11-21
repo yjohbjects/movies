@@ -198,6 +198,26 @@ export default new Vuex.Store({
       .catch((error) => {
         console.log(error)
       })
+    },
+
+    createReview(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/v1/createreview/${payload.movieId}/`,
+        data: {
+          title: payload.title,
+          content: payload.content,
+        },
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   },
   modules: {

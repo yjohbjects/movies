@@ -4,6 +4,7 @@ from .serializers import MovieListSerializers, MovieNameSerializer, ReviewSerial
 from .serializers import MovieSerializers
 from django.shortcuts import get_list_or_404, get_object_or_404
 
+# from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -55,4 +56,19 @@ def wish(request, movie_pk):
     else:
         movie.wish_user.add(request.user)
     serializer = MovieSerializers(movie)
+    print(serializer)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def create_review(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    print(movie.pk)
+    serializer = ReviewSerializers(data=request.data)
+    print(serializer)
+    if serializer.is_valid(raise_exception=True):
+        print(2)
+        serializer.save(movie=movie, review_user=request.user)
+        print(3)
+    print(4)
     return Response(serializer.data)
