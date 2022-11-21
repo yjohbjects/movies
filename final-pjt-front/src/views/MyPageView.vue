@@ -5,7 +5,7 @@
     <div class="d-flex">
     <img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="200">
       <div class="row">
-        <h3>username</h3>
+        <h3>{{ username }}</h3>
         <p>내가 본 영화: {n} | 보고싶은 영화: {n}</p>
         <p>{상태메세지} 저는 여가시간에 주로 영화를 보는걸 즐깁니다</p>
       </div>
@@ -47,9 +47,14 @@ export default {
     RatedList,
     ReviewDetailCard,
   },
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin
+    }
+  },
   methods: {
     getMypage() {
-      if (this.username) {
+      if (this.isLogin === true) {
         return this.$store.dispatch('nowMypage')
       } else {
         alert('로그인이 필요한 페이지입니다 :-D')

@@ -1,9 +1,7 @@
 <template>
     <div class="col">
-
     <div @click="toDetail">
-      <img :src="poster_path" height="280" width="180"/>
-      <h6>{{ movie.title }}</h6>
+      <img :src="poster_path" width="218" height="327" style="border-radius: 5px">
     </div>
   </div>
 </template>
@@ -21,7 +19,11 @@ export default {
   },
   computed: {
     poster_path() {
-      return this.default_path + this.movie.poster_path
+      if (this.movie.poster_path) {
+        return this.default_path + this.movie.poster_path
+      } else {
+        return 'https://ualr.edu/elearning/files/2020/10/No-Photo-Available.jpg'
+      }
     }
   },
   methods: {

@@ -12,6 +12,9 @@ export default {
   name: 'ToWatchMovieView',
   components: {
     ToWatchMovieCard,
+  },
+  created() {
+    this.$store.dispatch('nowMypage')
   }
 }
 </script>

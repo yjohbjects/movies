@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <HelloWorld/>
+    <div class="container-fluid">
     
     <!-- 영화들 리스트별 horizontal scroll 추가 예정 -->
     <!-- https://codepen.io/Temmio/pen/gKGEYV -->
@@ -11,20 +12,22 @@
         <RecommendedMovieCard v-for="(movie, id) in recommendedMovies" :key="id" :movie="movie"/>
       </div>
     </div>
-
+    <br>
     <h2 class="movie-type">인기영화는 어때요?</h2>
     <div class="horizontal-scrollable"> 
       <div class="row flex-nowrap">
         <PopularMovieCard v-for="(movie, id) in popularMovies" :key="id" :movie="movie"/>
       </div>
     </div>
-    
+    <br>
     <h2 class="movie-type">최근 상영 영화는 어떤가요?</h2>
     <div class="horizontal-scrollable">
       <div class="row flex-nowrap">
         <NowPlayingMovies v-for="(movie, id) in nowPlayingMovies" :key="id" :movie="movie"/>
       </div>
     </div>
+    
+    </div> <!-- container -->
   </div>
 </template>
 
@@ -64,6 +67,8 @@ export default {
     getMovies() {
       if (this.isLogin === true) {
         this.$store.dispatch('getMovies')
+        this.$store.dispatch('getPopularMovies')
+        this.$store.dispatch('getNowPlayingMovies')
       } else {
         alert('로그인이 필요한 페이지입니다 :-D')
         this.$router.push({ name : "Login" })
@@ -79,19 +84,19 @@ export default {
 </script>
 
 <style>
-    /* The heart of the matter */
-      
-    .horizontal-scrollable > .row {
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-      
-    .horizontal-scrollable > .row > .col-xs-4 {
-        display: inline-block;
-        float: none;
-    }
+/* The heart of the matter */
+  
+.horizontal-scrollable > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+  
+.horizontal-scrollable > .row > .col-xs-4 {
+    display: inline-block;
+    float: none;
+}
 
-    .movie-type {
-      text-align: left;
-    }
+.movie-type {
+  text-align: left;
+}
 </style>

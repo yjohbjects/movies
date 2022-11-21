@@ -1,9 +1,7 @@
 <template>
     <div class="col">
     <div @click="toDetail">
-      <img :src="poster_path" height="280" width="180"/>
-      <h6>{{ movie?.title }}</h6>
-      <h6>{{ movie?.movie_id }}</h6>
+      <img :src="poster_path" width="218" height="327" style="border-radius: 5px">
     </div>
   </div>
 </template>
