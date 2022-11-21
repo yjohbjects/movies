@@ -14,7 +14,14 @@
 
       <input type="submit" value="등록하기"><br>
 
+
       </form>
+
+    <form @submit.prevent="createRrticle">
+      <input type="text" v-model.trim="title"><br>
+      <textarea v-model.trim="content"></textarea>
+      <input type="submit">
+    </form>
 
 
     </div>
@@ -23,7 +30,25 @@
 
 <script>
 export default {
-  name: 'CreateReview'
+  name: 'CreateReview',
+  data() {
+    return {
+      title: null,
+      content: null,
+    }
+  },
+  methods: {
+    createReview() {
+      const title = this.title
+      const content = this.content
+      const payload = {
+        title, content
+      }
+      this.$store.dispatch('createReview', payload)
+      // detail 페이지로 가게 해주기
+      this.$router.push({ name: 'Home'})
+    }
+  }
 }
 </script>
 
