@@ -25,14 +25,24 @@
       </div>
 
       <!-- user section -->
-      <div class="mx-2">
-        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="border-radius: 40px; height: 37px;">
-          <div class="d-flex align-items-center">
-            <span v-if="username" class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> {{ username }}</span>
-            <span v-else class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> username</span>
-          </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" style="border-radius: 40px">
+          <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20">⠀{{ username }}</span>
         </button>
-      </div>
+        <ul class="dropdown-menu dropdown-menu-lg-end">
+          <li @click="toMypage"><button class="dropdown-item" type="button">
+            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20">⠀{{ username }}</span>
+          </button></li>
+
+          <li><hr class="dropdown-divider"></li>
+          <li @click="toMypage"><button class="dropdown-item" type="button">마이페이지</button></li>
+          <li @click="toWatchedMovie"><button class="dropdown-item" type="button">평가한 영화</button></li>
+          <li @click="toToWatchMovie"><button class="dropdown-item" type="button">나중에 볼 영화</button></li>
+          <li @click="toUserReview"><button class="dropdown-item" type="button">리뷰</button></li>
+          <li><hr class="dropdown-divider"></li>
+          <li @click="logout"><button class="dropdown-item" type="button">로그아웃</button></li>
+        </ul>
+      </div> <!-- user section -->
       </div>
     </div>
     </nav>
@@ -56,15 +66,25 @@
       </div>
 
       <!-- user section -->
-      <div class="mx-2">
-        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="border-radius: 40px; height: 37px;">
-          <div class="d-flex align-items-center">
-            <span v-if="username" class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> {{ username }}</span>
-            <span v-else class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> username</span>
-          </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" style="border-radius: 40px">
+          <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20">⠀{{ username }}</span>
         </button>
-      </div>
-      </div>
+        <ul class="dropdown-menu dropdown-menu-lg-end">
+          <li @click="toMypage"><button class="dropdown-item" type="button">
+            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20">⠀{{ username }}</span>
+          </button></li>
+
+          <li><hr class="dropdown-divider"></li>
+          <li @click="toMypage"><button class="dropdown-item" type="button">마이페이지</button></li>
+          <li @click="toWatchedMovie"><button class="dropdown-item" type="button">평가한 영화</button></li>
+          <li @click="toToWatchMovie"><button class="dropdown-item" type="button">나중에 볼 영화</button></li>
+          <li @click="toUserReview"><button class="dropdown-item" type="button">리뷰</button></li>
+          <li><hr class="dropdown-divider"></li>
+          <li @click="logout"><button class="dropdown-item" type="button">로그아웃</button></li>
+        </ul>
+      </div> <!-- user section -->
+    </div>
 
     </div>
     </nav>
@@ -80,26 +100,6 @@
 
             <div class="modal-body">
               <h1>여기에 검색 결과가 뜰 수 있도록</h1>
-            </div>
-        </div>
-      </div>
-    </div>
-
-  <!-- User Mypage Modal -->
-    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header d-flex justify-content-start">
-              <span><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="40" class="mx-3"></span>
-                <p>{{ username }}님,</p>
-                <p>{아이디}</p>
-            </div>
-
-            <div class="modal-body">
-              <router-link :to="{ name: 'MyPage' }">마이페이지</router-link><br>
-              <router-link :to="{ name: 'ToWatchMovie' }">나중에 볼 영화</router-link><br>
-              <span @click="logOut">로그아웃</span>
-
             </div>
         </div>
       </div>
@@ -122,10 +122,22 @@ export default {
     },
   },
   methods: {
-    logOut() {
+    logout() {
       this.$store.commit('LOGOUT')
       this.$router.push({ name: "Login" })
-    }
+    },
+    toMypage() {
+      this.$router.push({ name: "MyPage" })
+    },
+    toWatchedMovie() {
+      this.$router.push({ name: "WatchedMovie" })
+    },
+    toToWatchMovie() {
+      this.$router.push({ name: "ToWatchMovie" })
+    },
+    toUserReview() {
+      this.$router.push({ name: "UserReview" })
+    },
   },
   created() {
     this.$store.dispatch('getUsername')
@@ -163,5 +175,7 @@ nav a.router-link-exact-active {
 body{
      background-color:#eeeeee59;
  }
-
+.dropdown-toggle::after { 
+ content: none; 
+ }
 </style>
