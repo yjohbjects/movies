@@ -3,10 +3,15 @@ import axios from 'axios'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import _ from 'lodash'
 
 Vue.use(Vuex)
 
 const API_URL = 'http://127.0.0.1:8000'
+const API_NOW_PLAYING_MOVIE_URL = 'https://api.themoviedb.org/3/movie/now_playing'
+const API_POPULAR_MOVIE_URL = 'https://api.themoviedb.org/3/movie/popular'
+const API_KEY = process.env.VUE_APP_TMDB_API_KEY
+
 
 export default new Vuex.Store({
   plugins: [
@@ -29,6 +34,14 @@ export default new Vuex.Store({
   mutations: {
     GET_MOVIES(state, movies) {
       state.recommendedMovies = movies
+    },
+
+    GET_POPULAR_MOVIES(state, popularMovies) {
+      state.popularMovies = popularMovies
+    },
+
+    GET_NOW_PLAYING_MOVIES(state, nowPlayingMovies) {
+      state.nowPlayingMovies = nowPlayingMovies
     },
 
     NOW_HOME(state) {
@@ -58,7 +71,6 @@ export default new Vuex.Store({
     LOGOUT(state) {
       localStorage.removeItem('token')
       localStorage.removeItem('username')
-      // console.log(state)
       state.token = null
       state.username = null
     }
@@ -67,7 +79,7 @@ export default new Vuex.Store({
     getMovies(context) {
       axios({
         method: 'get',
-        url: `${API_URL}/movies/`,
+        url: `${API_URL}/api/v1/movies/`,
         headers: {
           Authorization: `Token ${ context.state.token }`
         }
@@ -79,6 +91,48 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
+    },
+
+    getPopularMovies(context) {
+      const params = {
+        api_key: API_KEY, 
+        language: 'ko-KR',
+        page: _.sample(_.range(1, 40)),
+        adult:false
+      }
+
+      axios({
+        method: 'get',
+        url: API_POPULAR_MOVIE_URL,
+        params: params,
+      })
+      .then((response) => {
+        context.commit('GET_POPULAR_MOVIES', response.data.results)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+
+    getNowPlayingMovies(context) {
+      const params = {
+        api_key: API_KEY, 
+        language: 'ko-KR',
+        page: _.sample(_.range(1, 40)),
+        adult:false
+      }
+
+      axios({
+        method: 'get',
+        url: API_NOW_PLAYING_MOVIE_URL,
+        params: params,
+      })
+      .then((response) => {
+        context.commit('GET_NOW_PLAYING_MOVIES', response.data.results)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
 
     nowHome(context) {
@@ -104,7 +158,6 @@ export default new Vuex.Store({
           username: payload.username,
           password1: payload.password1,
           password2: payload.password2,
-          nickname: payload.nickname,
         }
       })
         .then((response) => {
@@ -137,7 +190,7 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data["username"])
         context.commit('GET_USERNAME', response.data["username"])
       })
       .catch((error) => {

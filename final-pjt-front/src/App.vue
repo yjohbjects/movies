@@ -21,7 +21,7 @@
       <!-- search bar section -->
       <div class="d-flex align-items-center">
       <div class="mx-2">
-        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#searchbarModal" style="border-radius: 40px;height: 37px;">⠀Search⠀⠀⠀⠀⠀⠀<ion-icon name="search-outline" style="color: white"></ion-icon></button>
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#searchbarModal" style="border-radius: 40px;height: 37px;">⠀영화 검색⠀⠀⠀⠀⠀⠀<ion-icon name="search-outline" style="color: white"></ion-icon></button>
       </div>
 
       <!-- user section -->
@@ -62,7 +62,7 @@
       <!-- search bar section -->
       <div class="d-flex align-items-center">
       <div class="mx-2">
-        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#searchbarModal" style="border-radius: 40px;height: 37px;">⠀Search⠀⠀⠀⠀⠀⠀<ion-icon name="search-outline" style="color: white"></ion-icon></button>
+        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#searchbarModal" style="border-radius: 40px;height: 37px;">⠀영화 검색⠀⠀⠀⠀⠀⠀<ion-icon name="search-outline" style="color: white"></ion-icon></button>
       </div>
 
       <!-- user section -->
@@ -95,11 +95,26 @@
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search" style="padding-left: 20px; border-radius: 40px;">
+            <input @input="onInputChange" @keyup="isExistingQuery=true" class="form-control" type="text" placeholder="어떤 영화를 찾아드릴까요?" aria-label="Search" style="padding-left: 20px; border-radius: 40px;">
           </div>
 
             <div class="modal-body">
-              <h1>여기에 검색 결과가 뜰 수 있도록</h1>
+            <p>{{ movieQuery }}</p>
+
+          <div v-show="isExistingQuery">
+            <!-- 검색결과가 없을 때 -->
+            <div v-if="results.length === 0">
+              <p>검색 결과가 없습니다</p>
+            </div>
+
+              <div v-else>
+                <div v-for="(result) in results" :key='result.id'>
+                  <span><p>{{ result.title }}</p></span>
+                  <span><img :src="'https://image.tmdb.org/t/p/w500/' + result.poster_path" width="218" height="327" style="border-radius: 5px"></span>
+                </div>
+              </div>
+          </div>
+
             </div>
         </div>
       </div>
@@ -108,8 +123,18 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
+
+const API_KEY = process.env.VUE_APP_TMDB_API_KEY
+
 export default {
   name: 'App',
+  data() {
+    return {
+      movieQuery: '',
+      results: '',
+    }
+  },
   computed: {
     isMypage() {
       return this.$store.state.isMypage
@@ -138,6 +163,21 @@ export default {
     toUserReview() {
       this.$router.push({ name: "UserReview" })
     },
+    onInputChange(event) {
+      this.movieQuery = event.target.value
+
+      axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=ko&query=` + event.target.value + '&include_adult=false')
+      .then(response => {
+        this.results = response.data.results.filter(
+          function (result) {
+            return result.poster_path
+          }
+        )
+      })
+      
+
+
+    }
   },
   created() {
     this.$store.dispatch('getUsername')

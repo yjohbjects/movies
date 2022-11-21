@@ -12,6 +12,9 @@ export default {
   name: 'UserReviewView',
   components: {
     ReviewDetailCard
+  },
+  created() {
+    this.$store.dispatch('nowMypage')
   }
 }
 </script>

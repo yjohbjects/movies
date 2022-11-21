@@ -2,7 +2,7 @@
 <!-- 지정된 영화 1편에 대한 디테일 페이지 -->
 <div>
   <h1>Movie Detail Page</h1>
-  <h1>test movie id: {{ movieId }}</h1>
+  <h1>{{ movieId }}</h1>
   <h1>{{ title }}</h1>
   <!-- 디테일 영화정보 받아오는 페이지 완성하기 -->
 
@@ -63,14 +63,6 @@ export default {
   data() {
     return {
       movieId: this.$route.params.movieId,
-
-      // actors: this.$route.params.actors,
-      // genre: this.$route.params.genre,
-      // overview: this.$route.params.overview,
-      // poster_path: this.$route.params.poster_path,
-      // release_date: this.$route.params.release_date,
-      title: this.movie.$route.params.title,
-
       movieDetail: null,
     }
   },
