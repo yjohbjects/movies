@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import HomeView from '@/views/HomeView'
 import AboutView from '@/views/AboutView'
 import DetailView from '@/views/DetailView'
+import CreateReviewView from '@/views/CreateReviewView'
 // accounts
 import LoginView from '@/views/LoginView'
 import SignupView from '@/views/SignupView'
@@ -24,7 +25,8 @@ const routes = [
   // home
   { path: '/', name: 'Home', component: HomeView },
   { path: '/about', name: 'About', component: AboutView },
-  { path: '/detail/:movieId', name: 'Detail', component: DetailView },
+  { path: '/:movieId', name: 'Detail', component: DetailView },
+  { path: '/:movieId/create_review', name: 'CreateReview', component: CreateReviewView },
   
   // accounts
   { path: '/login', name: 'Login', component: LoginView },
