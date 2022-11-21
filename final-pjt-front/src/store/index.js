@@ -53,6 +53,13 @@ export default new Vuex.Store({
 
     GET_USERNAME(state, username) {
       state.username = username
+    },
+
+    LOGOUT(state) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('username')
+      state.token = null
+      state.username = null
     }
   },
   actions: {

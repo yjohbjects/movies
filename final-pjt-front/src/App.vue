@@ -98,7 +98,7 @@
             <div class="modal-body">
               <router-link :to="{ name: 'MyPage' }">마이페이지</router-link><br>
               <router-link :to="{ name: 'ToWatchMovie' }">나중에 볼 영화</router-link><br>
-              <router-link :to="{ name: 'Login' }">로그아웃</router-link>
+              <span @click="logOut">로그아웃</span>
 
             </div>
         </div>
@@ -120,6 +120,12 @@ export default {
     username() {
       return this.$store.state.username
     },
+  },
+  methods: {
+    logOut() {
+      this.$store.commit('LOGOUT')
+      this.$router.push({ name: "Login" })
+    }
   },
   created() {
     this.$store.dispatch('getUsername')
