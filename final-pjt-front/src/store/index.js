@@ -25,6 +25,21 @@ export default new Vuex.Store({
     isLoginpage: true,
     token: null,
     username: null,
+    reviews: [
+      {
+        id: 1,
+        title: '저의 인생영화',
+        content: '제 인생은 이 영화를 보기 전과 후로 나뉩니다',
+        createdAt: new Date().getTime(),
+      },
+      {
+        id: 2,
+        title: '지루했습니다..;',
+        content: '어두운 조명에 ASMR 켜놓고 낮잠 자고싶으신 분들께 추천합니다.',
+        createdAt: new Date().getTime(),
+      },
+    ],
+    review_id: 3,
   },
   getters: {
     isLogin(state) {
@@ -73,7 +88,17 @@ export default new Vuex.Store({
       localStorage.removeItem('username')
       state.token = null
       state.username = null
-    }
+    },
+    CREATE_REVIEW(state, review) {
+      state.reviews.push(review)
+      state.review_id = state.review_id + 1
+    },
+    DELETE_REVIEW(state, review_id) {
+      state.reviews = state.reviews.filter((review) => {
+        return !(review.id === review_id)
+      })
+    },
+
   },
   actions: {
     getMovies(context) {
@@ -199,7 +224,6 @@ export default new Vuex.Store({
         console.log(error)
       })
     },
-
     createReview(context, payload) {
       axios({
         method: 'post',
@@ -218,6 +242,7 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
+
     }
   },
   modules: {

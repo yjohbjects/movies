@@ -41,7 +41,9 @@
 </div>
   <!-- Reviews 커뮤니티 구역 -->
   <h1>Reviews</h1>
-  <ReviewDetailCard/>
+  <button @click="toCreateReview" class="btn btn-outline-secondary">작성</button>
+  <ReviewDetailCard v-for="review in reviews" :key="review.id" :review="review"
+  />
 
     
 </div>
@@ -69,6 +71,9 @@ export default {
     // movie: Object,
   },
   computed: {
+    reviews() {
+      return this.$store.state.reviews
+    }
   },
   methods: {
     getMovieDetail() {
@@ -88,6 +93,9 @@ export default {
         console.log(error)
       })
     },
+    toCreateReview() {
+      this.$router.push({ name: "CreateReview" })
+    }
 
   },
   created() {

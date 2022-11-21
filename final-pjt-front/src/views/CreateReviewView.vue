@@ -14,7 +14,14 @@
 
         <input type="submit" value="등록하기"><br>
 
+
       </form>
+
+    <form @submit.prevent="createRrticle">
+      <input type="text" v-model.trim="title"><br>
+      <textarea v-model.trim="content"></textarea>
+      <input type="submit">
+    </form>
 
 
     </div>
