@@ -28,7 +28,8 @@
       <div class="mx-2">
         <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="border-radius: 40px; height: 37px;">
           <div class="d-flex align-items-center">
-            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> {{ username }}</span>
+            <span v-if="username" class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> {{ username }}</span>
+            <span v-else class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> username</span>
           </div>
         </button>
       </div>
@@ -58,7 +59,8 @@
       <div class="mx-2">
         <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#profileModal" style="border-radius: 40px; height: 37px;">
           <div class="d-flex align-items-center">
-            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> {{ username }}</span>
+            <span v-if="username" class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> {{ username }}</span>
+            <span v-else class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> username</span>
           </div>
         </button>
       </div>
