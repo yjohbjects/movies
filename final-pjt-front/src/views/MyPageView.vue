@@ -49,11 +49,17 @@ export default {
   },
   methods: {
     getMypage() {
-      return this.$store.dispatch('nowMypage')
+      if (this.username) {
+        return this.$store.dispatch('nowMypage')
+      } else {
+        alert('로그인이 필요한 페이지입니다 :-D')
+        this.$router.push({ name : "Login" })
+      }
     }
   },
   created() {
     this.getMypage()
+    this.$store.dispatch('getUsername')
     this.$store.dispatch('nowMypage')
   }
 }

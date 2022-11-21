@@ -1,15 +1,22 @@
 <template>
-  <div>
-    <h1>Login Page</h1>
+  <div class="container">
+    <div class="card">
     <form @submit.prevent="logIn">
-      <label for="username">username : </label>
-      <input type="text" id="username" v-model="username"><br>
+      <h1 style="text-align: center">로그인</h1><br>
+      <label for="username">Username</label><br>
+      <input type="text" class="form-control" id="username" placeholder="Enter Your ID" v-model="username"><br>
 
-      <label for="password">password : </label>
-      <input type="text" id="password" v-model="password"><br>
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Enter Your Password" v-model="password"><br>
 
-      <input type="submit" value="Login">
+      <input type="submit" value="로그인"><br>
+
+      <div class="d-flex">
+      <p>아직 회원이 아니신가요?</p>
+      <router-link :to="{ name: 'Signup' }"><button>회원가입</button></router-link>
+      </div>
     </form>
+    </div>
   </div>
   
 </template>
@@ -33,6 +40,9 @@ export default {
         password: password,
       }
       this.$store.dispatch('logIn', payload)
+    },
+    signup() {
+      this.$stoure.push({})
     }
   },
   created() {

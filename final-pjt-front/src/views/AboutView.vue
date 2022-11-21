@@ -3,13 +3,29 @@
 
 
     <!-- 집으로 가는 방법 두가지 -->
-    <!-- <h1>This is an about page</h1>
+    <h1>This is an about page</h1>
     <button @click="toHome">to home</button>
-    <router-link :to="{ name: 'Home' }">to home</router-link> -->
+    <router-link :to="{ name: 'Home' }">to home</router-link>
 
+  <div class="btn-group">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+      <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> {{ username }}</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-lg-end">
+      <li><button class="dropdown-item" type="button">
+        <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20"> {{ username }}</span>
+      </button></li>
 
-    <button type="button" class="btn btn-primary" data-toggle="popover" data-placement="bottom" title="UserName" data-content="Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.">MyPage</button>
-  
+      <li><hr class="dropdown-divider"></li>
+      <li><button class="dropdown-item" type="button">마이페이지</button></li>
+      <li><button class="dropdown-item" type="button">평가한 영화</button></li>
+      <li><button class="dropdown-item" type="button">나중에 볼 영화</button></li>
+      <li><button class="dropdown-item" type="button">리뷰</button></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><button class="dropdown-item" type="button">로그아웃</button></li>
+    </ul>
+  </div>
+        
 
   </div>
 </template>
