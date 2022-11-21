@@ -225,13 +225,24 @@ export default new Vuex.Store({
       })
     },
     createReview(context, payload) {
-      const review = {
-        id: context.state.review_id,
-        title: payload.title,
-        content: payload.content,
-        createdAt: new Date().getTime()
-      }
-      context.commit('CREATE_REVIEW', review)
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/v1/createreview/${payload.movieId}/`,
+        data: {
+          title: payload.title,
+          content: payload.content,
+        },
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+
     }
   },
   modules: {

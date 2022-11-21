@@ -41,9 +41,9 @@ export default {
       }
       this.$store.dispatch('logIn', payload)
     },
-    signup() {
-      this.$stoure.push({})
-    }
+    // signup() {
+    //   this.$stoure.push({})
+    // }
   },
   created() {
     this.$store.dispatch('nowLogin')

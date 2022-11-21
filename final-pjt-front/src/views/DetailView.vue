@@ -1,7 +1,7 @@
 <template>
 <!-- 지정된 영화 1편에 대한 디테일 페이지 -->
 <div>
-  <h1>{{ movieId}}</h1>
+  <h1>{{ movieId }}</h1>
   <div class="container my-5">
   <div class="d-flex justify-content-between">
     <img :src="`${ movieDetail.poster_path }`" width="30%" height="30%">
