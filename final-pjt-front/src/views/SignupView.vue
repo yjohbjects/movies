@@ -5,6 +5,9 @@
       <label for="username">username : </label>
       <input type="text" id="username" v-model="username"><br>
 
+      <label for="nickname">nickname : </label>
+      <input type="text" id="nickname" v-model="nickname"><br>
+
       <label for="password1">password : </label>
       <input type="text" id="password1" v-model="password1"><br>
 
@@ -25,6 +28,7 @@ export default {
       username: null,
       password1: null,
       password2: null,
+      nickname: null,
     }
   },
   methods: {
@@ -32,11 +36,13 @@ export default {
       const username = this.username
       const password1 = this.password1
       const password2 = this.password2
+      const nickname = this.nickname
 
       const payload = {
         username: username,
         password1: password1,
         password2: password2,
+        nickname: nickname
       }
       
       this.$store.dispatch('signUp', payload)

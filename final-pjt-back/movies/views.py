@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from django.http.response import JsonResponse
-from .models import Movie, Genre, Actor
-from .serializers import MovieListSerializers
-from django.shortcuts import get_list_or_404
+from .models import Movie, Genre, Actor, Review
+from .serializers import MovieListSerializers, MovieNameSerializer, ReviewSerializers, ReviewListSerializers
+from .serializers import MovieSerializers
+from django.shortcuts import get_list_or_404, get_object_or_404
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -13,34 +13,46 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
+# 전체 영화 정보 조회
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def test(request):
+# @permission_classes([IsAuthenticated])
+def movie(request):
     movies = get_list_or_404(Movie)
-    movie_info = []
-    genres = get_list_or_404(Genre)
-    actors = get_list_or_404(Actor)
-    for movie in movies:
-        movie_genre = []
-        for genre in genres:
-            if movie.genres.filter(pk=genre.pk).exists():
-                movie_genre.append(genre.name)
-        movie_actors = []
-        for actor in actors:
-            if movie.actors.filter(pk=actor.pk).exists():
-                movie_actors.append(actor.name)
-        movie_info.append(
-            {
-                'title': movie.title,
-                'genre': movie_genre,
-                'overview': movie.overview,
-                'release_date': movie.release_date,
-                'actors': movie_actors,
-                'poster_path': movie.poster_path
-            }
-        )
-    # print(movie_info)
-    # movies = Movie.objects.all()
-    # serializers = MovieListSerializers(movies, many=True)
-    return JsonResponse(movie_info, safe=False)
-    # return render(request, 'movies/test.html', context)
+    serializer = MovieListSerializers(movies, many=True)
+    return Response(serializer.data)
+
+
+# 선택한 영화 정보 조회
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def movie_detail(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    serializer = MovieNameSerializer(movie)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def review_list(request):
+    review = Review.objects.all().filter(reviewed_user_id=2)
+    serializer = ReviewListSerializers(review, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def review(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    serializer = ReviewSerializers(review)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def wish(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    if movie.wish_user.filter(pk=request.user.pk).exists():
+        movie.wish_user.remove(request.user)
+    else:
+        movie.wish_user.add(request.user)
+    serializer = MovieSerializers(movie)
+    return Response(serializer.data)

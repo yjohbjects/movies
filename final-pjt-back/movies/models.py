@@ -59,16 +59,3 @@ class WatchedMovie(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="watched_movie")
     watched_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="watched_movie")
 
-
-# class Review(models.Model):
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="review")
-#     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="review")
-#     title = models.CharField(max_length=50)
-#     content = models.TextField()
-#     rate = models.FloatField(
-#         default=0,
-#         validators=[
-#             MaxValueValidator(5),
-#             MinValueValidator(0.5)
-#         ]
-#     )

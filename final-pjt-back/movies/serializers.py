@@ -1,12 +1,14 @@
 from rest_framework import serializers
-from .models import Movie, Genre, Actor, Director
+# from ..accounts.serializers import UserSerializer
+from django.contrib.auth import get_user_model
+from .models import Movie, Genre, Actor, Director, Review
 
-
-class MovieListSerializers(serializers.ModelSerializer):
+class MovieNameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'overview', 'poster_path', 'vote_average')
+        fields = ('title', 'poster_path')
+
 
 
 class GenreListSerializers(serializers.ModelSerializer):
@@ -14,7 +16,6 @@ class GenreListSerializers(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = '__all__'
-
 
 
 class ActorListSerializers(serializers.ModelSerializer):
@@ -25,8 +26,53 @@ class ActorListSerializers(serializers.ModelSerializer):
 
 
 
-class DirectorListSerializers(serializers.ModelSerializer):
+class DirectorSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Director
+        fields = '__all__'
+
+
+
+
+class MovieListSerializers(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Movie
+        fields = '__all__'
+
+
+
+class ReviewListSerializers(serializers.ModelSerializer):
+    
+    class CustomUserSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = get_user_model()
+            fields = ('id', 'username',)
+    
+    movie = MovieNameSerializer(read_only=True)
+    user = CustomUserSerializer(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+
+class ReviewSerializers(serializers.ModelSerializer):
+    movie = MovieNameSerializer(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = '__all__'
+        read_only_fields = ('movie',)
+
+
+class MovieSerializers(serializers.ModelSerializer):
+    actors = ActorListSerializers(many=True, read_only=True)
+    director = DirectorSerializers(read_only=True)
+    genres= GenreListSerializers(many=True, read_only=True)
+
+    class Meta:
+        model = Movie
         fields = '__all__'

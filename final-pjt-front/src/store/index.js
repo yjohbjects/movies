@@ -58,6 +58,7 @@ export default new Vuex.Store({
     LOGOUT(state) {
       localStorage.removeItem('token')
       localStorage.removeItem('username')
+      // console.log(state)
       state.token = null
       state.username = null
     }
@@ -103,6 +104,7 @@ export default new Vuex.Store({
           username: payload.username,
           password1: payload.password1,
           password2: payload.password2,
+          nickname: payload.nickname,
         }
       })
         .then((response) => {
@@ -135,7 +137,7 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        console.log(response.data["username"])
+        console.log(response.data)
         context.commit('GET_USERNAME', response.data["username"])
       })
       .catch((error) => {
