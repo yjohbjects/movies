@@ -65,8 +65,8 @@ export default {
       if (this.isLogin === true) {
         this.$store.dispatch('getMovies')
       } else {
-        alert('로그인 하세요')
-        this.$router.push({ name : 'login'})
+        alert('로그인이 필요한 페이지입니다 :-D')
+        this.$router.push({ name : "Login" })
       }
     }
   },

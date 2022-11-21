@@ -1,21 +1,20 @@
 <template>
-  <div>
-    <h1>Sign Up Page</h1>
+  <div class="container">
+    <div class="card">
     <form @submit.prevent="signUp">
-      <label for="username">username : </label>
-      <input type="text" id="username" v-model="username"><br>
+      <h1 style="text-align: center">회원가입</h1><br>
+      <label for="username">username</label><br>
+      <input type="username" class="form-control" id="username" placeholder="username" v-model="username"><br>
+      <label for="nickname">nickname</label><br>
+      <input type="nickname" class="form-control" id="nickname" placeholder="nickname" v-model="nickname"><br>
 
-      <label for="nickname">nickname : </label>
-      <input type="text" id="nickname" v-model="nickname"><br>
-
-      <label for="password1">password : </label>
-      <input type="text" id="password1" v-model="password1"><br>
-
-      <label for="password2">password confirmation : </label>
-      <input type="text" id="password2" v-model="password2"><br>
-
-      <input type="submit" value="signup">
+      <label for="password1">Password</label><br>
+      <input type="password" class="form-control" id="password1" placeholder="Enter Your Password" v-model="password"><br>
+      <label for="password2">Password Confirmation</label><br>
+      <input type="password" class="form-control" id="password2" placeholder="Confirm Your Password" v-model="password"><br>
+      <input type="submit" value="다음">
     </form>
+    </div>
   </div>
   
 </template>
