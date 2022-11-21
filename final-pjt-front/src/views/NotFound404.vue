@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>404 Not Found</h1>
+    <img src="https://ifh.cc/g/YOVLOx.png" alt="망망이 says Page Not Found">    
   </div>
 </template>
 
