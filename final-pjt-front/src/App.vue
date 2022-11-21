@@ -215,6 +215,12 @@ nav a.router-link-exact-active {
 body{
      background-color:#eeeeee59;
  }
+
+.modal-header {
+  background-color: #3F0071;
+  color: white
+}
+
 .dropdown-toggle::after { 
  content: none; 
  }

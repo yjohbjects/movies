@@ -1,22 +1,17 @@
 <template>
 <!-- 지정된 영화 1편에 대한 디테일 페이지 -->
 <div>
-  <h1>Movie Detail Page</h1>
-  <h1>{{ movieId }}</h1>
-  <h1>{{ title }}</h1>
-  <!-- 디테일 영화정보 받아오는 페이지 완성하기 -->
-
-  <!-- Detail 디테일 구역 -->
-  <div class="container">
+  <h1>{{ movieId}}</h1>
+  <div class="container my-5">
   <div class="d-flex justify-content-between">
-    <img :src="poster_path" alt="와칸다뽀에바" width="30%" height="30%">
+    <img :src="`${ movieDetail.poster_path }`" width="30%" height="30%">
     <!-- 시간이 된다면 포스터를 확대해서 볼 수 있는 기능을 추가하고싶다 -->
     
     <div class="row container">
       <div class="d-flex justify-content-between">
         <div>
-          <h2>{{ title }}</h2>
-          <p class="lead">{{ movieDetail?.original_title }}</p>
+          <h1>{{ movieDetail.title }}</h1>
+          <!-- <p class="lead">{{ movieDetail?.original_title }}</p> -->
         </div>
 
         <button type="button" class="btn btn-primary">나중에 볼 영화</button>
@@ -54,6 +49,10 @@
 
 <script>
 import ReviewDetailCard from '@/components/ReviewDetailCard'
+import axios from 'axios'
+
+// const API_URL = 'http://127.0.0.1:8000/api/v1/movies/'
+// 'movies/<int:movie_pk>/'
 
 export default {
   name: 'DetailView',
@@ -72,8 +71,27 @@ export default {
   computed: {
   },
   methods: {
+    getMovieDetail() {
+      axios({
+        metnod: 'get',
+        url: `http://127.0.0.1:8000/api/v1/movies/${this.movieId}`,
+        headers: {
+          Authorization : `Token ${ this.$store.state.token }`
+        }
+      })
+
+      .then((response) => {
+        this.movieDetail = response.data
+      })
+
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+
   },
   created() {
+    this.getMovieDetail()
   }
 
   }

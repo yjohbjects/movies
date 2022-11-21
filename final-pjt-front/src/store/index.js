@@ -107,6 +107,7 @@ export default new Vuex.Store({
         params: params,
       })
       .then((response) => {
+        console.log(response.data.results)
         context.commit('GET_POPULAR_MOVIES', response.data.results)
       })
       .catch((error) => {
@@ -128,6 +129,7 @@ export default new Vuex.Store({
         params: params,
       })
       .then((response) => {
+        console.log(response.data.results)
         context.commit('GET_NOW_PLAYING_MOVIES', response.data.results)
       })
       .catch((error) => {
