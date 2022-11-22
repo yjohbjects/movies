@@ -13,6 +13,7 @@ urlpatterns = [
     path('createreview/<int:movie_pk>/', views.create_review),
     path('rate_movie/<int:movie_pk>/', views.rate_movie),
     path('get_genre_name/<int:genre_pk>/', views.get_genre_name),
-    # path('get_actor_name/<int:actor_pk>/', views.get_actor_name),
-    # path('get_director_name/<int:director_pk>/', views.get_director_name),
+    path('get_actor_name/<int:actor_pk>/', views.get_actor_name),
+    path('get_director_name/<int:director_pk>/', views.get_director_name),
+    path('recommend_movies/', views.recommend_movies),
 ]
