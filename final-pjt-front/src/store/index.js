@@ -108,6 +108,9 @@ export default new Vuex.Store({
         return !(review.id === review_id)
       })
     },
+    GET_REVIEWS(state, reviews) {
+      state.reviews = reviews
+    }
 
   },
   actions: {
@@ -255,7 +258,8 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
+        context.commit('GET_REVIEWS', response.data)
       })
       .catch((error) => {
         console.log(error)

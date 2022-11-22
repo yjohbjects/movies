@@ -41,8 +41,10 @@
 </div>
   <!-- Reviews 커뮤니티 구역 -->
   <div class="container">
-    <h1>Reviews</h1>
-    <button @click="toCreateReview" class="btn btn-outline-secondary">작성</button>
+    <div class="d-flex justify-content-between">
+      <h1>Reviews</h1>
+      <button @click="toCreateReview" class="btn btn-outline-secondary">작성</button>
+    </div>
     <ReviewDetailCard v-for="review in reviews" :key="review.id" :review="review"
     />
   </div>
