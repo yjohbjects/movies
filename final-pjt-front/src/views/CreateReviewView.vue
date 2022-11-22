@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="card">
+
       <form @submit.prevent="createReview">
         <h1 style="text-align: center">리뷰작성</h1><br>
-
         <h1>★★★★★</h1>
 
         <label for="title">Title</label><br>
@@ -42,7 +42,7 @@ export default {
     createReview() {
       const title = this.title
       const content = this.content
-      const movieId = 49046
+      const movieId = this.movieId
       const user = this.$store.state.user
       const payload = {
         title: title,
@@ -55,6 +55,9 @@ export default {
       console.log(this.movieId)
       this.$router.push({ name: "Detail", params: { movieId: this.movieId } })
     }
+  },
+  created() {
+    console.log(this.movieId)
   }
 }
 </script>
