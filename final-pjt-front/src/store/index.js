@@ -24,6 +24,7 @@ export default new Vuex.Store({
     isMypage: true,
     isLoginpage: true,
     token: null,
+    user: null,
     username: null,
     reviews: [
       {
@@ -39,7 +40,7 @@ export default new Vuex.Store({
         createdAt: new Date().getTime(),
       },
     ],
-    review_id: 3,
+    // review_id: 3,
   },
   getters: {
     isLogin(state) {
@@ -79,8 +80,9 @@ export default new Vuex.Store({
       router.push({ name : 'Home' })
     },
 
-    GET_USERNAME(state, username) {
-      state.username = username
+    GET_USERNAME(state, payload) {
+      state.username = payload["username"]
+      state.user = payload["pk"]
     },
 
     LOGOUT(state) {
@@ -217,13 +219,14 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        console.log(response.data["username"])
-        context.commit('GET_USERNAME', response.data["username"])
+        console.log(response.data)
+        context.commit('GET_USERNAME', response.data)
       })
       .catch((error) => {
         console.log(error)
       })
     },
+
     createReview(context, payload) {
       axios({
         method: 'post',
@@ -231,6 +234,7 @@ export default new Vuex.Store({
         data: {
           title: payload.title,
           content: payload.content,
+          review_user: payload.user,
         },
         headers: {
           Authorization: `Token ${ context.state.token }`

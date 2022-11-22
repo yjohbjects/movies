@@ -63,6 +63,7 @@ def wish(request, movie_pk):
 @api_view(['POST'])
 def create_review(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
+    print(request)
     print(movie.pk)
     serializer = ReviewSerializers(data=request.data)
     print(serializer)
