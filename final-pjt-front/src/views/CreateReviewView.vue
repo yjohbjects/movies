@@ -33,6 +33,7 @@ export default {
   name: 'CreateReview',
   data() {
     return {
+      movieId: this.$router.params.movieId,
       title: null,
       content: null,
     }
@@ -51,6 +52,8 @@ export default {
       }
 
       this.$store.dispatch('createReview', payload)
+      console.log(this.movieId)
+      this.$router.push({ name: "Detail", params: { movieId: this.movieId } })
     }
   }
 }

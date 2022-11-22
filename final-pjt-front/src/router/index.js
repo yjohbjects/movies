@@ -26,7 +26,7 @@ const routes = [
   { path: '/', name: 'Home', component: HomeView },
   { path: '/about', name: 'About', component: AboutView },
   { path: '/:movieId', name: 'Detail', component: DetailView },
-  { path: '/:movieId/create_review', name: 'CreateReview', component: CreateReviewView },
+  { path: '/:movieId/create', name: 'CreateReview', component: CreateReviewView },
   
   // accounts
   { path: '/login', name: 'Login', component: LoginView },

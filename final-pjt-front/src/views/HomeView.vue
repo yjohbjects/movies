@@ -1,32 +1,37 @@
 <template>
   <div class="home">
     <HelloWorld/>
-    <div class="container-fluid">
+    <div class="container-fluid mt-5">
     
     <!-- 영화들 리스트별 horizontal scroll 추가 예정 -->
     <!-- https://codepen.io/Temmio/pen/gKGEYV -->
     
-    <h2 class="movie-type">{{ username }}님을 위한 추천영화</h2>
-    <div class="horizontal-scrollable">
-      <div class="row flex-nowrap">
-        <RecommendedMovieCard v-for="(movie, id) in recommendedMovies" :key="id" :movie="movie"/>
+    <div class="container my-3">
+      <h2 class="movie-type">{{ username }}님을 위한 추천영화</h2>
+      <div class="horizontal-scrollable">
+        <div class="row flex-nowrap">
+          <RecommendedMovieCard v-for="(movie, id) in recommendedMovies" :key="id" :movie="movie"/>
+        </div>
       </div>
     </div>
     <br>
-    <h2 class="movie-type">인기영화는 어때요?</h2>
-    <div class="horizontal-scrollable"> 
-      <div class="row flex-nowrap">
-        <PopularMovieCard v-for="(movie, id) in popularMovies" :key="id" :movie="movie"/>
+    <div class="container my-3">
+      <h2 class="movie-type">인기영화는 어때요?</h2>
+      <div class="horizontal-scrollable"> 
+        <div class="row flex-nowrap">
+          <PopularMovieCard v-for="(movie, id) in popularMovies" :key="id" :movie="movie"/>
+        </div>
       </div>
     </div>
     <br>
-    <h2 class="movie-type">최근 상영 영화는 어떤가요?</h2>
-    <div class="horizontal-scrollable">
-      <div class="row flex-nowrap">
-        <NowPlayingMovies v-for="(movie, id) in nowPlayingMovies" :key="id" :movie="movie"/>
+    <div class="container my-3">
+      <h2 class="movie-type">최근 상영 영화는 어떤가요?</h2>
+      <div class="horizontal-scrollable">
+        <div class="row flex-nowrap">
+          <NowPlayingMovies v-for="(movie, id) in nowPlayingMovies" :key="id" :movie="movie"/>
+        </div>
       </div>
     </div>
-    
     </div> <!-- container -->
   </div>
 </template>

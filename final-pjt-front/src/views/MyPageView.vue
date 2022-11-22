@@ -1,35 +1,44 @@
 <template>
-  <div>
-    <h1>mypage view</h1>
+  <div class="container-fluid mt-5">
 
-    <div class="d-flex">
-    <img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="200">
-      <div class="row">
-        <h3>{{ username }}</h3>
-        <p>내가 본 영화: {n} | 보고싶은 영화: {n}</p>
-        <p>{상태메세지} 저는 여가시간에 주로 영화를 보는걸 즐깁니다</p>
+    <!-- <h1>mypage view</h1> -->
+
+    <div class="container my-3">
+        <div class="d-flex align-items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="150">
+        <div class="mx-5">
+          <h2>{{ username }}님,</h2><br>
+          <p>평가한 영화:⠀{{ numWatchedMovies }} ⠀⠀|⠀⠀ 나중에 볼 영화:⠀{{ numToWatchMovies }}</p>
+        </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+      <div class="d-flex justify-content-between">
+        <h3>평가한 영화</h3>
+        <router-link :to="{ name: 'WatchedMovie' }">더보기</router-link>
       </div>
+      <RatedList/>
+      <hr>
     </div>
 
-    <div class="d-flex justify-content-between">
-      <h3>Watch list</h3>
-      <router-link :to="{}">더보기</router-link>
+    <div class="container my-5">
+      <div class="d-flex justify-content-between">
+        <h3>나중에 볼 영화</h3>
+        <router-link :to="{ name: 'ToWatchMovie' }">더보기</router-link>
+      </div>
+      <WatchList/>
+      <hr>
     </div>
-    <WatchList/>
-    <hr>
+    
+    <div class="container my-5">
 
     <div class="d-flex justify-content-between">
-      <h3>Rated list</h3>
-      <router-link :to="{}">더보기</router-link>
+        <h3>작성한 리뷰</h3>
+        <router-link :to="{ name: 'UserReview' }">더보기</router-link>
+      </div>
+      <ReviewDetailCard/>
     </div>
-    <RatedList/>
-    <hr>
-
-    <div class="d-flex justify-content-between">
-      <h3>Reviews</h3>
-      <router-link :to="{}">더보기</router-link>
-    </div>
-    <ReviewDetailCard/>
 
   </div>
 </template>
@@ -50,6 +59,15 @@ export default {
   computed: {
     isLogin() {
       return this.$store.getters.isLogin
+    },
+    username() {
+      return this.$store.state.username
+    },
+    numToWatchMovies() {
+      return this.$store.getters.numToWatchMovies
+    },
+    numWatchedMovies() {
+      return this.$store.getters.numWatchedMovies
     }
   },
   methods: {
@@ -69,3 +87,11 @@ export default {
   }
 }
 </script>
+
+<style>
+a {
+  color: #5CB8E4; 
+  text-decoration: none;
+}
+
+</style>

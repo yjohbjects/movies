@@ -2,6 +2,8 @@
   <div>
     <h1>나중에 볼 영화 페이지</h1>
     <ToWatchMovieCard/>
+    <router-link :to="{ name: 'MyPage' }">마이페이지</router-link>
+
   </div>
 </template>
 

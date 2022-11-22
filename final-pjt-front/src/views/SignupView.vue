@@ -6,6 +6,8 @@
 
       <label for="username">Username</label><br>
       <input type="text" class="form-control" id="username" placeholder="Enter Your ID" v-model="username"><br>
+      <label for="nickname">Nickname</label><br>
+      <input type="text" class="form-control" id="nickname" placeholder="Enter Your Nickname" v-model="nickname"><br>
 
       <label for="password1">Password</label><br>
       <input type="password" class="form-control" id="password1" placeholder="Enter Your Password" v-model="password"><br>
