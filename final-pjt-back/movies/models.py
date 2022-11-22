@@ -10,6 +10,7 @@ class Actor(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(max_length=20)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_genres")
 
 class Director(models.Model):
     name = models.CharField(max_length=100)
