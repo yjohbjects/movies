@@ -2,7 +2,6 @@
   <div class="container-fluid mt-5">
 
     <!-- <h1>mypage view</h1> -->
-
     <div class="container my-3">
         <div class="d-flex align-items-center">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png" alt="user" width="150">
@@ -72,7 +71,7 @@ export default {
     },
     numWatchedMovies() {
       return this.$store.getters.numWatchedMovies
-    }
+    },
   },
   methods: {
     getMypage() {

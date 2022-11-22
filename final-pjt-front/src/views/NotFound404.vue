@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-center">
-    <img src="https://ifh.cc/g/YOVLOx.png" alt="망망이 says Page Not Found" class="w-75">    
+    <img src="../../src/assets/404.png" alt="망망이 says Page Not Found" class="w-75">    
   </div>
 </template>
 
