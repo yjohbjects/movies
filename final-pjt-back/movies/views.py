@@ -157,6 +157,9 @@ def recommend_movies(request):
         genres = Genre.objects.all()
         while len(recommend_genres) < 3:
             recommend_genres.add(random.choice(genres))
-    serializer = GenreNameSerializer(recommend_genres, many=True)
-    print(serializer.data)
+    genre_pks = []
+    for genre in recommend_genres:
+        genre_pks.append(genre.pk)
+    movies = Movie.objects.filter(genres__in=genre_pks).order_by('?')
+    serializer = MovieListSerializers(movies, many=True)
     return Response(serializer.data)
