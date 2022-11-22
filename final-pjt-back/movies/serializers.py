@@ -7,7 +7,7 @@ class MovieNameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ('title', 'poster_path')
+        fields = '__all__'
 
 
 
@@ -45,29 +45,22 @@ class MovieListSerializers(serializers.ModelSerializer):
 
 class ReviewListSerializers(serializers.ModelSerializer):
     
-    class CustomUserSerializer(serializers.ModelSerializer):
+    # class CustomUserSerializer(serializers.ModelSerializer):
 
-        class Meta:
-            model = get_user_model()
-            fields = ('id', 'username',)
+    #     class Meta:
+    #         model = get_user_model()
+    #         fields = ('id', 'username',)
     
-    user = CustomUserSerializer(read_only=True)
+    # review_user = CustomUserSerializer(read_only=True)
     movie = MovieNameSerializer(read_only=True)
 
     class Meta:
         model = Review
-        fields = '__all__'
+        fields = ('id', 'title', 'content', 'movie')
 
 
 class ReviewSerializers(serializers.ModelSerializer):
 
-    class CustomUserSerializer(serializers.ModelSerializer):
-
-        class Meta:
-            model = get_user_model()
-            fields = ('id', 'username',)
-    
-    user = CustomUserSerializer(read_only=True)
     movie = MovieNameSerializer(read_only=True)
 
     class Meta:

@@ -17,11 +17,11 @@
 
       </form>
 
-    <form @submit.prevent="createRrticle">
+    <!-- <form @submit.prevent="createRrticle">
       <input type="text" v-model.trim="title"><br>
       <textarea v-model.trim="content"></textarea>
       <input type="submit">
-    </form>
+    </form> -->
 
 
     </div>
@@ -42,10 +42,12 @@ export default {
       const title = this.title
       const content = this.content
       const movieId = 49046
+      const user = this.$store.state.user
       const payload = {
         title: title,
         content: content,
         movieId: movieId,
+        user: user,
       }
 
       this.$store.dispatch('createReview', payload)
