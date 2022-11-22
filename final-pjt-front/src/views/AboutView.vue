@@ -14,7 +14,7 @@
       <star-rating
         v-bind:increment="0.5"
         v-bind:max-rating="5"
-        inactive-color="#808080"
+        inactive-color="white"
         active-color="#FED000"
         v-bind:star-size="30">
 
