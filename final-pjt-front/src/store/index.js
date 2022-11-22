@@ -26,6 +26,7 @@ export default new Vuex.Store({
     token: null,
     user: null,
     username: null,
+    nickname: null,
     reviews: [
       {
         id: 1,
@@ -90,6 +91,7 @@ export default new Vuex.Store({
 
     GET_USERNAME(state, payload) {
       state.username = payload["username"]
+      state.nickname = payload["nickname"]
       state.user = payload["pk"]
     },
 
@@ -108,9 +110,6 @@ export default new Vuex.Store({
         return !(review.id === review_id)
       })
     },
-    GET_REVIEWS(state, reviews) {
-      state.reviews = reviews
-    }
 
   },
   actions: {
@@ -192,14 +191,10 @@ export default new Vuex.Store({
           username: payload.username,
           password1: payload.password1,
           password2: payload.password2,
-          nickname: payload.nickname,
         }
       })
         .then((response) => {
           context.commit('SAVE_TOKEN', response.data.key)
-        })
-        .catch((error) => {
-          console.log(error)
         })
     },
 
@@ -262,8 +257,7 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        // console.log(response.data)
-        context.commit('GET_REVIEWS', response.data)
+        console.log(response.data)
       })
       .catch((error) => {
         console.log(error)

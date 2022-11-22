@@ -5,9 +5,10 @@
 
     <div class="container my-3">
         <div class="d-flex align-items-center">
-          <img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="150">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png" alt="user" width="150">
         <div class="mx-5">
-          <h2>{{ username }}님,</h2><br>
+          <h2 class="my-0">{{ nickname }}님,</h2>
+          <p class="lead">ID: {{ username }}</p>
           <p>평가한 영화:⠀{{ numWatchedMovies }} ⠀⠀|⠀⠀ 나중에 볼 영화:⠀{{ numToWatchMovies }}</p>
         </div>
         </div>
@@ -62,6 +63,9 @@ export default {
     },
     username() {
       return this.$store.state.username
+    },
+    nickname() {
+      return this.$store.state.nickname
     },
     numToWatchMovies() {
       return this.$store.getters.numToWatchMovies

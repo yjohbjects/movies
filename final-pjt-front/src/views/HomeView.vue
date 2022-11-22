@@ -7,7 +7,7 @@
     <!-- https://codepen.io/Temmio/pen/gKGEYV -->
     
     <div class="container my-3">
-      <h2 class="movie-type">{{ username }}님을 위한 추천영화</h2>
+      <h2 class="movie-type">{{ nickname }}님을 위한 추천영화</h2>
       <div class="horizontal-scrollable">
         <div class="row flex-nowrap">
           <RecommendedMovieCard v-for="(movie, id) in recommendedMovies" :key="id" :movie="movie"/>
@@ -64,8 +64,8 @@ export default {
     isLogin() {
       return this.$store.getters.isLogin
     },
-    username() {
-      return this.$store.state.username
+    nickname() {
+      return this.$store.state.nickname
     }
   },
   methods: {
