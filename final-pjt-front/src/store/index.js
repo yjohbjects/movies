@@ -44,6 +44,14 @@ export default new Vuex.Store({
   getters: {
     isLogin(state) {
       return state.token ? true : false
+    },
+    numWatchedMovies(state) {
+      // watched movies로 변경되어야함
+      return state.recommendedMovies.length
+    },
+    numToWatchMovies(state) {
+      // to watch movies로 변경되어야함
+      return state.recommendedMovies.length
     }
   },
   mutations: {

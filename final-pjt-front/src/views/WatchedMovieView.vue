@@ -2,6 +2,8 @@
   <div>
     <h1>평가한 영화 페이지</h1>
     <WatchedMovieCard/>
+    <router-link :to="{ name: 'MyPage' }">마이페이지</router-link>
+
   </div>
 </template>
 

@@ -2,6 +2,7 @@
   <div>
 
     <ReviewDetailCard/>
+    <router-link :to="{ name: 'MyPage' }">마이페이지</router-link>
   </div>
 </template>
 

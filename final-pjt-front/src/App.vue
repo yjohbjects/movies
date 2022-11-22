@@ -190,7 +190,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
-  color: #2c3e50;
+  /* background-color: black; */
+  color: #F2F2F2;
 }
 
 .home-nav {
@@ -200,25 +201,25 @@ export default {
 .mypage-nav {
   /* padding: 10px; */
   background-color: #150050;
-  color: white;
+  /* color: white; */
 }
 
 nav a {
   font-weight: bold;
-  color: white;
+  color: #F2F2F2;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+a.router-link-exact-active {
+  color: #FB2576;
 }
 
 body{
-     background-color:#eeeeee59;
+     background-color:#000000;
  }
 
 .modal-header {
   background-color: #3F0071;
-  color: white
+  color: #F2F2F2
 }
 
 .dropdown-toggle::after { 

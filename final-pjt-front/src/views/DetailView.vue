@@ -94,7 +94,8 @@ export default {
       })
     },
     toCreateReview() {
-      this.$router.push({ name: "CreateReview" })
+
+      this.$router.push({ name: "CreateReview", params: { movieId: this.movieId } })
     }
 
   },
