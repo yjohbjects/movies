@@ -13,8 +13,7 @@ export default {
   name: 'ReviewDetailCard',
   props: {
     review: Object,
-  }
-
+  },
 }
 </script>
 

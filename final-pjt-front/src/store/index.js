@@ -120,7 +120,6 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          console.log(response.data)
           context.commit('GET_MOVIES', response.data)
         })
         .catch((error) => {
@@ -142,7 +141,6 @@ export default new Vuex.Store({
         params: params,
       })
       .then((response) => {
-        console.log(response.data.results)
         context.commit('GET_POPULAR_MOVIES', response.data.results)
       })
       .catch((error) => {
@@ -164,7 +162,6 @@ export default new Vuex.Store({
         params: params,
       })
       .then((response) => {
-        console.log(response.data.results)
         context.commit('GET_NOW_PLAYING_MOVIES', response.data.results)
       })
       .catch((error) => {
@@ -173,17 +170,14 @@ export default new Vuex.Store({
     },
 
     nowHome(context) {
-      console.log('집이다!!')
       context.commit('NOW_HOME')
     },
 
     nowMypage(context) {
-      console.log('마이페이지다!!')
       context.commit('NOW_MYPAGE')
     },
 
     nowLogin(context) {
-      console.log('로그인해야겠다!!')
       context.commit('NOW_LOGIN')
     },
 
@@ -198,7 +192,6 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          console.log(response)
           context.commit('SAVE_TOKEN', response.data.key)
         })
     },
@@ -213,7 +206,6 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          console.log(response)
           context.commit('SAVE_TOKEN', response.data.key)
         })
     },
@@ -227,7 +219,6 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        console.log(response.data)
         context.commit('GET_USERNAME', response.data)
       })
       .catch((error) => {
@@ -254,8 +245,22 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
-
-    }
+    },
+    getReviews(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/review_list/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
   },
   modules: {
   }
