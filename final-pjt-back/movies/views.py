@@ -40,12 +40,20 @@ def review_list(request):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
+@api_view(['GET', "PUT"])
 # @permission_classes([IsAuthenticated])
 def review(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
-    serializer = ReviewSerializers(review)
-    return Response(serializer.data)
+    if request.method == "GET":
+        serializer = ReviewSerializers(review)
+        return Response(serializer.data)
+    elif request.method == "PUT":
+        serializer = ReviewSerializers(review, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+        
+
 
 
 @api_view(['POST'])
@@ -60,6 +68,7 @@ def wish(request, movie_pk):
     return Response(serializer.data)
 
 
+
 @api_view(['POST'])
 def create_review(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
@@ -68,8 +77,5 @@ def create_review(request, movie_pk):
     serializer = ReviewSerializers(data=request.data)
     print(serializer)
     if serializer.is_valid(raise_exception=True):
-        print(2)
         serializer.save(movie=movie, review_user=request.user)
-        print(3)
-    print(4)
     return Response(serializer.data)
