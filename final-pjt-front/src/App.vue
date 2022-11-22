@@ -1,6 +1,7 @@
 <template>
-  <div id="app">
-    
+  <div id="app" :style="`background: rgba(0, 0, 0, 0.75); background-image: url(${ randomBackground }); background-size: cover; background-blend-mode: darken; background-repeat : no-repeat; width: 100%; height: 180vh`">
+  <!-- <div id="app"> -->
+
     <!-- mypage nav -->
     <nav v-if="isMypage" class="mypage-nav">
       <div class="container-fluid d-flex justify-content-between">
@@ -48,7 +49,7 @@
     </nav>
 
     <!-- login nav -->
-    <nav v-else-if="isLoginpage"></nav>
+    <nav v-else-if="isLoginpage">⠀</nav>
 
     <!-- home nav -->
     <nav v-else class="home-nav">
@@ -148,6 +149,9 @@ export default {
     nickname() {
       return this.$store.state.nickname
     },
+    randomBackground() {
+      return this.$store.state.randomBackground
+    },
   },
   methods: {
     logout() {
@@ -184,6 +188,7 @@ export default {
   },
   created() {
     this.$store.dispatch('getUsername')
+    this.$store.dispatch('getRandomBackground')
   }
 }
 </script>
@@ -216,15 +221,10 @@ a.router-link-exact-active {
   color: #FB2576;
 }
 
-body{
-     background-color:#000000;
- }
-
 .modal-header {
   background-color: #5CB8E4;
   color: #F2F2F2
 }
-
 .dropdown-toggle::after { 
  content: none; 
  }

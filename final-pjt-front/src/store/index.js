@@ -11,6 +11,7 @@ const API_URL = 'http://127.0.0.1:8000'
 const API_NOW_PLAYING_MOVIE_URL = 'https://api.themoviedb.org/3/movie/now_playing'
 const API_POPULAR_MOVIE_URL = 'https://api.themoviedb.org/3/movie/popular'
 const API_KEY = process.env.VUE_APP_TMDB_API_KEY
+const randomNum = _.sample(_.range(1, 20))
 
 
 export default new Vuex.Store({
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     recommendedMovies: [],
     popularMovies: [],
     nowPlayingMovies: [],
+    randomBackground: null,
     isMypage: true,
     isLoginpage: true,
     token: null,
@@ -54,7 +56,7 @@ export default new Vuex.Store({
     numToWatchMovies(state) {
       // to watch movies로 변경되어야함
       return state.recommendedMovies.length
-    }
+    },
   },
   mutations: {
     GET_MOVIES(state, movies) {
@@ -67,6 +69,10 @@ export default new Vuex.Store({
 
     GET_NOW_PLAYING_MOVIES(state, nowPlayingMovies) {
       state.nowPlayingMovies = nowPlayingMovies
+    },
+
+    GET_RANDOM_BACKGROUND(state, poster_path) {
+      state.randomBackground = 'https://image.tmdb.org/t/p/original'+ poster_path
     },
 
     NOW_HOME(state) {
@@ -134,7 +140,7 @@ export default new Vuex.Store({
         api_key: API_KEY, 
         language: 'ko-KR',
         page: _.sample(_.range(1, 40)),
-        adult:false
+        // adult: false
       }
 
       axios({
@@ -155,7 +161,7 @@ export default new Vuex.Store({
         api_key: API_KEY, 
         language: 'ko-KR',
         page: _.sample(_.range(1, 40)),
-        adult:false
+        // adult: false
       }
 
       axios({
@@ -167,6 +173,28 @@ export default new Vuex.Store({
         context.commit('GET_NOW_PLAYING_MOVIES', response.data.results)
       })
       .catch((error) => {
+        console.log(error)
+      })
+    },
+
+    getRandomBackground(context) {
+      const params = {
+        api_key: API_KEY,
+        language: 'ko-KR',
+        // adult: false,
+        page: _.sample(_.range(1, 5)),
+      }
+
+      axios({
+        method: 'get', 
+        url: 'https://api.themoviedb.org/3/discover/movie/',
+        params: params,
+      })
+      .then((response) => {
+        // console.log(response.data.results[randomNum]["poster_path"])
+        context.commit('GET_RANDOM_BACKGROUND', response.data.results[randomNum]["poster_path"])
+      })
+      .error((error) => {
         console.log(error)
       })
     },

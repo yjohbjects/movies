@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <div class="card">
+    <div class="card my-5" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 10px">
     <form @submit.prevent="logIn">
+
       <h1 style="text-align: center">로그인</h1><br>
       <label for="username">Username</label><br>
       <input type="text" class="form-control" id="username" placeholder="Enter Your ID" v-model="username"><br>
@@ -52,5 +53,7 @@ export default {
 </script>
 
 <style>
-
+.card{
+  background-color: rgba(0, 0, 0, 0.5);
+}
 </style>

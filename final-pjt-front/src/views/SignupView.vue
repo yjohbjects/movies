@@ -1,7 +1,9 @@
 <template>
-  <div class="container">
-    <div class="card">
+  <div class="container my-5">
+    <div class="card my-5" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 10px">
     <form @submit.prevent="signUp">
+      <div class="container">
+
       <h1 style="text-align: center">회원가입</h1><br>
 
       <label for="username">Username</label><br>
@@ -14,6 +16,7 @@
       <label for="password2">Password Confirmation</label><br>
       <input type="password" class="form-control" id="password2" placeholder="Confirm Your Password" v-model="password2"><br>
       <input type="submit" value="다음">
+      </div>
     </form>
     </div>
   </div>

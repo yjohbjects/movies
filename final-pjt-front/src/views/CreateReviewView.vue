@@ -1,8 +1,9 @@
 <template>
-  <div class="container">
-    <div class="card">
+  <div class="container my-5">
+    <div class="card" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 10px">
 
       <form @submit.prevent="createReview">
+        <div class="container">
         <h1 style="text-align: center">리뷰작성</h1><br>
         <h1>{{ movidId }}</h1>
 
@@ -15,7 +16,7 @@
         <textarea id="content" class="form-control" v-model.trim="content" v-model="content" placeholder="내용을 입력해주세요."></textarea>
 
         <input type="submit" value="등록하기"><br>
-
+        </div> 
 
       </form>
 
@@ -58,5 +59,4 @@ export default {
 </script>
 
 <style>
-
 </style>
