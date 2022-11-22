@@ -43,7 +43,7 @@ class MovieListSerializers(serializers.ModelSerializer):
 
 
 
-class ReviewListSerializers(serializers.ModelSerializer):
+class ReviewListMovieSerializers(serializers.ModelSerializer):
     
     # class CustomUserSerializer(serializers.ModelSerializer):
 
@@ -57,6 +57,22 @@ class ReviewListSerializers(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('id', 'title', 'content', 'movie')
+
+
+class ReviewListUserSerializers(serializers.ModelSerializer):
+    
+    # class CustomUserSerializer(serializers.ModelSerializer):
+
+    #     class Meta:
+    #         model = get_user_model()
+    #         fields = ('id', 'username',)
+    
+    # review_user = CustomUserSerializer(read_only=True)
+    movie = MovieNameSerializer(read_only=True)
+
+    class Meta:
+        model = Review
+        exclude = ('review_user',)
 
 
 class ReviewSerializers(serializers.ModelSerializer):
@@ -77,3 +93,13 @@ class MovieSerializers(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
+
+
+class ReviewDetailSerializer(serializers.ModelSerializer):
+
+    movie = MovieNameSerializer(read_only=True)
+
+    class Meta:
+        model = Review
+        exclude = ('review_user',)
+        read_only_fields = ('movie',)
