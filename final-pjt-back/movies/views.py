@@ -1,7 +1,8 @@
 from django.http.response import JsonResponse
 from .models import Movie, Genre, Actor, Review
-from .serializers import MovieListSerializers, MovieNameSerializer, ReviewSerializers
+from .serializers import MovieListSerializers, MovieNameSerializer, ReviewSerializers, WatchedMovieSerializer
 from .serializers import MovieSerializers, ReviewDetailSerializer, ReviewListMovieSerializers, ReviewListUserSerializers
+from .serializers import GenreNameSerializer
 from django.shortcuts import get_list_or_404, get_object_or_404
 
 # from rest_framework import status
@@ -95,4 +96,40 @@ def create_review(request, movie_pk):
     print(serializer)
     if serializer.is_valid(raise_exception=True):
         serializer.save(movie=movie, review_user=request.user)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def rate_movie(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    # print(movie)
+    genres = movie.genres.all()
+    # from pprint import pprint
+    print(genres)
+    print(movie.genres.filter(pk=request.data["genre"]))
+    # # user = request.user
+    # rate = request.data["rate"]
+    # print(type(rate))
+    # print(type(int(rate)))
+    # if int(rate) >= 3.5:
+    #     print(1)
+    # #     user.like_genres.add(genres)
+    # # serializer = WatchedMovieSerializer(data=request.data)
+    # # if serializer.is_valid(raise_exception=True):
+    # #     serializer.save(movie=movie)
+    # # return Response(serializer.data)
+    # movie = Movie.objects.get(pk=movie_pk)
+    if movie.genres.filter(pk=request.data["genre"]).exists():
+        movie.genres.remove(request.data["genre"])
+    else:
+        movie.genres.add(request.data["genre"])
+
+    return Response()
+
+
+@api_view(['GET'])
+def get_genre_name(request, genre_pk):
+    print(1)
+    genre = get_object_or_404(Genre, pk=genre_pk)
+    serializer = GenreNameSerializer(genre)
     return Response(serializer.data)

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 # from ..accounts.serializers import UserSerializer
 from django.contrib.auth import get_user_model
-from .models import Movie, Genre, Actor, Director, Review
+from .models import Movie, Genre, Actor, Director, Review, WatchedMovie
 
 class MovieNameSerializer(serializers.ModelSerializer):
 
@@ -10,6 +10,11 @@ class MovieNameSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class GenreNameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Genre
+        fields = ('name',)
 
 class GenreListSerializers(serializers.ModelSerializer):
 
@@ -103,3 +108,19 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
         model = Review
         exclude = ('review_user',)
         read_only_fields = ('movie',)
+
+
+class WatchedMovieSerializer(serializers.ModelSerializer):
+
+    # class CustomUserSerializer(serializers.ModelSerializer):
+
+    #     class Meta:
+    #         model = get_user_model()
+    #         fields = ('id', 'username',)
+    
+    # watched_user = CustomUserSerializer(read_only=True)
+    movie = MovieNameSerializer(read_only=True)
+
+    class Meta:
+        model = WatchedMovie
+        fields = '__all__'

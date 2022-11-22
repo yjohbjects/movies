@@ -10,9 +10,9 @@
       <input type="text" class="form-control" id="nickname" placeholder="Enter Your Nickname" v-model="nickname"><br>
 
       <label for="password1">Password</label><br>
-      <input type="password" class="form-control" id="password1" placeholder="Enter Your Password" v-model="password"><br>
+      <input type="password" class="form-control" id="password1" placeholder="Enter Your Password" v-model="password1"><br>
       <label for="password2">Password Confirmation</label><br>
-      <input type="password" class="form-control" id="password2" placeholder="Confirm Your Password" v-model="password"><br>
+      <input type="password" class="form-control" id="password2" placeholder="Confirm Your Password" v-model="password2"><br>
       <input type="submit" value="다음">
     </form>
     </div>
@@ -28,6 +28,7 @@ export default {
       username: null,
       password1: null,
       password2: null,
+      nickname: null,
     }
   },
   methods: {
@@ -35,13 +36,14 @@ export default {
       const username = this.username
       const password1 = this.password1
       const password2 = this.password2
+      const nickname = this.nickname
 
       const payload = {
         username: username,
         password1: password1,
         password2: password2,
+        nickname: nickname,
       }
-      
       this.$store.dispatch('signUp', payload)
     }
   }
