@@ -1,9 +1,8 @@
 <template>
   <div>
-    <!-- <h1>test</h1> -->
-    <hr>
-    <h2>제목: {{ review.title }}</h2>
-    <p> 내용: {{ review.content }}</p>
+    <h1>test</h1>
+    <h1>{{ review.title }}</h1>
+    <p>{{ review.content }}</p>
 
   </div>
 </template>

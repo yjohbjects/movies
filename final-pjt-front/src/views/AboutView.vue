@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <!-- <StarRating/> -->
 
     <!-- 집으로 가는 방법 두가지 -->
     <h1>This is an about page</h1>
@@ -12,9 +13,9 @@
       <br>
       <p>평점 남기기</p>
       <star-rating
-        v-bind:increment="0.5"
+        v-bind:increment="0.5" 
         v-bind:max-rating="5"
-        inactive-color="white"
+        inactive-color="#808080"
         active-color="#FED000"
         v-bind:star-size="30">
 
@@ -28,16 +29,18 @@
    @click="zoomedImage">
 
 
+
   </div>
 </template>
 
 <script>
-// import StarRating from 'vue-star-rating'
+import StarRating from 'vue-star-rating'
+// import StarRating from '@/components/StarRating'
 
 export default {
   name: 'AboutView',
   components: {
-    // StarRating
+    StarRating
   },
   data() {
     return {

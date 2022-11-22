@@ -27,11 +27,11 @@
       <!-- user section -->
       <div class="btn-group">
         <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" style="border-radius: 40px">
-          <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20">⠀{{ username }}</span>
+          <span class="mx-1"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png" alt="user" width="20">⠀{{ nickname }}</span>
         </button>
         <ul class="dropdown-menu dropdown-menu-lg-end">
           <li @click="toMypage"><button class="dropdown-item" type="button">
-            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20">⠀{{ username }}</span>
+            <span class="mx-1"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png" alt="user" width="20">⠀{{ nickname }}</span>
           </button></li>
 
           <li><hr class="dropdown-divider"></li>
@@ -68,11 +68,11 @@
       <!-- user section -->
       <div class="btn-group">
         <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" style="border-radius: 40px">
-          <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20">⠀{{ username }}</span>
+          <span class="mx-1"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png" alt="user" width="20">⠀{{ nickname }}</span>
         </button>
         <ul class="dropdown-menu dropdown-menu-lg-end">
           <li @click="toMypage"><button class="dropdown-item" type="button">
-            <span class="mx-1"><img src="https://cdn-icons-png.flaticon.com/512/147/147133.png" alt="user" width="20">⠀{{ username }}</span>
+            <span class="mx-1"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png" alt="user" width="20">⠀{{ nickname }}</span>
           </button></li>
 
           <li><hr class="dropdown-divider"></li>
@@ -145,6 +145,9 @@ export default {
     username() {
       return this.$store.state.username
     },
+    nickname() {
+      return this.$store.state.nickname
+    },
   },
   methods: {
     logout() {
@@ -196,7 +199,7 @@ export default {
 
 .home-nav {
   /* padding: 10px; */
-  background-color: #8758FF;
+  background-color: #3F0071;
 }
 .mypage-nav {
   /* padding: 10px; */
@@ -218,7 +221,7 @@ body{
  }
 
 .modal-header {
-  background-color: #3F0071;
+  background-color: #5CB8E4;
   color: #F2F2F2
 }
 
