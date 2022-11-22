@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="logoin container">
     <div class="card my-5" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 10px">
     <form @submit.prevent="logIn">
 
@@ -33,6 +33,7 @@ export default {
   },
   methods: {
     logIn() {
+      console.log('clicked')
       const username = this.username
       const password = this.password
 
@@ -42,9 +43,6 @@ export default {
       }
       this.$store.dispatch('logIn', payload)
     },
-    // signup() {
-    //   this.$stoure.push({})
-    // }
   },
   created() {
     this.$store.dispatch('nowLogin')

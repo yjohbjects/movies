@@ -1,12 +1,13 @@
 <template>
     <div class="col">
     <div @click="toDetail">
-      <img :src="poster_path" width="218" height="327" style="border-radius: 5px">
+      <img :src="poster_path" width="218" height="327" style="border-radius: 5px" class="poster">
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'RecommendedMovieCard',
   props: {
@@ -30,6 +31,7 @@ export default {
   }
 
 }
+
 </script>
 
 <style>

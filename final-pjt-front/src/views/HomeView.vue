@@ -92,7 +92,8 @@ export default {
 /* The heart of the matter */
   
 .horizontal-scrollable > .row {
-    overflow-x: auto;
+    overflow-x: auto ;
+    display: flex;
     white-space: nowrap;
 }
   

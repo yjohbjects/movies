@@ -29,20 +29,7 @@ export default new Vuex.Store({
     user: null,
     username: null,
     nickname: null,
-    reviews: [
-      {
-        id: 1,
-        title: '저의 인생영화',
-        content: '제 인생은 이 영화를 보기 전과 후로 나뉩니다',
-        createdAt: new Date().getTime(),
-      },
-      {
-        id: 2,
-        title: '지루했습니다..;',
-        content: '어두운 조명에 ASMR 켜놓고 낮잠 자고싶으신 분들께 추천합니다.',
-        createdAt: new Date().getTime(),
-      },
-    ],
+    reviews: [],
     // review_id: 3,
   },
   getters: {
@@ -117,6 +104,9 @@ export default new Vuex.Store({
         return !(review.id === review_id)
       })
     },
+    GET_REVIEWS(state, reviews) {
+      state.reviews = reviews
+    }
 
   },
   actions: {
@@ -218,12 +208,27 @@ export default new Vuex.Store({
         url: `${API_URL}/accounts/signup/`,
         data: {
           username: payload.username,
+          nickname: payload.nickname,
           password1: payload.password1,
           password2: payload.password2,
         }
       })
         .then((response) => {
           context.commit('SAVE_TOKEN', response.data.key)
+        })
+        .catch((error) => {
+          // console.log(error.response.data)
+          if (error.response.data["username"]) {
+            alert('username error: ' + error.response.data["username"])
+          } else if (error.response.data["nickname"]) {
+            alert ('nickname error: ' + error.response.data["nickname"])
+          } else if (error.response.data["password1"]) {
+            alert('password error: ' + error.response.data["password1"])
+          } else if (error.response.data["password2"]) {
+            alert('password error: ' + error.response.data["password2"])
+          } else {
+            alert(error.response.data["non_field_errors"])
+          }
         })
     },
 
@@ -238,6 +243,15 @@ export default new Vuex.Store({
       })
         .then((response) => {
           context.commit('SAVE_TOKEN', response.data.key)
+        })
+        .catch((error) => {
+          if (error.response.data["username"]) {
+            alert('username error: ' + error.response.data["username"])
+          } else if (error.response.data["password"]) {
+            alert('password error: ' + error.response.data["password"])
+          } else {
+            alert(error.response.data["non_field_errors"])
+          }
         })
     },
 
@@ -277,21 +291,21 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    getReviews(context) {
+    getReviews(context, movieId) {
       axios({
         method: 'get',
-        url: `${API_URL}/api/v1/review_list/`,
+        url: `${API_URL}/api/v1/review_list/${movieId}`,
         headers: {
           Authorization: `Token ${ context.state.token }`
         }
       })
       .then((response) => {
-        console.log(response.data)
+        context.commit('GET_REVIEWS', response.data)
       })
       .catch((error) => {
         console.log(error)
       })
-    },
+    },    
   },
   modules: {
   }
