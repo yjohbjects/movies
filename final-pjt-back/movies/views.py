@@ -160,6 +160,15 @@ def recommend_movies(request):
     genre_pks = []
     for genre in recommend_genres:
         genre_pks.append(genre.pk)
-    movies = Movie.objects.filter(genres__in=genre_pks).order_by('?')
+    movies = Movie.objects.filter(genres__in=genre_pks).order_by('?')[:20]
     serializer = MovieListSerializers(movies, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_wish_movies(request):
+    user = request.user
+    movies = user.wish_movie.all()
+    serializer = MovieListSerializers(movies, many=True)
+    # print(serializer)
     return Response(serializer.data)

@@ -28,7 +28,7 @@ for genre in genres["genres"]:
     data["fields"] = fields
     total_data.append(data)
 
-for i in range(1, 11):
+for i in range(1, 51):
     request_url_movies = f"https://api.themoviedb.org/3/movie/top_rated?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
 
     movies = requests.get(request_url_movies).json()
@@ -155,7 +155,7 @@ print('@@@@')
 print(len(total_data))
 print('@@@@')
 
-for i in range(1, 11):
+for i in range(1, 51):
     request_url_movies = f"https://api.themoviedb.org/3/movie/popular?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
 
     movies = requests.get(request_url_movies).json()
@@ -388,7 +388,7 @@ print(len(total_data))
 
 
 
-for i in range(1, 11):
+for i in range(1, 51):
     request_url_movies = f"https://api.themoviedb.org/3/movie/now_playing?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
 
     movies = requests.get(request_url_movies).json()
