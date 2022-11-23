@@ -32,6 +32,7 @@ export default new Vuex.Store({
     reviews: [],
     userReviews: [],
     toWatchMovies: [],
+    userRate: 0,
   },
   getters: {
     isLogin(state) {
@@ -112,6 +113,10 @@ export default new Vuex.Store({
 
     GET_TO_WATCH_MOVIE(state, movies) {
       state.toWatchMovies = movies
+    },
+
+    SAVE_RATE(state, rate) {
+      state.userRate = rate
     }
 
   },
@@ -323,6 +328,29 @@ export default new Vuex.Store({
         console.log(error)
       })
     },
+    // 별점 조회
+    getRate(context, payload) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/get_rate/${payload.movieId}/`,
+        data: {
+          watched_user: payload.watched_user,
+        },
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then((response) => {
+        console.log(response)
+        // 여기서 값을 받아오면 값을 저장하면되고
+        // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 커밋
+        // context.commit('SATE_RATE', rate)
+      })
+      .catch((error) => {
+        console.log(error)
+        // 유저가 평가한 적이 없어서 값이 없다면, 0을 받아오면 된다
+      })
+    },
     createRate(context, payload) {
       axios({
         method: 'post',
@@ -337,10 +365,34 @@ export default new Vuex.Store({
       })
         .then((response) => {
           console.log(response)
+          // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 커밋
+          // context.commit('SATE_RATE', rate)
         })
         .catch((error) => {
           console.log(error)
         })
+    },
+    updateRate(context, payload){
+      axios({
+        method: 'put',
+        url: `${API_URL}/api/v1/get_rate/${payload.movieId}/`,
+        data: {
+          rate: payload.rate,
+          watched_user: payload.watched_user,
+        },
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+        .then((response) => {
+          console.log(response)
+          // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 
+          // context.commit('SATE_RATE', rate)
+      })
+        .catch((error) => {
+          console.log(error)
+        })
+
     },
     deleteReview(context, payload) {
       axios({
