@@ -33,7 +33,6 @@ export default {
   },
   methods: {
     logIn() {
-      console.log('clicked')
       const username = this.username
       const password = this.password
 

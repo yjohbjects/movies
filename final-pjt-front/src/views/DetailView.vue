@@ -40,7 +40,7 @@
 
       <div class="my-3">
         <!-- <h5>user's rate</h5> -->
-      <star-rating
+      <star-rating 
         class="mb-3"
         @rating-selected ="setRating"
         v-model="rating"
@@ -136,6 +136,8 @@ export default {
         this.movieDetail = response.data
         this.directorId = response.data.director
         
+        this.$store.dispatch('getReviews', this.movieId)
+        
         // 감독 이름 받기
         this.getDirectorName(response.data.director)
         
@@ -228,9 +230,7 @@ export default {
   },
   created() {
     this.getMovieDetail()
-    console.log(this.movieDetail)
-    // this.getDirectorName(this.directorId)
-    this.$store.dispatch('getReviews', this.movieId)
+    // this.$store.dispatch('getReviews', this.movieId)
 
   }
 
