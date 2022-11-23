@@ -117,7 +117,8 @@ export default new Vuex.Store({
 
     SAVE_RATE(state, rate) {
       state.userRate = rate
-    }
+      console.log('rate: ' + state.userRate)
+    },
 
   },
   actions: {
@@ -344,11 +345,12 @@ export default new Vuex.Store({
         console.log(response)
         // 여기서 값을 받아오면 값을 저장하면되고
         // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 커밋
-        // context.commit('SATE_RATE', rate)
+        context.commit('SAVE_RATE', response.data["rate"])
       })
       .catch((error) => {
         console.log(error)
         // 유저가 평가한 적이 없어서 값이 없다면, 0을 받아오면 된다
+        context.commit('SAVE_RATE', 0)
       })
     },
     createRate(context, payload) {
@@ -364,9 +366,9 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          console.log(response)
+          console.log(response.data["rate"])
           // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 커밋
-          // context.commit('SATE_RATE', rate)
+          context.commit('SAVE_RATE', response.data["rate"])
         })
         .catch((error) => {
           console.log(error)
@@ -387,7 +389,7 @@ export default new Vuex.Store({
         .then((response) => {
           console.log(response)
           // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 
-          // context.commit('SATE_RATE', rate)
+          context.commit('SAVE_RATE', response.data["rate"])
       })
         .catch((error) => {
           console.log(error)
