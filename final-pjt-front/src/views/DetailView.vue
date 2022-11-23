@@ -119,7 +119,9 @@ export default {
     reviews() {
       return this.$store.state.reviews
     },
-
+    isWished() {
+      return this.$store.state.isWished
+    }
   },
   methods: {
     setRating(){
@@ -236,10 +238,22 @@ export default {
           } else {
             alert('아니 안볼꺼야!')
           }
+          this.$store.commit('GET_WISH', response.data)
         })
         .catch((error) => {
           console.log(error)
         })
+    },
+    getIsWished() {
+      axios({
+      method: 'get',
+      url: `http://127.0.0.1:8000/api/v1/is_wish/${this.movieId}`,
+    })
+      .then((response) => {
+        console.log('check')
+        console.log(response.data)
+        this.$store.commit('GET_WISH', response.data)
+      })
     }
   },
   created() {
@@ -254,6 +268,8 @@ export default {
       movieId: movieId
     }
     this.$store.dispatch('getRate', payload)
+
+    this.getIsWished()
   }
 
   }

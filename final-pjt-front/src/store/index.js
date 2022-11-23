@@ -33,6 +33,7 @@ export default new Vuex.Store({
     userReviews: [],
     toWatchMovies: [],
     userRate: 0,
+    isWished: null,
   },
   getters: {
     isLogin(state) {
@@ -120,6 +121,10 @@ export default new Vuex.Store({
       console.log('rate: ' + state.userRate)
     },
 
+    GET_WISH(state, payload) {
+      state.isWished = payload["is_wished"]
+      console.log(state.isWished)
+    }
   },
   actions: {
     getMovies(context) {
