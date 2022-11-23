@@ -1,5 +1,5 @@
 from django.http.response import JsonResponse
-from .models import Movie, Genre, Actor, Review, Director
+from .models import Movie, Genre, Actor, Review, Director, WatchedMovie
 from .serializers import MovieListSerializers, MovieNameSerializer, ReviewSerializers, WatchedMovieSerializer
 from .serializers import MovieSerializers, ReviewDetailSerializer, ReviewListMovieSerializers, ReviewListUserSerializers
 from .serializers import GenreNameSerializer, DirectorSerializers, ActorListSerializers
@@ -101,24 +101,7 @@ def create_review(request, movie_pk):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
-def rate_movie(request, movie_pk):
-    movie = get_object_or_404(Movie, pk=movie_pk)
-    genres = movie.genres.all()
-    user = request.user
-    rate = request.data["rate"]
-    if int(rate) >= 3.5:
-        for genre in genres:
-            user.like_genres.add(genre.pk)
-    serializer = WatchedMovieSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(movie=movie)
-    return Response(serializer.data)
-    # movie = Movie.objects.get(pk=movie_pk)
-    # if movie.genres.filter(pk=request.data["genre"]).exists():
-    #     movie.genres.remove(request.data["genre"])
-    # else:
-    #     movie.genres.add(request.data["genre"])
+
 
 
 @api_view(['GET'])
@@ -172,3 +155,46 @@ def get_wish_movies(request):
     serializer = MovieListSerializers(movies, many=True)
     # print(serializer)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def rate_movie(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    genres = movie.genres.all()
+    user = request.user
+    rate = request.data["rate"]
+    if float(rate) >= 3.5:
+        for genre in genres:
+            user.like_genres.add(genre.pk)
+    serializer = WatchedMovieSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(movie=movie, watched_user=request.user)
+    return Response(serializer.data)
+
+    # elif request.method == "PUT":
+    #     serializer = ReviewDetailSerializer(review, data=request.data)
+    #     if serializer.is_valid(raise_exception=True):
+    #         serializer.save()
+    #         return Response(serializer.data)
+
+@api_view(['GET', 'PUT'])
+def get_rate(request, movie_pk):
+    target_movie = Movie.objects.get(pk=movie_pk)
+    movies = WatchedMovie.objects.all().filter(movie=target_movie)
+    for movie in movies:
+        if movie.watched_user == request.user:
+            rate = movie.rate
+            movie_to_rate = movie
+    if request.method == 'GET':
+        context = {
+            'rate': rate,
+        }
+        return JsonResponse(context)
+    elif request.method == 'PUT':
+        serializer = WatchedMovieSerializer(movie_to_rate, data=request.data)
+        print(3)
+        if serializer.is_valid(raise_exception=True):
+            print(1)
+            serializer.save(movie=target_movie, watched_user=request.user)
+            print(2)
+            return Response(serializer.data)

@@ -15,19 +15,6 @@ class Genre(models.Model):
 class Director(models.Model):
     name = models.CharField(max_length=100)
 
-# class Movie(models.Model):
-#     title = models.CharField(max_length=200)
-#     poster_path = models.CharField(max_length=100)
-#     popularity = models.IntegerField()
-#     vote_average = models.FloatField()
-#     release_date = models.CharField(max_length=100)
-#     overview = models.TextField()
-#     genre_ids = models.ManyToManyField(Genre)
-#     actor_ids = models.ManyToManyField(Actor)
-#     director_id = models.ForeignKey(Director, on_delete=models.CASCADE, related_name="movies")
-#     user_watched = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='watched_movie')
-#     user_wished = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="wish_movie")
-
 
 class Movie(models.Model):
     title = models.CharField(max_length=50)
