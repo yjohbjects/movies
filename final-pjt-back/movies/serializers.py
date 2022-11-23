@@ -112,13 +112,6 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
 
 class WatchedMovieSerializer(serializers.ModelSerializer):
 
-    # class CustomUserSerializer(serializers.ModelSerializer):
-
-    #     class Meta:
-    #         model = get_user_model()
-    #         fields = ('id', 'username',)
-    
-    # watched_user = CustomUserSerializer(read_only=True)
     movie = MovieNameSerializer(read_only=True)
 
     class Meta:
