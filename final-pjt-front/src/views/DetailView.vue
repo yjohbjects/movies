@@ -40,18 +40,38 @@
 
       <div class="my-3">
         <!-- <h5>user's rate</h5> -->
+      <div
+      @mouseover="hover = true"
+      @mouseleave="hover = false"
+      >
+      <!-- hover하면 조정할 수 있는 별점 -->
       <star-rating 
+        v-if="hover"
+        v-model="inputRate"
+        :rating="5"
+        :increment="0.5" 
+        inactive-color="#808080"
+        active-color="#FABD02"
+        :star-size="50"
         class="mb-3"
         @rating-selected ="setRating"
-        v-model="rating"
-        v-bind:increment="0.5" 
-        v-bind:max-rating="5"
-        inactive-color="#808080"
         :show-rating="false"
-        active-color="#FABD02"
-        v-bind:star-size="50">
+        >
       </star-rating>   
-
+        
+      <!-- 보여지는 별점 -->
+      <star-rating 
+      v-else
+      :rating="`${ userRate }`" 
+      :increment="0.5"
+      inactive-color="#808080"
+      active-color="#FABD02"
+      :star-size="50"
+      class="mb-3"
+      :show-rating="false"  
+      >
+      </star-rating>
+      </div>
 
         <span><h5>Director:</h5></span>
         <h6>{{ director }}</h6>
@@ -104,6 +124,7 @@ export default {
       actorId: null,
 
       userRate: 0,
+      hover: false,
     }
   },
   props: {
@@ -123,6 +144,7 @@ export default {
   },
   methods: {
     setRating(){
+      console.log('clicked')
       const rate = this.rating  // 입력된 값
       const watched_user = this.$store.state.user
       const movieId = this.movieId
