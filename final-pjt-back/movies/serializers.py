@@ -54,7 +54,7 @@ class ReviewListMovieSerializers(serializers.ModelSerializer):
 
         class Meta:
             model = get_user_model()
-            fields = ('id', 'username',)
+            fields = ('id', 'username', 'nickname',)
     
     review_user = CustomUserSerializer(read_only=True)
     movie = MovieNameSerializer(read_only=True)
