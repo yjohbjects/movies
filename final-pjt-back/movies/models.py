@@ -37,6 +37,7 @@ class Movie(models.Model):
     overview = models.CharField(max_length=200)
     release_date = models.CharField(max_length=100)
     certification = models.CharField(max_length=10)
+    original_title = models.CharField(max_length=100)
     genres = models.ManyToManyField(Genre, related_name="movies")
     actors = models.ManyToManyField(Actor, related_name="movies")
     director = models.ForeignKey(Director, on_delete=models.CASCADE, related_name="movies")
