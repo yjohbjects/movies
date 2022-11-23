@@ -34,7 +34,7 @@
         
         <span class="genres m-2">
           <span style="color: #FABD02">★</span>
-           {{ movieDetail?.vote_average }}</span>
+           {{ movieDetail?.vote_average/2 }}</span>
         <span class="genres mx-2">{{ genres.join(', ') }}</span>
       </div>
 
@@ -96,7 +96,6 @@ export default {
       movieId: this.$route.params.movieId,
       directorId: null,
       movieDetail: null,
-      userRate: 0,
 
       director: null,
       genres: [],
@@ -122,7 +121,18 @@ export default {
   },
   methods: {
     setRating(){
-      this.userRate = this.rating
+      console.log('set rating')
+      const rate = this.rating
+      const watched_user = this.$store.state.user
+      const movieId = this.movieId
+      console.log(watched_user)
+      const payload = {
+        rate: rate,
+        watched_user: watched_user,
+        movieId: movieId
+      }
+
+      this.$store.dispatch('createRate', payload)
     },
     getMovieDetail() {
       axios({

@@ -6,17 +6,21 @@
 
       <form @submit.prevent="createReview">
         <!-- <div class="container"> -->
-        <h1 style="text-align: center">리뷰작성</h1><br>
-        <h1>{{ movidId }}</h1>
+        <h1 style="text-align: center" class="mt-4">리뷰</h1><br>
 
-        <label for="title">Title</label><br>
+        <div class="card-body">
+
+        <label for="title">제목:</label><br>
         <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요." v-model="title"><br>
 
-        <label for="content">내용</label>
+        <label for="content">내용:</label>
         <textarea id="content" class="form-control" v-model="content" placeholder="내용을 입력해주세요."></textarea>
 
-        <input type="submit" value="등록하기"><br>
+        <div class="d-flex justify-content-end my-4">
+        <input class="btn" style="background-color: #5CB8E4; color: #F2F2F2;" type="submit" value="등록하기"><br>
+        </div>
         <!-- </div>  -->
+        </div>
       </form>
 
     </div>

@@ -1,27 +1,31 @@
 <template>
-  <div>
-    <h1>리뷰 디테일 페이지</h1>
+  <div id="update-review" :style="`background: rgba(0, 0, 0, 0.75); background-image: url(${ reviewDetail.movie['poster_path'] }); background-size: cover; background-blend-mode: darken; background-repeat : no-repeat; width: 100%; height: 180vh`">
+    <h1>⠀</h1>
+   <div class="container my-5">
+    <div class="card" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 10px">
 
       <form @submit.prevent="updateReview">
         <!-- <div class="container"> -->
-        <h1 style="text-align: center">리뷰작성</h1><br>
-        <h1>{{ movidId }}</h1>
+        <h1 style="text-align: center" class="mt-4">리뷰</h1><br>
+        <div class="card-body">
 
         <label for="title">Title</label><br>
-        <input type="text" class="form-control" id="title" v-model="title"><br>
+        <input type="text" class="form-control" id="title" v-model="title" :placeholder="`${ reviewDetail.title }`"><br>
 
         <label for="content">내용</label>
-        <textarea id="content" class="form-control" v-model="content"></textarea>
+        <textarea id="content" class="form-control" v-model="content" :placeholder="`${ reviewDetail.content }`"></textarea>
+        
+        <div class="d-flex justify-content-end my-4">
+          <input type="submit" class="btn mx-2" style="background-color: #5CB8E4; color: #F2F2F2;" value="수정"><br>
+          <button class="btn mx-2" style="background-color: #5CB8E4; color: #F2F2F2;" @click="deleteReview">삭제</button>
+        </div>
 
-        <input type="submit" class="btn btn-outline-primary" value="수정"><br>
+        </div>
       </form>
 
 
-    <h1>{{ reviewId }}</h1>
-    <p>{{ reviewDetail }}</p>
-    <h2>{{ reviewDetail.title }}</h2>
-    <h3>{{ reviewDetail.content }}</h3>
-    <button class="btn btn-outline-primary" @click="deleteReview">삭제</button>
+      </div>
+    </div>
   </div>
 </template>
 

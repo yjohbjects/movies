@@ -323,6 +323,25 @@ export default new Vuex.Store({
         console.log(error)
       })
     },
+    createRate(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/v1/rate_movie/${payload.movieId}/`,
+        data: {
+          rate: payload.rate,
+          watched_user: payload.watched_user,
+        },
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     deleteReview(context, payload) {
       axios({
         method: 'delete',
