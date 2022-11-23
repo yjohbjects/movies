@@ -30,7 +30,7 @@ export default new Vuex.Store({
     username: null,
     nickname: null,
     reviews: [],
-    // review_id: 3,
+    userReviews: [],
   },
   getters: {
     isLogin(state) {
@@ -99,14 +99,20 @@ export default new Vuex.Store({
       state.reviews.push(review)
       state.review_id = state.review_id + 1
     },
-    DELETE_REVIEW(state, review_id) {
+    DELETE_REVIEW(state, reviewId) {
       state.reviews = state.reviews.filter((review) => {
-        return !(review.id === review_id)
+        return !(review.id === reviewId)
       })
     },
+    // by movies
     GET_REVIEWS(state, reviews) {
       state.reviews = reviews
-    }
+    },
+
+    // by users
+    GET_USER_REVIEWS(state, reviews) {
+      state.userReviews = reviews
+    },
 
   },
   actions: {
@@ -125,13 +131,12 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-
     getPopularMovies(context) {
       const params = {
         api_key: API_KEY, 
         language: 'ko-KR',
         page: _.sample(_.range(1, 40)),
-        // adult: false
+        adult: false
       }
 
       axios({
@@ -146,15 +151,13 @@ export default new Vuex.Store({
         console.log(error)
       })
     },
-
     getNowPlayingMovies(context) {
       const params = {
         api_key: API_KEY, 
         language: 'ko-KR',
         page: _.sample(_.range(1, 40)),
-        // adult: false
+        adult: false
       }
-
       axios({
         method: 'get',
         url: API_NOW_PLAYING_MOVIE_URL,
@@ -172,7 +175,7 @@ export default new Vuex.Store({
       const params = {
         api_key: API_KEY,
         language: 'ko-KR',
-        // adult: false,
+        adult: false,
         page: _.sample(_.range(1, 5)),
       }
 
@@ -291,6 +294,7 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
+    // by movies
     getReviews(context, movieId) {
       axios({
         method: 'get',
@@ -306,6 +310,23 @@ export default new Vuex.Store({
         console.log(error)
       })
     },    
+    // by usres
+    getUserReviews(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/review_list/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then((response) => {
+        console.log(response)
+        context.commit('GET_USER_REVIEWS', response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
   },
   modules: {
   }

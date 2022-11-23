@@ -25,8 +25,8 @@ const routes = [
   // home
   { path: '/', name: 'Home', component: HomeView },
   { path: '/about', name: 'About', component: AboutView },
-  { path: '/:movieId', name: 'Detail', component: DetailView },
-  { path: '/:movieId/create', name: 'CreateReview', component: CreateReviewView },
+  { path: '/movie/:movieId', name: 'Detail', component: DetailView },
+  { path: '/movie/:movieId/create', name: 'CreateReview', component: CreateReviewView },
   
   // accounts
   { path: '/login', name: 'Login', component: LoginView },
@@ -36,10 +36,10 @@ const routes = [
 
   // mypage (:username/userId 추가 예정) 
   { path: '/user', name: 'MyPage', component: MyPageView },
-  { path: '/to_watch_movie',name: 'ToWatchMovie', component: ToWatchMovieView },
-  { path: '/watched_movie', name: 'WatchedMovie', component: WatchedMovieView },
-  { path: '/user_review', name: 'UserReview', component: UserReviewView },
-  { path: '/review_detail', name: 'ReviewDetail', component: ReviewDetailView },
+  { path: '/to_watch_movies',name: 'ToWatchMovie', component: ToWatchMovieView },
+  { path: '/watched_movies', name: 'WatchedMovie', component: WatchedMovieView },
+  { path: '/user_reviews', name: 'UserReview', component: UserReviewView },
+  { path: '/review/:reviewId', name: 'ReviewDetail', component: ReviewDetailView },
 
   // NotFound404
   { path: '/404-not-found', name: 'NotFound404', component: NotFound404 },

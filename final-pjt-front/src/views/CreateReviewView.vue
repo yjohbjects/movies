@@ -13,7 +13,7 @@
         <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요." v-model="title"><br>
 
         <label for="content">내용</label>
-        <textarea id="content" class="form-control" v-model.trim="content" v-model="content" placeholder="내용을 입력해주세요."></textarea>
+        <textarea id="content" class="form-control" v-model="content" placeholder="내용을 입력해주세요."></textarea>
 
         <input type="submit" value="등록하기"><br>
         <!-- </div>  -->
