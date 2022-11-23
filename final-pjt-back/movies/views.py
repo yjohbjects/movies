@@ -54,11 +54,14 @@ def review_list(request):
 # @permission_classes([IsAuthenticated])
 def review(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
+    print(2)
     if request.method == "GET":
         serializer = ReviewSerializers(review)
         return Response(serializer.data)
     elif request.method == "PUT":
+        print(1)
         serializer = ReviewDetailSerializer(review, data=request.data)
+        print(3)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
@@ -76,11 +79,14 @@ def wish(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     if movie.wish_user.filter(pk=request.user.pk).exists():
         movie.wish_user.remove(request.user)
+        is_wished = False
     else:
         movie.wish_user.add(request.user)
-    serializer = MovieSerializers(movie)
-    print(serializer)
-    return Response(serializer.data)
+        is_wished = True
+    context = {
+        'is_wished': is_wished
+    }
+    return JsonResponse(context)
 
 
 
@@ -162,6 +168,7 @@ def rate_movie(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     genres = movie.genres.all()
     user = request.user
+    print(request.data)
     rate = request.data["rate"]
     if float(rate) >= 3.5:
         for genre in genres:
@@ -198,3 +205,17 @@ def get_rate(request, movie_pk):
             serializer.save(movie=target_movie, watched_user=request.user)
             print(2)
             return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+def is_wish(request, movie_pk):
+    movie = Movie.objects.get(pk=movie_pk)
+    if movie.wish_user.filter(pk=request.user.pk).exists():
+        is_wished = True
+    else:
+        is_wished = False
+    context = {
+        'is_wished': is_wished,
+    }
+    return JsonResponse(context)

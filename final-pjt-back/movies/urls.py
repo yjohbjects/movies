@@ -18,4 +18,5 @@ urlpatterns = [
     path('recommend_movies/', views.recommend_movies),
     path('get_wish_movies/', views.get_wish_movies),
     path('get_rate/<int:movie_pk>/', views.get_rate),
+    path('is_wish/<int:movie_pk>/', views.is_wish),
 ]

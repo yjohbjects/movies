@@ -5,7 +5,6 @@
     <h5>작성자: {{ review.review_user["nickname"] }}</h5>
     <p>{{ review.content }}</p>
     <hr>
-    {{ review }}
 
   </div>
 </template>
