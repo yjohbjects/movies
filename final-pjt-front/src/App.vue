@@ -49,7 +49,7 @@
     </nav>
 
     <!-- login nav -->
-    <nav v-else-if="isLoginpage">⠀</nav>
+    <!-- <nav v-else-if="isLoginpage">⠀</nav> -->
 
     <!-- home nav -->
     <nav v-else class="home-nav">

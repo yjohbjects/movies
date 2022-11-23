@@ -2,8 +2,6 @@
 <!-- 지정된 영화 1편에 대한 디테일 페이지 -->
 <div id="detail" :style="`background: rgba(0, 0, 0, 0.75); background-image: url(${ movieDetail?.poster_path }); background-size: cover; background-blend-mode: darken; background-repeat : no-repeat; width: 100%; height: 180vh`">
   <h1>⠀</h1>
-  <!-- <h1>{{ directorId }}</h1> -->
-  <!-- {{ movieDetail }} -->
   <div class="container my-5" >
   <div class="d-flex justify-content-between">
     <img :src="`${ movieDetail?.poster_path }`" width="30%" height="30%" style="border-radius: 5px">
@@ -13,10 +11,10 @@
       <div class="d-flex justify-content-between">
         <div>
           <span>
-            <span style="font-weight: bold; font-size: 60px">{{ movieDetail?.title }} </span>
+            <span style="font-weight: bold; font-size: 50px">{{ movieDetail?.title }} </span>
             <span style="font-size: 50px;">({{ release_year }})</span>
           </span>
-          <p class="lead">{ movieDetail?.original_title }</p>
+          <p class="lead">{{ movieDetail?.original_title }}</p>
         </div>
 
         <!-- <button type="button" class="btn btn-primary">나중에 볼 영화</button> -->
@@ -31,18 +29,19 @@
         <span v-else-if="movieDetail?.certification==='G'" class="mx-2"><img src="../../src/assets/all.png" alt="ALL" width="29" height="29"></span>
         <span v-else-if="movieDetail?.certification==='R'" class="mx-2"><img src="../../src/assets/18.png" alt="18" width="29" height="29"></span>
         <span v-else-if="movieDetail?.certification==='NC-17'" class="mx-2"><img src="../../src/assets/18.png" alt="18" width="29" height="29"></span>
-        <span v-else-if="NR" class="genres mx-2">NR</span>
+        <span v-else-if="movieDetail?.certification==='NR'" class="genres mx-2">NR</span>
         <span v-else-if="!movieDetail?.certification" class="genres mx-2">NR</span>
         
-        <span class="genres mx-2">
+        <span class="genres m-2">
           <span style="color: #FABD02">★</span>
            {{ movieDetail?.vote_average }}</span>
-        <span class="genres mx-2">{{ movieDetail?.genres }}</span>
+        <span class="genres mx-2">{{ genres.join(', ') }}</span>
       </div>
 
-      <div>
+      <div class="my-3">
         <!-- <h5>user's rate</h5> -->
       <star-rating
+        class="mb-3"
         @rating-selected ="setRating"
         v-model="rating"
         v-bind:increment="0.5" 
@@ -54,11 +53,13 @@
       </star-rating>   
 
 
-        <span><h5>director:</h5></span>
-        {{ movieDetail?.director }}
-        <span><h5>credits:</h5></span>
-        {{ movieDetail?.actors }}
-        <h5>overivew:</h5>
+        <span><h5>Director:</h5></span>
+        <h6>{{ director }}</h6>
+        <br>
+        <span><h5>Credits:</h5></span>
+        <h6>{{ actors.join(', ') }}</h6>
+        <br>
+        <span><h5>Overivew:</h5></span>
         <p>{{ movieDetail?.overview }}</p>
       </div>
     </div>
@@ -69,8 +70,8 @@
     <div class="d-flex justify-content-between">
     <h1>Reviews</h1>
     <button @click="toCreateReview" class="btn btn-outline-secondary">작성</button></div>
-    <ReviewDetailCard v-for="review in reviews" :key="review.id" :review="review"
-    />
+    <hr>
+    <ReviewDetailCard v-for="review in reviews" :key="review.id" :review="review"/>
   </div>
 
     
@@ -82,7 +83,7 @@ import StarRating from 'vue-star-rating'
 import ReviewDetailCard from '@/components/ReviewDetailCard'
 import axios from 'axios'
 
-// const API_URL = 'http://127.0.0.1:8000/api/v1/get_director_name/'
+// const API_URL_GET_DIRECTOR_NAME = `http://127.0.0.1:8000/api/v1/get_director_name/`
 
 export default {
   name: 'DetailView',
@@ -93,8 +94,15 @@ export default {
   data() {
     return {
       movieId: this.$route.params.movieId,
+      directorId: null,
       movieDetail: null,
       userRate: 0,
+
+      director: null,
+      genres: [],
+      genreId: null,
+      actors: [],
+      actorId: null,
     }
   },
   props: {
@@ -102,17 +110,15 @@ export default {
   },
   computed: {
     release_year() {
-      return this.movieDetail?.release_date.substring(0, 4)
+      return this.movieDetail.release_date.substring(0, 4)
+    },
+    movieDetails() {
+      return this.$store.state.movieDetails
     },
     reviews() {
       return this.$store.state.reviews
     },
-    directorId() {
-      return this.movieDetail?.director
-    }
-    // get_director_API_URL() {
-    //   return 'http://127.0.0.1:8000/api/v1/get_director_name/'
-    // }
+
   },
   methods: {
     setRating(){
@@ -128,6 +134,68 @@ export default {
       })
       .then((response) => {
         this.movieDetail = response.data
+        this.directorId = response.data.director
+        
+        // 감독 이름 받기
+        this.getDirectorName(response.data.director)
+        
+        // 배우 이름 받기
+        for (this.actorId of response.data.actors) {
+          this.getActorName(this.actorId)
+        }
+        
+        // 장르 이름 받기
+        for (this.genreId of response.data.genres) {
+          this.getGenreName(this.genreId)
+        }
+        
+        
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+    getDirectorName(directorId) {
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/api/v1/get_director_name/${directorId}`,
+        headers: {
+          Authorization : `Token ${ this.$store.state.token }`
+        }
+      })
+      .then((response) => {
+        this.director = response.data["name"]
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+
+    getGenreName(genreId) {
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/api/v1/get_genre_name/${genreId}`,
+        headers: {
+          Authorization : `Token ${ this.$store.state.token }`
+        }
+      })
+      .then((response) => {
+        this.genres.push(response.data["name"])
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+    getActorName(actorId) {
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/api/v1/get_actor_name/${actorId}`,
+        headers: {
+          Authorization : `Token ${ this.$store.state.token }`
+        }
+      })
+      .then((response) => {
+        this.actors.push(response.data["name"])
       })
       .catch((error) => {
         console.log(error)
@@ -139,11 +207,10 @@ export default {
   },
   created() {
     this.getMovieDetail()
+    console.log(this.movieDetail)
+    // this.getDirectorName(this.directorId)
     this.$store.dispatch('getReviews', this.movieId)
 
-    // getGenres()
-    // this.$store.dispatch('getDirector', this.directorId)
-    // getActors()
   }
 
   }

@@ -1,10 +1,8 @@
 <template>
   <div @click="toReviewDetail">
-    <h2>{{ review.title }}</h2>
-    <h5>작성자: {{ review.review_user["username"] }}</h5>
+    <h4>{{ review.title }}</h4>
     <p>{{ review.content }}</p>
     <hr>
-    {{ review }}
 
   </div>
 </template>
@@ -12,7 +10,7 @@
 <script>
 
 export default {
-  name: 'ReviewDetailCard',
+  name: 'UserReviewDetailCard',
   props: {
     review: Object,
   },

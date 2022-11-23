@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid mt-5">
-
+    <h1>{{ userId }}</h1>
     <!-- <h1>mypage view</h1> -->
     <div class="container my-3">
         <div class="d-flex align-items-center">
@@ -18,6 +18,7 @@
         <h3>평가한 영화</h3>
         <router-link :to="{ name: 'WatchedMovie' }">더보기</router-link>
       </div>
+      <hr>
       <RatedList/>
       <hr>
     </div>
@@ -27,6 +28,7 @@
         <h3>나중에 볼 영화</h3>
         <router-link :to="{ name: 'ToWatchMovie' }">더보기</router-link>
       </div>
+      <hr>
       <WatchList/>
       <hr>
     </div>
@@ -37,7 +39,8 @@
         <h3>작성한 리뷰</h3>
         <router-link :to="{ name: 'UserReview' }">더보기</router-link>
       </div>
-      <ReviewDetailCard/>
+      <hr>
+      <UserReviewDetailCard v-for="review in reviews" :key="review.id" :review="review"/>
     </div>
 
   </div>
@@ -46,15 +49,18 @@
 <script>
 import WatchList from '@/components/WatchList'
 import RatedList from '@/components/RatedList'
-import ReviewDetailCard from '@/components/ReviewDetailCard'
-
+import UserReviewDetailCard from '@/components/UserReviewDetailCard'
 
 export default {
   name: 'MyPageView',
   components: {
     WatchList,
     RatedList,
-    ReviewDetailCard,
+    UserReviewDetailCard,
+  },
+  data() {
+    return {
+    }
   },
   computed: {
     isLogin() {
@@ -72,6 +78,9 @@ export default {
     numWatchedMovies() {
       return this.$store.getters.numWatchedMovies
     },
+    reviews() {
+      return this.$store.state.userReviews
+    },
   },
   methods: {
     getMypage() {
@@ -86,6 +95,7 @@ export default {
   created() {
     this.getMypage()
     this.$store.dispatch('getUsername')
+    this.$store.dispatch('getUserReviews')
     this.$store.dispatch('nowMypage')
   }
 }
