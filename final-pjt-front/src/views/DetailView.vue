@@ -38,12 +38,14 @@
         <span class="genres mx-2">{{ genres.join(', ') }}</span>
       </div>
 
+      {{ userRate }}
       <div class="my-3">
         <!-- <h5>user's rate</h5> -->
       <star-rating 
         class="mb-3"
+        :rating="`${ userRate }`"
+        
         @rating-selected ="setRating"
-        v-model="rating"
         v-bind:increment="0.5" 
         v-bind:max-rating="5"
         inactive-color="#808080"
@@ -102,8 +104,8 @@ export default {
       genreId: null,
       actors: [],
       actorId: null,
+      userRate: this.$store.state.userRate,
 
-      userRate: 0,
     }
   },
   props: {
@@ -123,7 +125,7 @@ export default {
   },
   methods: {
     setRating(){
-      const rate = this.rating  // 입력된 값
+      const rate = this.inputRate  // 입력된 값
       const watched_user = this.$store.state.user
       const movieId = this.movieId
       const payload = {
@@ -246,9 +248,11 @@ export default {
     this.getMovieDetail()
     // this.$store.dispatch('getReviews', this.movieId)
 
-
     const watched_user = this.$store.state.user
     const movieId = this.movieId
+    // console.log(watched_user)
+    // console.log(movieId)
+    console
     const payload = {
       watched_user: watched_user,
       movieId: movieId
