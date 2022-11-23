@@ -38,14 +38,12 @@
         <span class="genres mx-2">{{ genres.join(', ') }}</span>
       </div>
 
-      {{ this?.userRate }}
       <div class="my-3">
         <!-- <h5>user's rate</h5> -->
       <star-rating 
         class="mb-3"
-        :rating="`${ this?.userRate }`"
-        v-model="inputRate"
         @rating-selected ="setRating"
+        v-model="rating"
         v-bind:increment="0.5" 
         v-bind:max-rating="5"
         inactive-color="#808080"
@@ -104,17 +102,14 @@ export default {
       genreId: null,
       actors: [],
       actorId: null,
-      // userRate: this.$store.state.userRate,
-      // isWished: null,
+
+      userRate: 0,
     }
   },
   props: {
     // movie: Object,
   },
   computed: {
-    isWished() {
-      return null
-    },
     release_year() {
       return this.movieDetail.release_date.substring(0, 4)
     },
@@ -124,13 +119,11 @@ export default {
     reviews() {
       return this.$store.state.reviews
     },
-    userRate() {
-      return this.$store.state.userRate
-    }
+
   },
   methods: {
     setRating(){
-      const rate = this.inputRate  // 입력된 값
+      const rate = this.rating  // 입력된 값
       const watched_user = this.$store.state.user
       const movieId = this.movieId
       const payload = {
@@ -237,26 +230,15 @@ export default {
         }
       })
         .then((response) => {
-          if (response.data["is_wished"] === true) {
-            this.isWished = true
-            alert('나중에 볼 영화에 저장했습니다!')
-          } else {
-            this.isWished = false
+          console.log(response.data)
+          if (response.data["wish_user"] === []) {
             alert('제외')
+          } else {
+            alert('나중에 볼 영화에 저장했습니다!')
           }
         })
         .catch((error) => {
           console.log(error)
-        })
-    },
-
-    checkWishMovie() {
-      axios({
-        method: 'get',
-        url: `http://127.0.0.1:8000/api/v1/is_wish/${this.movieId}`,
-      })
-        .then((response) => {
-          this.isWished = response.data["is_wished"]
         })
     }
   },
@@ -264,18 +246,14 @@ export default {
     this.getMovieDetail()
     // this.$store.dispatch('getReviews', this.movieId)
 
+
     const watched_user = this.$store.state.user
     const movieId = this.movieId
-    // console.log(watched_user)
-    // console.log(movieId)
-    console
     const payload = {
       watched_user: watched_user,
       movieId: movieId
     }
     this.$store.dispatch('getRate', payload)
-
-    this.checkWishMovie()
   }
 
   }
