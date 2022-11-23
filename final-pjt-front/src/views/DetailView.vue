@@ -231,10 +231,10 @@ export default {
       })
         .then((response) => {
           console.log(response.data)
-          if (response.data["wish_user"] === []) {
-            alert('제외')
+          if (response.data["is_wished"] === true) {
+            alert('나중에 볼 꺼야!')
           } else {
-            alert('나중에 볼 영화에 저장했습니다!')
+            alert('아니 안볼꺼야!')
           }
         })
         .catch((error) => {
