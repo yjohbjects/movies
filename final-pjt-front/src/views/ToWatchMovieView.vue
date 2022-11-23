@@ -1,19 +1,11 @@
 <template>
   <div>
-    <div class="container mt-4">
-      <div class="d-flex justify-content-between">
-        <h1>나중에 볼 영화</h1>
-      </div>
-      <hr>
-    </div>
+    <h1>나중에 볼 영화 페이지</h1>
     <ToWatchMovieCard
     v-for="(movie, id) in toWatchMovies" :key="id" :movie="movie"
     />
-    <div class="container mt-4">
-      <div class="d-flex justify-content-between">
-        <router-link :to="{ name: 'MyPage' }">마이페이지</router-link>
-      </div>
-    </div>
+    <router-link :to="{ name: 'MyPage' }">마이페이지</router-link>
+
   </div>
 </template>
 

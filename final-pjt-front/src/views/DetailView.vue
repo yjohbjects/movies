@@ -102,6 +102,8 @@ export default {
       genreId: null,
       actors: [],
       actorId: null,
+
+      userRate: 0,
     }
   },
   props: {
@@ -121,18 +123,20 @@ export default {
   },
   methods: {
     setRating(){
-      console.log('set rating')
-      const rate = this.rating
+      const rate = this.rating  // 입력된 값
       const watched_user = this.$store.state.user
       const movieId = this.movieId
-      console.log(watched_user)
       const payload = {
         rate: rate,
         watched_user: watched_user,
         movieId: movieId
       }
-
-      this.$store.dispatch('createRate', payload)
+      
+      if (this.userRate === 0) {
+        this.$store.dispatch('createRate', payload)
+      } else {
+        this.$store.dispatch('updateRate', payload)
+      }
     },
     getMovieDetail() {
       axios({
@@ -242,6 +246,14 @@ export default {
     this.getMovieDetail()
     // this.$store.dispatch('getReviews', this.movieId)
 
+
+    const watched_user = this.$store.state.user
+    const movieId = this.movieId
+    const payload = {
+      watched_user: watched_user,
+      movieId: movieId
+    }
+    this.$store.dispatch('getRate', payload)
   }
 
   }
