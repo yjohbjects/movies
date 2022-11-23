@@ -79,7 +79,7 @@ export default new Vuex.Store({
 
     SAVE_TOKEN(state, token) {
       state.token = token
-      sessionStorage.setItem("token", token)
+      // sessionStorage.setItem("token", token)
       router.push({ name : 'Home' })
     },
 
