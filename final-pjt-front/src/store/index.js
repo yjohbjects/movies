@@ -312,7 +312,6 @@ export default new Vuex.Store({
         data: {
           title: payload.title,
           content: payload.content,
-          review_user: payload.user,
         },
         headers: {
           Authorization: `Token ${ context.state.token }`
