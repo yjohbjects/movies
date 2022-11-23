@@ -98,9 +98,11 @@
           <div class="modal-header">
             <!-- <input @input="onInputChange" @keyup="isExistingQuery=true" class="form-control" type="text" placeholder="어떤 영화를 찾아드릴까요?" aria-label="Search" style="padding-left: 20px; border-radius: 40px;"> -->
             <input @input="onInputChange" class="form-control" type="text" placeholder="어떤 영화를 찾아드릴까요?" aria-label="Search" style="padding-left: 20px; border-radius: 40px;">
+            
           </div>
 
             <div class="modal-body">
+
             <p>{{ movieQuery }}</p>
 
           <!-- <div v-show="isExistingQuery"> -->

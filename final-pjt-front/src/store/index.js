@@ -99,11 +99,6 @@ export default new Vuex.Store({
       state.reviews.push(review)
       state.review_id = state.review_id + 1
     },
-    DELETE_REVIEW(state, reviewId) {
-      state.reviews = state.reviews.filter((review) => {
-        return !(review.id === reviewId)
-      })
-    },
     // by movies
     GET_REVIEWS(state, reviews) {
       state.reviews = reviews
@@ -288,11 +283,57 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          console.log(response)
+          console.log(response.data["title"])
+          if (response.data["title"]) {
+            alert('리뷰가 작성되었습니다.')
+          } else if (response.data["error"]) {
+            alert(response.data["error"])
+          }
         })
         .catch((error) => {
           console.log(error)
         })
+    },
+    updateReview(context, payload) {
+      axios({
+        method: 'put',
+        url: `${API_URL}/api/v1/review/${payload.reviewId}/`,
+        data: {
+          title: payload.title,
+          content: payload.content,
+          review_user: payload.user,
+        },
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then((response) => {
+        console.log(response)
+        if (response.data["error"]) {
+          alert(response.data["error"])
+        }
+        router.push({ name : "Detail", params: { movieId: payload.movieId} })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+    deleteReview(context, payload) {
+      axios({
+        method: 'delete',
+        url: `${API_URL}/api/v1/review/${payload.reviewId}/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then((response) => {
+        console.log(response)
+        alert('리뷰가 삭제되었습니다.')
+        router.push({ name : "Detail", params: { movieId: payload.movieId} })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
     // by movies
     getReviews(context, movieId) {

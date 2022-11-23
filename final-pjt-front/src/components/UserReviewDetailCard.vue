@@ -1,4 +1,5 @@
 <template>
+<!-- reviews by user -->
   <div @click="toReviewDetail">
     <h4>{{ review.title }}</h4>
     <p>{{ review.content }}</p>
