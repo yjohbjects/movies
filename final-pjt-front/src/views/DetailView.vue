@@ -18,7 +18,7 @@
         </div>
 
         <!-- <button type="button" class="btn btn-primary">나중에 볼 영화</button> -->
-        <button type="button" class="btn btn-outline-primary">나중에 볼 영화</button>
+        <button type="button" class="btn btn-outline-primary" @click="toWatch">나중에 볼 영화</button>
 
       </div>
 
@@ -204,6 +204,27 @@ export default {
     toCreateReview() {
       this.$router.push({ name: "CreateReview", params: { movieId: this.movieId } })
     },
+
+    toWatch() {
+      axios({
+        method: 'post',
+        url: `http://127.0.0.1:8000/api/v1/wish/${this.movieId}/`,
+        headers: {
+          Authorization : `Token ${ this.$store.state.token }`
+        }
+      })
+        .then((response) => {
+          console.log(response.data)
+          if (response.data["wish_user"] === []) {
+            alert('제외')
+          } else {
+            alert('나중에 볼 영화에 저장했습니다!')
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   },
   created() {
     this.getMovieDetail()
