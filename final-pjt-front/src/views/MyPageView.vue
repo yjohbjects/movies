@@ -6,37 +6,45 @@
         <div class="d-flex align-items-center">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png" alt="user" width="150">
         <div class="mx-5">
-          <h2 class="my-0">{{ nickname }}님,</h2>
-          <p class="lead">ID: {{ username }}</p>
-          <p>평가한 영화:⠀{{ numWatchedMovies }} ⠀⠀|⠀⠀ 나중에 볼 영화:⠀{{ numToWatchMovies }}</p>
+          <h2 class="my-0" style="font-weight: bold;">{{ nickname }}님,</h2>
+          <p class="lead">@ {{ username }}</p>
+          <p>평가한 영화:⠀{{ watchedMovies.length }} ⠀⠀|⠀⠀ 나중에 볼 영화:⠀{{ toWatchMovies.length }}</p>
         </div>
         </div>
     </div>
 
     <div class="container my-5">
       <div class="d-flex justify-content-between">
-        <h3>평가한 영화</h3>
+        <h3 style="font-weight: bold;">평가한 영화</h3>
         <router-link :to="{ name: 'WatchedMovie' }">더보기</router-link>
       </div>
       <hr>
-      <RatedList/>
-      <hr>
+      
+      <div class="horizontal-scrollable">
+        <div class="row flex-nowrap movie-list">
+          <WatchedMoviePosterCard v-for="(movie, id) in watchedMovies" :key="id" :movie="movie" class="for-cursor"/>
+        </div>
+      </div>
     </div>
 
     <div class="container my-5">
       <div class="d-flex justify-content-between">
-        <h3>나중에 볼 영화</h3>
+        <h3 style="font-weight: bold;">나중에 볼 영화</h3>
         <router-link :to="{ name: 'ToWatchMovie' }">더보기</router-link>
       </div>
       <hr>
-      <WatchList/>
-      <hr>
+
+      <div class="horizontal-scrollable">
+        <div class="row flex-nowrap movie-list">
+          <ToWatchMoviePosterCard v-for="(movie, id) in toWatchMovies" :key="id" :movie="movie" class="for-cursor"/>
+        </div>
+      </div>   
     </div>
     
     <div class="container my-5">
 
     <div class="d-flex justify-content-between">
-        <h3>작성한 리뷰</h3>
+        <h3 style="font-weight: bold;">내가 작성한 리뷰</h3>
         <router-link :to="{ name: 'UserReview' }">더보기</router-link>
       </div>
       <hr>
@@ -47,15 +55,16 @@
 </template>
 
 <script>
-import WatchList from '@/components/WatchList'
-import RatedList from '@/components/RatedList'
+import ToWatchMoviePosterCard from '@/components/ToWatchMoviePosterCard'
+import WatchedMoviePosterCard from '@/components/WatchedMoviePosterCard'
 import UserReviewDetailCard from '@/components/UserReviewDetailCard'
+import axios from 'axios'
 
 export default {
   name: 'MyPageView',
   components: {
-    WatchList,
-    RatedList,
+    WatchedMoviePosterCard,
+    ToWatchMoviePosterCard,
     UserReviewDetailCard,
   },
   data() {
@@ -72,11 +81,11 @@ export default {
     nickname() {
       return this.$store.state.nickname
     },
-    numToWatchMovies() {
-      return this.$store.getters.numToWatchMovies
+    toWatchMovies() {
+      return this.$store.state.toWatchMovies
     },
-    numWatchedMovies() {
-      return this.$store.getters.numWatchedMovies
+    watchedMovies() {
+      return this.$store.state.watchedMovies
     },
     reviews() {
       return this.$store.state.userReviews
@@ -90,6 +99,23 @@ export default {
         alert('로그인이 필요한 페이지입니다 :-D')
         this.$router.push({ name : "Login" })
       }
+    },
+
+    getWatchedMovies() {
+        axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/api/v1/get_watched_movies/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+        .then((response) => {
+          console.log(response)
+          this.$store.commit('GET_WATCHED_MOVIE', response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   },
   created() {
@@ -97,6 +123,8 @@ export default {
     this.$store.dispatch('getUsername')
     this.$store.dispatch('getUserReviews')
     this.$store.dispatch('nowMypage')
+    this.$store.dispatch('getToWatchMovies')
+    this.getWatchedMovies()
   }
 }
 </script>
@@ -107,4 +135,7 @@ a {
   text-decoration: none;
 }
 
+.for-cursor {
+  cursor: pointer;
+}
 </style>

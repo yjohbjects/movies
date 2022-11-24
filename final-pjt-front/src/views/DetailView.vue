@@ -1,5 +1,6 @@
 <template>
 <!-- 지정된 영화 1편에 대한 디테일 페이지 -->
+
 <div id="detail" :style="`background: rgba(0, 0, 0, 0.75); background-image: url(${ movieDetail?.poster_path }); background-size: cover; background-blend-mode: darken; background-repeat : no-repeat; width: 100%; height: 180vh`">
   <h1>⠀</h1>
   <div class="container my-5" >
@@ -8,29 +9,29 @@
     <!-- 시간이 된다면 포스터를 확대해서 볼 수 있는 기능을 추가하고싶다 -->
     
     <div class="row container">
-      <div class="d-flex justify-content-between">
+      <!-- <div class="d-flex justify-content-between align-items-center"> -->
         <div>
-          <span>
+          <span class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-start">
             <span style="font-weight: bold; font-size: 50px">{{ movieDetail?.title }} </span>
             <span style="font-size: 50px;">({{ release_year }})</span>
+            </div>
+            <ion-icon name="bookmark" size="large" v-if="isWished" @click="toWatch"></ion-icon> 
+            <ion-icon name="bookmark-outline" size="large" v-else @click="toWatch"></ion-icon>
           </span>
           <p class="lead">{{ movieDetail?.original_title }}</p>
         </div>
 
         <!-- <button type="button" class="btn btn-primary">나중에 볼 영화</button> -->
-        <ion-icon name="bookmark" size="large" v-if="isWished" @click="toWatch"></ion-icon> 
-        <ion-icon name="bookmark-outline" size="large" v-else @click="toWatch"></ion-icon>
 
-
-
-      </div>
+      <!-- </div> -->
 
       <div class="">
         <!-- age limit image -->
         <span v-if="movieDetail?.certification==='PG-13'" class="mx-2"><img src="../../src/assets/12.png" alt="12" width="29" height="29"></span>
         <span v-if="movieDetail?.certification==='PG'" class="mx-2"><img src="../../src/assets/12.png" alt="12" width="29" height="29"></span>
         <span v-else-if="movieDetail?.certification==='G'" class="mx-2"><img src="../../src/assets/all.png" alt="ALL" width="29" height="29"></span>
-        <span v-else-if="movieDetail?.certification==='R'" class="mx-2"><img src="../../src/assets/18.png" alt="18" width="29" height="29"></span>
+        <span v-else-if="movieDetail?.certification==='R'" class="mx-2"><img src="../../src/assets/18.png" alt="15" width="29" height="29"></span>
         <span v-else-if="movieDetail?.certification==='NC-17'" class="mx-2"><img src="../../src/assets/18.png" alt="18" width="29" height="29"></span>
         <span v-else-if="movieDetail?.certification==='NR'" class="genres mx-2">NR</span>
         <span v-else-if="!movieDetail?.certification" class="genres mx-2">NR</span>
@@ -90,9 +91,11 @@
 </div>
   <!-- Reviews 커뮤니티 구역 -->
   <div class="container">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-center">
     <h1>Reviews</h1>
-    <button @click="toCreateReview" class="btn btn-outline-secondary">작성</button></div>
+    <!-- <button @click="toCreateReview" class="btn btn-outline-secondary">작성</button> -->
+    <ion-icon @click="toCreateReview" size="large" name="add-outline"></ion-icon>
+    </div>
     <hr>
     <ReviewDetailCard v-for="review in reviews" :key="review.id" :review="review"/>
   </div>
@@ -259,9 +262,9 @@ export default {
           console.log('repository')
           console.log(this.isWished)
           if (response.data["is_wished"] === true) {
-            alert('나중에 볼 꺼야!')
+            alert('나중에 볼 영화 목록에 추가했습니다.')
           } else {
-            alert('아니 안볼꺼야!')
+            alert('나중에 볼 영화 목록에서 해제했습니다.')
           }
           this.$store.commit('GET_WISH', response.data)
         })
@@ -284,6 +287,9 @@ export default {
       })
     }
   },
+  // updateed() {
+  //   this.getMovieDetail()
+  // },
   created() {
     this.getMovieDetail()
     // this.$store.dispatch('getReviews', this.movieId)

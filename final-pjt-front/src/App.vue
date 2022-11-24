@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="`background: rgba(0, 0, 0, 0.75); background-image: url(${ randomBackground }); background-size: cover; background-blend-mode: darken; background-repeat : no-repeat; width: 100%; height: 180vh`">
+  <div id="app" :style="`background: rgba(0, 0, 0, 0.75); background-image: url(${ randomBackground }); background-size: cover; background-blend-mode: darken; background-repeat: repeat-y; background-size: 100%;`">
   <!-- <div id="app"> -->
 
     <!-- mypage nav -->
@@ -49,7 +49,7 @@
     </nav>
 
     <!-- login nav -->
-    <!-- <nav v-else-if="isLoginpage">⠀</nav> -->
+    <nav v-else-if="isLoginpage">⠀</nav>
 
     <!-- home nav -->
     <nav v-else class="home-nav">
@@ -96,25 +96,22 @@
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <!-- <input @input="onInputChange" @keyup="isExistingQuery=true" class="form-control" type="text" placeholder="어떤 영화를 찾아드릴까요?" aria-label="Search" style="padding-left: 20px; border-radius: 40px;"> -->
             <input @input="onInputChange" class="form-control" type="text" placeholder="어떤 영화를 찾아드릴까요?" aria-label="Search" style="padding-left: 20px; border-radius: 40px;">
             
           </div>
 
             <div class="modal-body">
 
-            <p>{{ movieQuery }}</p>
+              <div class="d-flex flex-wrap" style="margin-left: 20px;">
 
-          <!-- <div v-show="isExistingQuery"> -->
-            <!-- 검색결과가 없을 때 -->
-            <div v-if="results.length === 0">
-              <p>검색 결과가 없습니다</p>
-            </div>
-
-              <div v-else>
-                <div v-for="(result) in results" :key='result.id'>
-                  <span><p>{{ result.title }}</p></span>
-                  <span><img :src="'https://image.tmdb.org/t/p/w500/' + result.poster_path" width="218" height="327" style="border-radius: 5px"></span>
+                <div v-for="(result) in results" :key='result.id' class="mx-4">
+                  <span>
+                    <router-link :to="{ name: 'Detail', params: { movieId: result.id} }">
+                    <span><img :src="'https://image.tmdb.org/t/p/w500/' + result.poster_path" width="218" height="327" style="border-radius: 5px" data-bs-dismiss="modal"></span>
+                    </router-link>
+                    <p style="inline-size: 218px; text-align: center; overflow-wrap: break-word; color: black; font-size:1vw;">{{ result.title }}</p>
+                    
+                    </span>
                 </div>
               </div>
           <!-- </div> -->
@@ -230,5 +227,8 @@ a.router-link-exact-active {
 }
 .dropdown-toggle::after { 
  content: none; 
+ }
+ body {
+  background-color: black;
  }
 </style>

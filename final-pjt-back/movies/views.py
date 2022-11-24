@@ -219,3 +219,20 @@ def is_wish(request, movie_pk):
         'is_wished': is_wished,
     }
     return JsonResponse(context)
+
+
+# def get_wish_movies(request):
+#     user = request.user
+#     movies = user.wish_movie.all()
+#     serializer = MovieListSerializers(movies, many=True)
+#     # print(serializer)
+#     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_watched_movies(request):
+    user = request.user
+    watched_movies = user.watched_movie.all()
+    serializer = WatchedMovieSerializer(watched_movies, many=True)
+
+    return Response(serializer.data)

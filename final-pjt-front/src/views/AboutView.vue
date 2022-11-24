@@ -1,11 +1,13 @@
 <template>
   <div class="about">
     <!-- <StarRating/> -->
+    <star-rating></star-rating>
 
     <!-- 집으로 가는 방법 두가지 -->
     <h1>This is an about page</h1>
     <button @click="toHome">to home</button>
     <router-link :to="{ name: 'Home' }">to home</router-link><br>
+    <router-link :to="{ name: 'Detail', params: { movieId: 360920 } }">test</router-link><br>
 
     <div style="width:218px; height:327px; background-color: black;opacity: 0.3 ; background-image: url(https://pds.joins.com/news/component/htmlphoto_mmdata/202007/13/1cf33940-bf50-410b-8ac2-c0dd9cd31955.jpg)">
       <h5>제목</h5>

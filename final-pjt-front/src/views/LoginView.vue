@@ -1,22 +1,32 @@
 <template>
   <div class="logoin container">
     <div class="card my-5" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 10px">
+
     <form @submit.prevent="logIn">
+      <h1 style="text-align: center" class="mt-4">로그인</h1><br>
+      <div class="card-body">
 
-      <h1 style="text-align: center">로그인</h1><br>
-      <label for="username">Username</label><br>
-      <input type="text" class="form-control" id="username" placeholder="Enter Your ID" v-model="username"><br>
+        <label for="username">아이디</label><br>
+        <input type="text" class="form-control" id="username" placeholder="아이디를 입력하세요." v-model="username"><br>
 
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" placeholder="Enter Your Password" v-model="password"><br>
+        <label for="password">비밀번호</label>
+        <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요." v-model="password"><br>
 
-      <input type="submit" value="로그인"><br>
+        <div class="d-flex justify-content-end my-2">
+        <input type="submit" class="btn" style="background-color: #5CB8E4; color: #F2F2F2;" value="로그인">
+        </div>
 
-      <div class="d-flex">
-      <p>아직 회원이 아니신가요?</p>
-      <router-link :to="{ name: 'Signup' }"><button>회원가입</button></router-link>
-      </div>
+
+        <div class="d-flex justify-content-center align-items-center">
+        <router-link :to="{ name: 'Signup' }">
+          <span style="color: #F2F2F2">아직 회원이 아니신가요?</span>
+          <button class="btn mx-3" style="background-color: #5CB8E4; color: #F2F2F2;">회원가입</button>
+          </router-link>
+        </div>
+      </div> <!-- card-body -->
+      
     </form>
+
     </div>
   </div>
   

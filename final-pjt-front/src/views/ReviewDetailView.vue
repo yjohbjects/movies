@@ -9,11 +9,11 @@
         <h1 style="text-align: center" class="mt-4">리뷰</h1><br>
         <div class="card-body">
 
-        <label for="title">Title</label><br>
-        <input type="text" class="form-control" id="title" v-model="title" :placeholder="`${ reviewDetail.title }`"><br>
+        <label for="title">제목</label><br>
+        <input type="text" class="form-control" id="title" v-model="title"><br>
 
         <label for="content">내용</label>
-        <textarea id="content" class="form-control" v-model="content" :placeholder="`${ reviewDetail.content }`"></textarea>
+        <textarea id="content" class="form-control" v-model="content"></textarea>
         
         <div class="d-flex justify-content-end my-4">
           <input type="submit" class="btn mx-2" style="background-color: #5CB8E4; color: #F2F2F2;" value="수정"><br>
@@ -41,6 +41,8 @@ export default {
     return {
       reviewId: this.$route.params.reviewId,
       reviewDetail: null,
+      title: null,
+      content: null,
     }
   },
   methods: {
@@ -65,6 +67,8 @@ export default {
       })
       .then((response) => {
         this.reviewDetail = response.data
+        this.title = response.data.title
+        this.content = response.data.content
       })
       .catch((error) => {
         console.log(error)

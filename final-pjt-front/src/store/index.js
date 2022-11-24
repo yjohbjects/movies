@@ -34,19 +34,21 @@ export default new Vuex.Store({
     toWatchMovies: [],
     userRate: 0,
     isWished: null,
+    watchedMovies: [],
+    
   },
   getters: {
     isLogin(state) {
       return state.token ? true : false
     },
-    numWatchedMovies(state) {
-      // watched movies로 변경되어야함
-      return state.recommendedMovies.length
-    },
-    numToWatchMovies(state) {
-      // to watch movies로 변경되어야함
-      return state.recommendedMovies.length
-    },
+    // watchedMovies(state) {
+    //   // watched movies로 변경되어야함
+    //   return state.watchedMovies
+    // },
+    // toWatchMovies(state) {
+    //   // to watch movies로 변경되어야함
+    //   return state.toWatchMovies
+    // },
   },
   mutations: {
     GET_MOVIES(state, movies) {
@@ -115,7 +117,10 @@ export default new Vuex.Store({
     GET_TO_WATCH_MOVIE(state, movies) {
       state.toWatchMovies = movies
     },
-
+    GET_WATCHED_MOVIE(state, movies) {
+      console.log('!watched!')
+      state.watchedMovies = movies
+    },
     SAVE_RATE(state, rate) {
       state.userRate = rate
       console.log('rate 저장 완료: ' + state.userRate)
@@ -445,7 +450,7 @@ export default new Vuex.Store({
         console.log(error)
       })
     },    
-    // by usres
+    // by users
     getUserReviews(context) {
       axios({
         method: 'get',
@@ -457,6 +462,24 @@ export default new Vuex.Store({
       .then((response) => {
         console.log(response)
         context.commit('GET_USER_REVIEWS', response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+
+    getToWatchMovies(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/get_wish_movies/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then((response) => {
+        console.log('!to watch!')
+        console.log(response)
+        context.commit('GET_TO_WATCH_MOVIE', response.data)
       })
       .catch((error) => {
         console.log(error)
