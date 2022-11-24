@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <HelloWorld/>
     <div class="container-fluid mt-5">
     <div class="container mb-3" style="font-weight: bold; font-size: 50px;"><p>안녕하세요, {{ nickname }}님!</p></div>
     
@@ -38,8 +37,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import RecommendedMovieCard from '@/components/RecommendedMovieCard.vue'
 import PopularMovieCard from '@/components/PopularMovieCard.vue'
 import NowPlayingMovies from '@/components/NowPlayingMovieCard.vue'
@@ -47,7 +44,6 @@ import NowPlayingMovies from '@/components/NowPlayingMovieCard.vue'
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld,
     RecommendedMovieCard,
     PopularMovieCard,
     NowPlayingMovies,
