@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="`background: rgba(0, 0, 0, 0.75); background-image: url(${ randomBackground }); background-size: cover; background-blend-mode: darken; background-repeat: repeat-y; background-size: 100%;`">
+  <div id="app" :style="`background: rgba(0, 0, 0, 0.75); background-image: url(${ randomBackground }); background-size: cover; background-blend-mode: darken; background-repeat: repeat-y; background-size: 100%; height: 180vh`">
   <!-- <div id="app"> -->
 
     <!-- mypage nav -->
@@ -99,10 +99,9 @@
             <input @input="onInputChange" class="form-control" type="text" placeholder="어떤 영화를 찾아드릴까요?" aria-label="Search" style="padding-left: 20px; border-radius: 40px;">
             
           </div>
-
             <div class="modal-body">
-
-              <div class="d-flex flex-wrap" style="margin-left: 20px;">
+            {{ movieQuery }}
+              <div v-if="movieQuery" class="d-flex flex-wrap" style="margin-left: 20px;">
 
                 <div v-for="(result) in results" :key='result.id' class="mx-4">
                   <span>
@@ -112,6 +111,13 @@
                     <p style="inline-size: 218px; text-align: center; overflow-wrap: break-word; color: black; font-size:1vw;">{{ result.title }}</p>
                     
                     </span>
+                </div>
+              </div>
+
+              <div v-else>
+                <p>test</p>
+                <div class="d-flex flex-wrap">
+                <GenreCard v-for="(genreId, genre) in genres" :key="genre" :genre="genre"/>                  
                 </div>
               </div>
           <!-- </div> -->
@@ -124,16 +130,21 @@
   </div>
 </template>
 <script>
+import GenreCard from '@/components/GenreCard'
 import axios from 'axios'
 
 const API_KEY = process.env.VUE_APP_TMDB_API_KEY
 
 export default {
   name: 'App',
+  components: {
+    GenreCard
+  },
   data() {
     return {
       movieQuery: '',
       results: '',
+
     }
   },
   computed: {
@@ -154,6 +165,13 @@ export default {
     },
   },
   methods: {
+    clicked() {
+      if (this.isClicked) {
+        this.isClicked = false
+      } else {
+        this.isClicked = true
+      }
+    },
     logout() {
       this.$store.commit('LOGOUT')
       this.$router.push({ name: "Login" })
@@ -228,7 +246,6 @@ a.router-link-exact-active {
 .dropdown-toggle::after { 
  content: none; 
  }
- body {
-  background-color: black;
- }
+ 
+ 
 </style>

@@ -1,5 +1,6 @@
 <template>
-  <div class="container-fluid mt-5">
+  <div class="container-fluid mt-5" :style="`background: rgba(0, 0, 0, 0.75); background-image: url(${ randomBackground }); background-size: cover; background-blend-mode: darken; background-repeat: repeat-y; background-size: 100%;`">
+    <h1>⠀</h1>
     <h1>{{ userId }}</h1>
     <!-- <h1>mypage view</h1> -->
     <div class="container my-3">
@@ -90,6 +91,9 @@ export default {
     reviews() {
       return this.$store.state.userReviews
     },
+    randomBackground() {
+      return this.$store.state.randomBackground
+    },
   },
   methods: {
     getMypage() {
@@ -125,6 +129,7 @@ export default {
     this.$store.dispatch('nowMypage')
     this.$store.dispatch('getToWatchMovies')
     this.getWatchedMovies()
+    this.$store.dispatch('getRandomBackground')
   }
 }
 </script>

@@ -1,8 +1,20 @@
 <template>
   <div class="about">
     <!-- <StarRating/> -->
-    <star-rating></star-rating>
+    <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
+      test popover
+    </button>
+    <button type="button" class="btn btn-secondary" 
+        data-bs-toggle="popover" data-bs-placement="bottom"
+        data-bs-custom-class="custom-popover"
+        data-bs-title="Custom popover"
+        data-bs-content="This popover is themed via CSS variables.">
+      Custom popover
+    </button>
 
+
+
+    
     <!-- 집으로 가는 방법 두가지 -->
     <h1>This is an about page</h1>
     <button @click="toHome">to home</button>
