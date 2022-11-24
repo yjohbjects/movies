@@ -118,7 +118,7 @@ export default new Vuex.Store({
 
     SAVE_RATE(state, rate) {
       state.userRate = rate
-      console.log('rate: ' + state.userRate)
+      console.log('rate 저장 완료: ' + state.userRate)
     },
 
     GET_WISH(state, payload) {
@@ -286,6 +286,7 @@ export default new Vuex.Store({
     },
 
     createReview(context, payload) {
+      console.log('createReview')
       axios({
         method: 'post',
         url: `${API_URL}/api/v1/createreview/${payload.movieId}/`,
@@ -311,6 +312,7 @@ export default new Vuex.Store({
         })
     },
     updateReview(context, payload) {
+      console.log('updateReview')
       axios({
         method: 'put',
         url: `${API_URL}/api/v1/review/${payload.reviewId}/`,
@@ -335,6 +337,7 @@ export default new Vuex.Store({
     },
     // 별점 조회
     getRate(context, payload) {
+      console.log('getrate 정보 보내는 중 ...')
       axios({
         method: 'get',
         url: `${API_URL}/api/v1/get_rate/${payload.movieId}/`,
@@ -346,18 +349,24 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         // 여기서 값을 받아오면 값을 저장하면되고
         // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 커밋
+        console.log('user가 입력한 평점은 ' + response.data["rate"])
+        console.log('평점 저장 대기중....')
         context.commit('SAVE_RATE', response.data["rate"])
       })
       .catch((error) => {
         console.log(error)
+        console.log('user가 입력한 평점은 ' + 0)
+        console.log('평점 저장 대기중....')
+
         // 유저가 평가한 적이 없어서 값이 없다면, 0을 받아오면 된다
         context.commit('SAVE_RATE', 0)
       })
     },
     createRate(context, payload) {
+      console.log('create rate')
       axios({
         method: 'post',
         url: `${API_URL}/api/v1/rate_movie/${payload.movieId}/`,
@@ -379,6 +388,7 @@ export default new Vuex.Store({
         })
     },
     updateRate(context, payload){
+      console.log('update rate')
       axios({
         method: 'put',
         url: `${API_URL}/api/v1/get_rate/${payload.movieId}/`,
@@ -394,6 +404,7 @@ export default new Vuex.Store({
           console.log(response)
           // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 
           context.commit('SAVE_RATE', response.data["rate"])
+
       })
         .catch((error) => {
           console.log(error)
