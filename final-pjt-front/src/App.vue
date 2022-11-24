@@ -100,8 +100,7 @@
             
           </div>
             <div class="modal-body">
-            {{ movieQuery }}
-              <div v-if="movieQuery" class="d-flex flex-wrap" style="margin-left: 20px;">
+              <div class="d-flex flex-wrap" style="margin-left: 20px;">
 
                 <div v-for="(result) in results" :key='result.id' class="mx-4">
                   <span>
@@ -114,14 +113,6 @@
                 </div>
               </div>
 
-              <div v-else>
-                <p>test</p>
-                <div class="d-flex flex-wrap">
-                <GenreCard v-for="(genreId, genre) in genres" :key="genre" :genre="genre"/>                  
-                </div>
-              </div>
-          <!-- </div> -->
-
             </div>
         </div>
       </div>
@@ -130,7 +121,6 @@
   </div>
 </template>
 <script>
-import GenreCard from '@/components/GenreCard'
 import axios from 'axios'
 
 const API_KEY = process.env.VUE_APP_TMDB_API_KEY
@@ -138,7 +128,6 @@ const API_KEY = process.env.VUE_APP_TMDB_API_KEY
 export default {
   name: 'App',
   components: {
-    GenreCard
   },
   data() {
     return {
