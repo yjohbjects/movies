@@ -53,13 +53,13 @@
       <star-rating 
         v-if="hover"
         v-model="inputRate"
+        @rating-selected ="setRating"
         :rating="5"
         :increment="0.5" 
         inactive-color="#808080"
         active-color="#FABD02"
         :star-size="50"
         class="mb-3"
-        @rating-selected ="setRating"
         :show-rating="false"
         >
       </star-rating>   
@@ -67,7 +67,7 @@
       <!-- 보여지는 별점 -->
       <star-rating 
       v-else
-      :rating="`${ userRate }`" 
+      :rating="`${ $store.state.userRate }`" 
       :increment="0.5"
       inactive-color="#808080"
       active-color="#FABD02"
@@ -128,7 +128,7 @@ export default {
       actors: [],
       actorId: null,
 
-      userRate: 0,
+      // userRate: 0,
       hover: false,
     }
   },
@@ -147,12 +147,11 @@ export default {
     },
     isWished() {
       return this.$store.state.isWished
-    }
+    },
   },
   methods: {
     setRating(){
-      console.log('clicked')
-      const rate = this.rating  // 입력된 값
+      const rate = this.inputRate  // 입력된 값
       const watched_user = this.$store.state.user
       const movieId = this.movieId
       const payload = {
@@ -160,12 +159,12 @@ export default {
         watched_user: watched_user,
         movieId: movieId
       }
-      
       if (this.userRate === 0) {
         this.$store.dispatch('createRate', payload)
       } else {
         this.$store.dispatch('updateRate', payload)
       }
+      this.userRate = this.$store.state.userRate
     },
     getMovieDetail() {
       axios({
@@ -297,8 +296,9 @@ export default {
     const payload = {
       watched_user: watched_user,
       movieId: movieId
-    }
+    } 
     this.$store.dispatch('getRate', payload)
+    this.userRate = this.$store.state.userRate
 
     this.getIsWished()
   }
