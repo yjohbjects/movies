@@ -41,14 +41,6 @@ export default new Vuex.Store({
     isLogin(state) {
       return state.token ? true : false
     },
-    // watchedMovies(state) {
-    //   // watched movies로 변경되어야함
-    //   return state.watchedMovies
-    // },
-    // toWatchMovies(state) {
-    //   // to watch movies로 변경되어야함
-    //   return state.toWatchMovies
-    // },
   },
   mutations: {
     GET_MOVIES(state, movies) {
@@ -84,7 +76,6 @@ export default new Vuex.Store({
 
     SAVE_TOKEN(state, token) {
       state.token = token
-      // sessionStorage.setItem("token", token)
       router.push({ name : 'Home' })
     },
 
