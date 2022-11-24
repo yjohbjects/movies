@@ -194,11 +194,24 @@ export default {
           this.getGenreName(this.genreId)
         }
         
-        
       })
       .catch((error) => {
         console.log(error)
+        this.pushMovieDetail()
       })
+    },
+    pushMovieDetail(){
+      axios({
+
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log('정말 이상한 에러일게 분명해요!')
+        console.log(error)
+      })
+
     },
     getDirectorName(directorId) {
       axios({
@@ -291,6 +304,7 @@ export default {
   //   this.getMovieDetail()
   // },
   created() {
+    console.log('디테일 페이지 도착')
     this.getMovieDetail()
     // this.$store.dispatch('getReviews', this.movieId)
 
@@ -325,4 +339,6 @@ ion-icon {
   color:#5CB8E4;
   cursor: pointer
 }
+
+
 </style>
