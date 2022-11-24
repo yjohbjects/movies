@@ -18,12 +18,10 @@
         </div>
 
         <!-- <button type="button" class="btn btn-primary">나중에 볼 영화</button> -->
-        <div v-if="isWished">
-          <button type="button" class="btn btn-info" @click="toWatch">찜함</button>  
-        </div>
-        <div v-else>
-          <button type="button" class="btn btn-outline-info" @click="toWatch">찜하기</button>
-        </div>
+        <ion-icon name="bookmark" size="large" v-if="isWished" @click="toWatch"></ion-icon> 
+        <ion-icon name="bookmark-outline" size="large" v-else @click="toWatch"></ion-icon>
+
+
 
       </div>
 
@@ -316,5 +314,9 @@ export default {
     padding: 5px 5px;
     border-radius: 5px;
     margin: 20px auto;
+}
+ion-icon {
+  color:#5CB8E4;
+  cursor: pointer
 }
 </style>
