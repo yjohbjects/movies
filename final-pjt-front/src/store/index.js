@@ -123,6 +123,7 @@ export default new Vuex.Store({
 
     GET_WISH(state, payload) {
       state.isWished = payload["is_wished"]
+      console.log('vuex')
       console.log(state.isWished)
     }
   },
