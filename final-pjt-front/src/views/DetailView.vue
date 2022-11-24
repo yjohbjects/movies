@@ -77,13 +77,13 @@
       </star-rating>
       </div>
 
-        <span><h5>Director:</h5></span>
+        <span><h5 style="font-weight: bold;">감독</h5></span>
         <h6>{{ director }}</h6>
         <br>
-        <span><h5>Credits:</h5></span>
+        <span><h5 style="font-weight: bold;">출연진</h5></span>
         <h6>{{ actors.join(', ') }}</h6>
         <br>
-        <span><h5>Overivew:</h5></span>
+        <span><h5 style="font-weight: bold;">줄거리</h5></span>
         <p>{{ movieDetail?.overview }}</p>
       </div>
     </div>
