@@ -18,7 +18,12 @@
         </div>
 
         <!-- <button type="button" class="btn btn-primary">나중에 볼 영화</button> -->
-        <button type="button" class="btn btn-outline-primary" @click="toWatch">나중에 볼 영화</button>
+        <div v-if="isWished">
+          <button type="button" class="btn btn-info" @click="toWatch">찜함</button>  
+        </div>
+        <div v-else>
+          <button type="button" class="btn btn-outline-info" @click="toWatch">찜하기</button>
+        </div>
 
       </div>
 
@@ -254,7 +259,8 @@ export default {
         }
       })
         .then((response) => {
-          console.log(response.data)
+          console.log('repository')
+          console.log(this.isWished)
           if (response.data["is_wished"] === true) {
             alert('나중에 볼 꺼야!')
           } else {
@@ -270,6 +276,9 @@ export default {
       axios({
       method: 'get',
       url: `http://127.0.0.1:8000/api/v1/is_wish/${this.movieId}`,
+      headers: {
+          Authorization : `Token ${ this.$store.state.token }`
+      }
     })
       .then((response) => {
         console.log('check')
