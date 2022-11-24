@@ -1,14 +1,19 @@
 <template>
-    <div class="col">
+  <div class="col">
     <div @mouseover="hover = true" @mouseleave="hover = false">
 
-      <div v-if="hover" @click="toDetail" style="overflow: hidden;">
-        <img :src="poster_path" width="218" height="327" style="mix-blend-mode: luminosity; opacity: 0.3; transform:scale(1.2); border-radius: 5px
-        " class="poster">
+      <div v-if="hover" @click="toDetail" class="card" style="width: 14rem;">
+        <img :src="poster_path" class="card-img" style="mix-blend-mode: darken;">
+        <div class="card-img-overlay d-flex align-items-center">
+          <div class="col">
+            <div class="row"><h5 class="card-title" >{{ movie["title"] }}</h5></div>
+            <div class="row"><p class="card-text">{{ movie["release_date"].slice(0,4)}}</p></div>
+          </div>
+        </div>
       </div>
-
-      <div v-else @click="toDetail">
-        <img :src="poster_path" width="218" height="327" style="border-radius: 5px" class="poster">
+      
+      <div v-else @click="toDetail" class="card" style="width: 14rem;">
+        <img :src="poster_path" class="card-img">
       </div>
       
     </div> <!-- hover -->

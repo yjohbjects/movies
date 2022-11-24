@@ -2,8 +2,8 @@
 <!-- reviews by movie -->
   <div @click="toReviewDetail">
     <h2>{{ review.title }}</h2>
-    <h5>작성자: {{ review.review_user["nickname"] }}</h5>
-    <p>{{ review.content }}</p>
+    <p>작성자: {{ review.review_user["nickname"] }}</p>
+    <p class="lead">{{ review.content }}</p>
     <hr>
 
   </div>

@@ -10,10 +10,10 @@
 
         <div class="card-body">
 
-        <label for="title">제목:</label><br>
+        <label for="title">제목</label><br>
         <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요." v-model="title"><br>
 
-        <label for="content">내용:</label>
+        <label for="content">내용</label>
         <textarea id="content" class="form-control" v-model="content" placeholder="내용을 입력해주세요."></textarea>
 
         <div class="d-flex justify-content-end my-4">

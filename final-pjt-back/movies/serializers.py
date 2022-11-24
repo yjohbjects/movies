@@ -117,3 +117,6 @@ class WatchedMovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = WatchedMovie
         fields = '__all__'
+
+
+
