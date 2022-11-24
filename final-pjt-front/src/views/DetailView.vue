@@ -6,10 +6,8 @@
   <div class="container my-5" >
   <div class="d-flex justify-content-between">
     <img :src="`${ movieDetail?.poster_path }`" width="30%" height="30%" style="border-radius: 5px">
-    <!-- 시간이 된다면 포스터를 확대해서 볼 수 있는 기능을 추가하고싶다 -->
     
     <div class="row container">
-      <!-- <div class="d-flex justify-content-between align-items-center"> -->
         <div>
           <span class="d-flex justify-content-between align-items-center">
             <div class="d-flex justify-content-start">
@@ -21,10 +19,6 @@
           </span>
           <p class="lead">{{ movieDetail?.original_title }}</p>
         </div>
-
-        <!-- <button type="button" class="btn btn-primary">나중에 볼 영화</button> -->
-
-      <!-- </div> -->
 
       <div class="">
         <!-- age limit image -->
@@ -109,6 +103,7 @@ import StarRating from 'vue-star-rating'
 import ReviewDetailCard from '@/components/ReviewDetailCard'
 import axios from 'axios'
 
+const API_KEY = process.env.VUE_APP_TMDB_API_KEY
 // const API_URL_GET_DIRECTOR_NAME = `http://127.0.0.1:8000/api/v1/get_director_name/`
 
 export default {
@@ -202,13 +197,20 @@ export default {
     },
     pushMovieDetail(){
       axios({
-
+        method: 'post',
+        url: `http://127.0.0.1:8000/api/v1/new_movie/${this.movieId}/`,
+        headers: {
+          Authorization : `Token ${ this.$store.state.token }`
+        },
+        data: {
+          key: API_KEY
+        }
       })
       .then((response) => {
         console.log(response)
+        window.location.reload()
       })
       .catch((error) => {
-        console.log('정말 이상한 에러일게 분명해요!')
         console.log(error)
       })
 
@@ -300,14 +302,8 @@ export default {
       })
     }
   },
-  // updateed() {
-  //   this.getMovieDetail()
-  // },
   created() {
-    console.log('디테일 페이지 도착')
     this.getMovieDetail()
-    // this.$store.dispatch('getReviews', this.movieId)
-
 
     const watched_user = this.$store.state.user
     const movieId = this.movieId
@@ -320,16 +316,13 @@ export default {
 
     this.getIsWished()
   }
-
   }
-
 
 </script>
 
 <style>
 .genres {
     border: 1px solid;
-    /* height: auto; */
     text-align: center;
     padding: 5px 5px;
     border-radius: 5px;

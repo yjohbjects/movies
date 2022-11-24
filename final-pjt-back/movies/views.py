@@ -250,6 +250,7 @@ def get_watched_movies(request):
 @permission_classes([IsAuthenticated])
 def new_movie(request, movie_pk):
     # 영화 디테일 정보
+    print(1)
     TMDB_API_KEY = request.data["key"]
     request_url = f"https://api.themoviedb.org/3/movie/{movie_pk}?api_key={TMDB_API_KEY}&language=ko-KR"
     data = requests.get(request_url).json()
@@ -279,11 +280,13 @@ def new_movie(request, movie_pk):
         return Response()
     else:
         # 영화 저장 준비
+        print(2)
         movie = Movie(pk=data["id"], title=data["title"], poster_path='https://image.tmdb.org/t/p/original'+data["poster_path"],\
             vote_average=data["vote_average"], popularity=data["popularity"], overview=data["overview"],\
                 release_date=data["release_date"], original_title=data["original_title"],\
                     certification=certification, director=director)
         movie.save()
+        print(3)
         # 해당 영화의 장르를 연결
         for genre in data["genres"]:
             movie.genres.add(genre["id"])

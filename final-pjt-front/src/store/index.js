@@ -355,19 +355,10 @@ export default new Vuex.Store({
         }
       })
       .then((response) => {
-        // console.log(response)
-        // 여기서 값을 받아오면 값을 저장하면되고
-        // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 커밋
-        console.log('user가 입력한 평점은 ' + response.data["rate"])
-        console.log('평점 저장 대기중....')
         context.commit('SAVE_RATE', response.data["rate"])
       })
       .catch((error) => {
         console.log(error)
-        console.log('user가 입력한 평점은 ' + 0)
-        console.log('평점 저장 대기중....')
-
-        // 유저가 평가한 적이 없어서 값이 없다면, 0을 받아오면 된다
         context.commit('SAVE_RATE', 0)
       })
     },
@@ -386,7 +377,6 @@ export default new Vuex.Store({
       })
         .then((response) => {
           console.log(response.data["rate"])
-          // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 커밋
           context.commit('SAVE_RATE', response.data["rate"])
         })
         .catch((error) => {
@@ -408,7 +398,6 @@ export default new Vuex.Store({
       })
         .then((response) => {
           console.log(response)
-          // 값을 받아서 userRate에 push하는 뮤테이션을 만들어서 
           context.commit('SAVE_RATE', response.data["rate"])
 
       })
