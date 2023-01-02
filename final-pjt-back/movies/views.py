@@ -5,6 +5,7 @@ from .serializers import MovieListSerializers, MovieNameSerializer, ReviewSerial
 from .serializers import MovieSerializers, ReviewDetailSerializer, ReviewListMovieSerializers, ReviewListUserSerializers
 from .serializers import GenreNameSerializer, DirectorSerializers, ActorListSerializers
 from django.shortcuts import get_list_or_404, get_object_or_404
+from collections import defaultdict
 import random
 import requests
 # import os
@@ -17,15 +18,6 @@ from rest_framework.decorators import api_view
 # permission Decorators
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
-
-
-
-# dotenv_file = os.path.join(settings.BASE_DIR, ".env")
-# if os.path.isfile(dotenv_file):
-#     dotenv.load_dotenv(dotenv_file)
-
-# TMDB_API_KEY = os.environ['TMDB_API_KEY']
-
 
 # 전체 영화 정보 조회
 @api_view(['GET'])
@@ -151,21 +143,35 @@ def get_director_name(request, director_pk):
 @permission_classes([IsAuthenticated])
 def recommend_movies(request):
     user = request.user
-    recommend_genres = set()
-    if len(user.like_genres.all()) >= 3:
-        while len(recommend_genres) < 3:
-            recommend_genres.add(random.choice(user.like_genres.all()))
-        recommend_genres = list(recommend_genres)
+    watched_movies = user.watched_movie.all()
+    if watched_movies:
+        genre_weight = defaultdict(int)
+        genre_count = defaultdict(int)
+        for movie in watched_movies:
+            if float(movie.rate) >= 3.5:
+                genres = movie.movie.genres.all()
+                for genre in genres:
+                    genre_count[genre] += 1
+                    genre_weight[genre] += movie.rate
+        recommend = []
+        for genre in genre_weight:
+            recommend.append([genre, genre_weight[genre]/genre_count[genre]])
+        recommend.sort(key=lambda x: -x[1])
+        movies = Movie.objects.filter(genres=recommend[0][0]).order_by('?')[:20]
+        serializer = MovieListSerializers(movies, many=True)
+        return Response(serializer.data)
     else:
+        recommend_genres = set()
         genres = Genre.objects.all()
         while len(recommend_genres) < 3:
             recommend_genres.add(random.choice(genres))
-    genre_pks = []
-    for genre in recommend_genres:
-        genre_pks.append(genre.pk)
-    movies = Movie.objects.filter(genres__in=genre_pks).order_by('?')[:20]
-    serializer = MovieListSerializers(movies, many=True)
-    return Response(serializer.data)
+        genre_pks = []
+        for genre in recommend_genres:
+            genre_pks.append(genre.pk)
+        movies = Movie.objects.filter(genres__in=genre_pks).order_by('?')[:20]
+        serializer = MovieListSerializers(movies, many=True)
+        return Response(serializer.data)
+
 
 
 
@@ -250,7 +256,6 @@ def get_watched_movies(request):
 @permission_classes([IsAuthenticated])
 def new_movie(request, movie_pk):
     # 영화 디테일 정보
-    print(1)
     TMDB_API_KEY = request.data["key"]
     request_url = f"https://api.themoviedb.org/3/movie/{movie_pk}?api_key={TMDB_API_KEY}&language=ko-KR"
     data = requests.get(request_url).json()
@@ -280,13 +285,11 @@ def new_movie(request, movie_pk):
         return Response()
     else:
         # 영화 저장 준비
-        print(2)
         movie = Movie(pk=data["id"], title=data["title"], poster_path='https://image.tmdb.org/t/p/original'+data["poster_path"],\
             vote_average=data["vote_average"], popularity=data["popularity"], overview=data["overview"],\
                 release_date=data["release_date"], original_title=data["original_title"],\
                     certification=certification, director=director)
         movie.save()
-        print(3)
         # 해당 영화의 장르를 연결
         for genre in data["genres"]:
             movie.genres.add(genre["id"])
