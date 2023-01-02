@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import HomeView from '@/views/HomeView'
 import AboutView from '@/views/AboutView'
 import DetailView from '@/views/DetailView'
+import PersionDetailView from '@/views/PersonDetailView'
 import CreateReviewView from '@/views/CreateReviewView'
 // accounts
 import LoginView from '@/views/LoginView'
@@ -26,6 +27,7 @@ const routes = [
   { path: '/', name: 'Home', component: HomeView },
   { path: '/about', name: 'About', component: AboutView },
   { path: '/movie/:movieId', name: 'Detail', component: DetailView },
+  { path: '/person/:personId', name: 'PersonDetail', component: PersionDetailView },
   { path: '/movie/:movieId/create', name: 'CreateReview', component: CreateReviewView },
   
   // accounts

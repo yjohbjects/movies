@@ -1,4 +1,5 @@
 <template>
+<!-- 리뷰 작성 페이지 -->
 <div id="create-review" :style="`background: rgba(0, 0, 0, 0.75); background-image: url(${ movieDetail?.poster_path }); background-size: cover; background-blend-mode: darken; background-repeat : no-repeat; width: 100%; height: 180vh`">
     <h1>⠀</h1>
     <div class="container my-5">

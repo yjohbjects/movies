@@ -101,16 +101,28 @@
           </div>
             <div class="modal-body">
               <div class="d-flex flex-wrap" style="margin-left: 20px;">
+                <!-- {{ movieQuery }} -->
 
+                <!-- 검색시 -->
                 <div v-for="(result) in results" :key='result.id' class="mx-4">
-                  <span>
                     <router-link :to="{ name: 'Detail', params: { movieId: result.id} }">
                     <span><img :src="'https://image.tmdb.org/t/p/w500/' + result.poster_path" width="218" height="327" style="border-radius: 5px" data-bs-dismiss="modal"></span>
                     </router-link>
                     <p style="inline-size: 218px; text-align: center; overflow-wrap: break-word; color: black; font-size:1vw;">{{ result.title }}</p>
-                    
-                    </span>
                 </div>
+
+                <!-- 장르 선택시 -->
+                <!-- 장르 선택 버튼 -->
+                <genreButton v-for="(genre, id) in genres" :key="id" :genre="genre" @updateSelectedGenre="updateSelectedGenre"/>
+
+                <!-- 장르 선택 결과 -->
+                <div v-for="(genre) in selectedGenre" :key="genre.id">
+                {{ moviesByGenre }}
+                
+
+                </div>
+
+
               </div>
 
             </div>
@@ -121,6 +133,7 @@
   </div>
 </template>
 <script>
+import genreButton from '@/components/genreButton'
 import axios from 'axios'
 
 const API_KEY = process.env.VUE_APP_TMDB_API_KEY
@@ -128,12 +141,35 @@ const API_KEY = process.env.VUE_APP_TMDB_API_KEY
 export default {
   name: 'App',
   components: {
+    genreButton,
   },
   data() {
     return {
       movieQuery: '',
       results: '',
-
+      moviesByGenre: '',
+      selectedGenre: [],
+      genres: [
+        {genre: "모험", genreId: 12},
+        { genre: "판타지" , genreId: 14 },
+        { genre: "애니메이션" , genreId: 16 },
+        { genre: "드라마" , genreId: 18 },
+        { genre: "공포" , genreId: 27 },
+        { genre: "액션" , genreId: 28 },
+        { genre: "코미디" , genreId: 35 },
+        { genre: "역사" , genreId: 36 },
+        { genre: "서부" , genreId: 37 },
+        { genre: "스릴러" , genreId: 53 },
+        { genre: "범죄" , genreId: 80 },
+        { genre: "다큐멘터리" , genreId: 99 },
+        { genre: "SF" , genreId: 878 },
+        { genre: "미스터리" , genreId: 9648 },
+        { genre: "음악" , genreId: 10402 },
+        { genre: "로맨스" , genreId: 10749 },
+        { genre: "가족" , genreId: 10751 },
+        { genre: "전쟁" , genreId: 10752 },
+        { genre: "TV 영화" , genreId: 10770 },
+      ],
     }
   },
   computed: {
@@ -188,10 +224,30 @@ export default {
           }
         )
       })
+    },
+    updateSelectedGenre(value) {   
+      // 장르 추가/삭제 리스트 업데이트
+      if(value[0] === "add") {  
+        this.selectedGenre.push(value[1])
+      } else { 
+        this.selectedGenre.splice(this.selectedGenre.indexOf(value[1]), 1)
+      }
+      this.getMoviesByGenre()
+    },
+    getMoviesByGenre() {
+      // 선택된 장르가 필터링된 영화 목록 출력
+      console.log(this.selectedGenre)
+      console.log('update?')
+    
+      this.moviesByGenre = this.$store.state.movies.filter(movie => {    
+        movie.genres.includes(this.selectedGenre[0])
+      })
+
+      console.log(this.moviesByGenre)
       
-
-
-    }
+      return this.moviesByGenre
+      
+    },
   },
   created() {
     this.$store.dispatch('getUsername')

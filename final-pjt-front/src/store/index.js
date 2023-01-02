@@ -19,6 +19,7 @@ export default new Vuex.Store({
     createPersistedState()
   ],
   state: {
+    movies: [],
     recommendedMovies: [],
     popularMovies: [],
     nowPlayingMovies: [],
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    GET_DB_MOVIES(state, movies) {
+      state.movies = movies
+    },
     GET_MOVIES(state, movies) {
       state.recommendedMovies = movies
     },
@@ -124,6 +128,22 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    getDBMovies(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/api/v1/movies/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+        .then((response) => {
+          // console.log(response.data)
+          context.commit('GET_DB_MOVIES', response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     getMovies(context) {
       axios({
         method: 'get',
