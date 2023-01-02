@@ -20,6 +20,7 @@
           <p class="lead">{{ movieDetail?.original_title }}</p>
         </div>
 
+      <!-- 관람가 -->
       <div class="">
         <!-- age limit image -->
         <span v-if="movieDetail?.certification==='PG-13'" class="mx-2"><img src="../../src/assets/12.png" alt="12" width="29" height="29"></span>
@@ -36,6 +37,7 @@
         <span class="genres mx-2">{{ genres.join(', ') }}</span>
       </div>
 
+      <!-- 별점 -->
       <div class="my-3">
         <!-- <h5>user's rate</h5> -->
       <div
@@ -70,15 +72,22 @@
       >
       </star-rating>
       </div>
-
-        <span><h5 style="font-weight: bold;">감독</h5></span>
-        <h6>{{ director }}</h6>
-        <br>
+        <div class="mb-4">
+          <span><h5 style="font-weight: bold;">감독</h5></span>
+          <span @click='toPersonDetailDirector' class="for-cursor">{{ director }}</span>
+        </div>
+        
+        <div class="mb-4">
         <span><h5 style="font-weight: bold;">출연진</h5></span>
-        <h6>{{ actors.join(', ') }}</h6>
-        <br>
-        <span><h5 style="font-weight: bold;">줄거리</h5></span>
-        <p>{{ movieDetail?.overview }}</p>
+          <span v-for="(actor, id) in actors" :key="id">
+            <span @click="toPersonDetailActor(id)" class="for-cursor">{{ actor }}</span>
+          </span>
+        </div>
+
+        <div class="mb-4">
+          <span><h5 style="font-weight: bold;">줄거리</h5></span>
+          <p>{{ movieDetail?.overview }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -121,7 +130,7 @@ export default {
       director: null,
       genres: [],
       genreId: null,
-      actors: [],
+      actors: {},
       actorId: null,
 
       // userRate: 0,
@@ -255,7 +264,7 @@ export default {
         }
       })
       .then((response) => {
-        this.actors.push(response.data["name"])
+        this.actors[actorId] = response.data["name"]
       })
       .catch((error) => {
         console.log(error)
@@ -300,7 +309,14 @@ export default {
         console.log(response.data)
         this.$store.commit('GET_WISH', response.data)
       })
-    }
+    },
+    toPersonDetailDirector() {
+      this.$router.push({ name: 'PersonDetail', params: { personId: this.movieDetail.director } })
+    },
+    toPersonDetailActor(actorId) {
+      console.log(actorId)
+      this.$router.push({ name: 'PersonDetail', params: { personId: actorId } })
+    },
   },
   created() {
     this.getMovieDetail()
